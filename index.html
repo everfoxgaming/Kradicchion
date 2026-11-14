@@ -66,9 +66,12 @@
     display:flex;align-items:center;gap:10px;
     background:rgba(8,12,18,.7);border:1px solid var(--line-soft);
     border-radius:999px;padding:5px 14px 5px 5px;
+    cursor:pointer;transition:.22s ease;
   }
+  .user-chip:hover{border-color:rgba(217,185,92,.55);background:rgba(20,30,45,.9);box-shadow:0 0 14px rgba(217,185,92,.2)}
   .user-chip img{width:32px;height:32px;border-radius:50%;background:#1a2430;object-fit:cover;border:1px solid var(--line-soft)}
   .user-chip .uname{font-size:.9rem;font-weight:700;color:#f2dfa3;text-shadow:0 1px 2px rgba(0,0,0,.5)}
+  .user-chip .u-edit{font-size:.62rem;color:var(--muted);margin-left:2px}
   .btn{
     font-family:'Cinzel',serif;font-size:.76rem;letter-spacing:.13em;text-transform:uppercase;
     font-weight:600;
@@ -380,6 +383,7 @@
     background:rgba(8,12,18,.85);border:1px solid var(--line-soft);border-radius:10px;
     padding:12px 14px;transition:.2s;outline:none;
   }
+  input:disabled{opacity:.55;cursor:not-allowed}
   textarea{resize:vertical;min-height:90px;line-height:1.6}
   input:focus,textarea:focus,select:focus{border-color:rgba(217,185,92,.75);box-shadow:0 0 0 3px rgba(217,185,92,.14)}
   input::placeholder,textarea::placeholder{color:rgba(138,155,173,.5);font-style:italic}
@@ -705,7 +709,11 @@
       <div class="avatar-picker">
         <img id="avatarPreview" alt="Anteprima avatar">
         <div class="ap-text">
-          <div class="ap-hint" id="avatarHint">Scegli uno degli avatar disponibili qui sotto. Quelli già presi da altri giocatori sono oscurati.</div>
+          <div class="ap-hint" id="avatarHint">Scegli uno degli avatar qui sotto, oppure carica una tua immagine (max 4 MB).</div>
+          <button type="button" class="btn ghost small" id="uploadAvatarBtn" style="margin-top:8px">
+            📷 Carica la tua immagine
+          </button>
+          <input type="file" id="avatarFileInput" accept="image/*" hidden>
         </div>
       </div>
       <div class="avatar-grid" id="avatarGrid"></div>
@@ -715,6 +723,45 @@
       <button class="btn ghost" data-close="authModal">Annulla</button>
       <button class="btn ghost" id="authLogin">Accedi</button>
       <button class="btn" id="authRegister">Registrati</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="profileModal" hidden>
+  <div class="modal-box">
+    <div class="modal-head">
+      <div>
+        <h3>Il tuo profilo</h3>
+        <div class="sub">Modifica il tuo nome visualizzato e il tuo avatar.</div>
+      </div>
+      <button class="close-x" data-close="profileModal">×</button>
+    </div>
+    <div class="field">
+      <label>Nome visualizzato</label>
+      <input type="text" id="profName" maxlength="40" placeholder="Il tuo nome">
+    </div>
+    <div class="field">
+      <label>Email (non modificabile)</label>
+      <input type="email" id="profEmail" disabled>
+    </div>
+    <div class="field">
+      <label>Avatar</label>
+      <div class="avatar-picker">
+        <img id="profAvatarPreview" alt="Anteprima avatar">
+        <div class="ap-text">
+          <div class="ap-hint">Scegli uno degli avatar qui sotto, oppure carica una tua immagine (max 4 MB).</div>
+          <button type="button" class="btn ghost small" id="profUploadAvatarBtn" style="margin-top:8px">
+            📷 Carica la tua immagine
+          </button>
+          <input type="file" id="profAvatarFileInput" accept="image/*" hidden>
+        </div>
+      </div>
+      <div class="avatar-grid" id="profAvatarGrid"></div>
+      <input type="hidden" id="profAvatar">
+    </div>
+    <div class="modal-actions">
+      <button class="btn ghost" data-close="profileModal">Annulla</button>
+      <button class="btn" id="profSaveBtn">Salva modifiche</button>
     </div>
   </div>
 </div>
@@ -771,11 +818,15 @@
 'use strict';
 
 // ============================================================
-// CONFIGURAZIONE SUPABASE — i tuoi valori
+// CONFIGURAZIONE SUPABASE
 // ============================================================
 const SUPABASE_URL = 'https://xvccpdhdnbinrydwelal.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_eforoyFg7vXZoSXkJBIaEQ_ygV6JDAB';
 const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// Limite dimensione avatar (4 MB)
+const AVATAR_MAX_BYTES = 4 * 1024 * 1024;
+const AVATAR_MAX_LABEL = '4 MB';
 
 // ============================================================
 // COSTANTI
@@ -814,6 +865,9 @@ let selectedCalCampaign = null;
 let calYear = new Date().getFullYear();
 let calMonth = new Date().getMonth();
 let addMemberCampaignId = null;
+let pendingAvatarFile = null;
+let profilePendingFile = null;
+let profileSelectedAvatar = '';
 
 // ============================================================
 // UTILITY
@@ -823,7 +877,6 @@ function $$(sel, root){ return Array.prototype.slice.call((root||document).query
 function esc(s){
   return String(s==null?'':s).replace(/[&<>"']/g, c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
 }
-function uid(p){ return (p||'id') + Date.now().toString(36) + Math.random().toString(36).slice(2,5); }
 function dateKey(d){
   const pad = n => String(n).padStart(2,'0');
   return d.getFullYear() + '-' + pad(d.getMonth()+1) + '-' + pad(d.getDate());
@@ -832,15 +885,16 @@ function todayKey(){ return dateKey(new Date()); }
 function getUser(id){ return DB.users.find(u=>u.id===id); }
 function getCampaign(id){ return DB.campaigns.find(c=>c.id===id); }
 function currentUser(){ return CURRENT_USER; }
+
 function getUserAvatar(u){
-  if(u && u.avatarUrl && AVATAR_IMAGES.indexOf(u.avatarUrl) !== -1) return u.avatarUrl;
+  if(u && u.avatarUrl) return u.avatarUrl;
   return AVATAR_IMAGES[0];
 }
 function takenAvatars(exceptUserId){
   const taken = new Set();
   DB.users.forEach(u => {
     if(exceptUserId && u.id === exceptUserId) return;
-    if(u.avatarUrl) taken.add(u.avatarUrl);
+    if(u.avatarUrl && AVATAR_IMAGES.indexOf(u.avatarUrl) !== -1) taken.add(u.avatarUrl);
   });
   return taken;
 }
@@ -988,18 +1042,20 @@ document.addEventListener('keydown', (e)=>{
 });
 
 // ============================================================
-// AUTH
+// AUTH + USER AREA
 // ============================================================
 function renderUserArea(){
   const area = $('#userArea');
   const u = currentUser();
   if(u){
     area.innerHTML =
-      '<div class="user-chip">' +
+      '<div class="user-chip" id="userChip" title="Apri il tuo profilo">' +
         '<img src="' + getUserAvatar(u) + '" alt="">' +
         '<span class="uname">' + esc(u.name) + '</span>' +
+        '<span class="u-edit">✎</span>' +
       '</div>' +
       '<button class="btn ghost small" id="logoutBtn">Esci</button>';
+    $('#userChip').addEventListener('click', openProfile);
     $('#logoutBtn').addEventListener('click', async ()=>{
       await sb.auth.signOut();
       CURRENT_USER = null;
@@ -1029,6 +1085,8 @@ function renderAvatarGrid(selectedUrl){
     btn.innerHTML = '<img src="' + url + '" alt="">';
     if(!isTaken){
       btn.addEventListener('click', () => {
+        pendingAvatarFile = null;
+        const fi = document.getElementById('avatarFileInput'); if(fi) fi.value = '';
         $('#authAvatar').value = url;
         updateAvatarPreview();
         renderAvatarGrid(url);
@@ -1037,29 +1095,173 @@ function renderAvatarGrid(selectedUrl){
     grid.appendChild(btn);
   });
 }
+
 function updateAvatarPreview(){
   const url = ($('#authAvatar').value || '').trim();
   const img = $('#avatarPreview');
   if(url){ img.src = url; img.style.display = 'block'; }
-  else { img.style.display = 'none'; }
+  else if(!pendingAvatarFile){ img.style.display = 'none'; }
 }
+
 function openAuth(){
   $('#authName').value = '';
   $('#authEmail').value = '';
   $('#authPassword').value = '';
+  pendingAvatarFile = null;
+  const _fi = document.getElementById('avatarFileInput'); if(_fi) _fi.value = '';
   const free = pickFreeAvatarForNewUser();
   $('#authAvatar').value = free || '';
   updateAvatarPreview();
   renderAvatarGrid($('#authAvatar').value);
   if(!free){
-    $('#avatarHint').textContent = 'Tutti gli avatar sono già stati scelti.';
+    $('#avatarHint').textContent = 'Tutti gli avatar sono già scelti. Puoi comunque caricare una tua immagine (max ' + AVATAR_MAX_LABEL + ').';
   }else{
-    $('#avatarHint').textContent = 'Scegli uno degli avatar disponibili qui sotto. Quelli già presi da altri giocatori sono oscurati.';
+    $('#avatarHint').textContent = 'Scegli uno degli avatar qui sotto, oppure carica una tua immagine (max ' + AVATAR_MAX_LABEL + ').';
   }
   $('#authModal').hidden = false;
   setTimeout(()=>$('#authEmail').focus(), 60);
 }
 
+// ============================================================
+// PROFILO
+// ============================================================
+function openProfile(){
+  if(!CURRENT_USER) return;
+  profilePendingFile = null;
+  const fi = document.getElementById('profAvatarFileInput');
+  if(fi) fi.value = '';
+  profileSelectedAvatar = CURRENT_USER.avatarUrl || '';
+  $('#profName').value = CURRENT_USER.name || '';
+  $('#profEmail').value = CURRENT_USER.email || '';
+  $('#profAvatar').value = profileSelectedAvatar;
+  const prev = $('#profAvatarPreview');
+  if(prev){ prev.src = getUserAvatar(CURRENT_USER); prev.style.display = 'block'; }
+  renderProfileAvatarGrid(profileSelectedAvatar);
+  $('#profileModal').hidden = false;
+}
+
+function renderProfileAvatarGrid(selectedUrl){
+  const grid = $('#profAvatarGrid');
+  if(!grid) return;
+  grid.innerHTML = '';
+  const taken = takenAvatars(CURRENT_USER ? CURRENT_USER.id : null);
+  AVATAR_IMAGES.forEach(url => {
+    const isTaken = taken.has(url);
+    const isSelected = url === selectedUrl;
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'avatar-option' + (isSelected ? ' selected' : '') + (isTaken ? ' taken' : '');
+    btn.disabled = isTaken;
+    btn.title = isTaken ? 'Già scelto da un altro giocatore' : 'Scegli questo avatar';
+    btn.innerHTML = '<img src="' + url + '" alt="">';
+    if(!isTaken){
+      btn.addEventListener('click', () => {
+        profilePendingFile = null;
+        const fi = document.getElementById('profAvatarFileInput');
+        if(fi) fi.value = '';
+        profileSelectedAvatar = url;
+        $('#profAvatar').value = url;
+        const prev = $('#profAvatarPreview');
+        if(prev){ prev.src = url; prev.style.display = 'block'; }
+        renderProfileAvatarGrid(url);
+      });
+    }
+    grid.appendChild(btn);
+  });
+}
+
+document.addEventListener('click', function(e){
+  if(e.target && e.target.id === 'uploadAvatarBtn'){
+    const input = document.getElementById('avatarFileInput');
+    if(input) input.click();
+  }
+  if(e.target && e.target.id === 'profUploadAvatarBtn'){
+    const input = document.getElementById('profAvatarFileInput');
+    if(input) input.click();
+  }
+});
+
+document.addEventListener('change', function(e){
+  if(e.target && e.target.id === 'avatarFileInput'){
+    const file = e.target.files && e.target.files[0];
+    if(!file) return;
+    if(!file.type.startsWith('image/')){ toast('Il file deve essere un\'immagine.'); return; }
+    if(file.size > AVATAR_MAX_BYTES){ toast('L\'immagine non può superare ' + AVATAR_MAX_LABEL + '.'); return; }
+    pendingAvatarFile = file;
+    const reader = new FileReader();
+    reader.onload = function(ev){
+      const preview = document.getElementById('avatarPreview');
+      if(preview){ preview.src = ev.target.result; preview.style.display = 'block'; }
+      document.getElementById('authAvatar').value = '';
+      renderAvatarGrid('');
+      toast('Immagine pronta: verrà caricata alla registrazione.');
+    };
+    reader.readAsDataURL(file);
+  }
+  if(e.target && e.target.id === 'profAvatarFileInput'){
+    const file = e.target.files && e.target.files[0];
+    if(!file) return;
+    if(!file.type.startsWith('image/')){ toast('Il file deve essere un\'immagine.'); return; }
+    if(file.size > AVATAR_MAX_BYTES){ toast('L\'immagine non può superare ' + AVATAR_MAX_LABEL + '.'); return; }
+    profilePendingFile = file;
+    profileSelectedAvatar = '';
+    const reader = new FileReader();
+    reader.onload = function(ev){
+      const prev = document.getElementById('profAvatarPreview');
+      if(prev){ prev.src = ev.target.result; prev.style.display = 'block'; }
+      $('#profAvatar').value = '';
+      renderProfileAvatarGrid('');
+      toast('Immagine pronta: verrà caricata al salvataggio.');
+    };
+    reader.readAsDataURL(file);
+  }
+});
+
+$('#profSaveBtn').addEventListener('click', async ()=>{
+  if(!CURRENT_USER) return;
+  const newName = $('#profName').value.trim();
+  if(!newName){ toast('Il nome non può essere vuoto.'); return; }
+  if(newName.length > 40){ toast('Nome troppo lungo (max 40).'); return; }
+
+  let newAvatarUrl = CURRENT_USER.avatarUrl;
+
+  if(profilePendingFile){
+    const userId = CURRENT_USER.id;
+    const ext = profilePendingFile.name.split('.').pop().toLowerCase().replace(/[^a-z0-9]/g, '') || 'png';
+    const path = `${userId}/avatar.${ext}`;
+    const { error: uploadError } = await sb.storage
+      .from('avatars')
+      .upload(path, profilePendingFile, { upsert: true, contentType: profilePendingFile.type });
+    if(uploadError){ toast('Errore caricamento immagine: ' + uploadError.message); return; }
+    const { data: publicUrlData } = sb.storage.from('avatars').getPublicUrl(path);
+    newAvatarUrl = publicUrlData.publicUrl + '?t=' + Date.now();
+  }
+  else if(profileSelectedAvatar && profileSelectedAvatar !== CURRENT_USER.avatarUrl){
+    const { data: existing } = await sb.from('profiles').select('id').eq('avatar_url', profileSelectedAvatar).maybeSingle();
+    if(existing && existing.id !== CURRENT_USER.id){
+      toast('Avatar già scelto da un altro utente.');
+      return;
+    }
+    newAvatarUrl = profileSelectedAvatar;
+  }
+
+  const { error } = await sb.from('profiles').update({
+    name: newName,
+    avatar_url: newAvatarUrl
+  }).eq('id', CURRENT_USER.id);
+  if(error){ toast(error.message); return; }
+
+  profilePendingFile = null;
+  await refreshDB();
+  await refreshCurrentUser();
+  $('#profileModal').hidden = true;
+  renderAll();
+  toast('Profilo aggiornato!');
+});
+
+// ============================================================
+// LOGIN / REGISTRAZIONE
+// ============================================================
 $('#authLogin').addEventListener('click', async ()=>{
   const email = $('#authEmail').value.trim().toLowerCase();
   const password = $('#authPassword').value;
@@ -1080,21 +1282,49 @@ $('#authRegister').addEventListener('click', async ()=>{
   const name = $('#authName').value.trim();
   const email = $('#authEmail').value.trim().toLowerCase();
   const password = $('#authPassword').value;
-  const avatarUrl = ($('#authAvatar').value || '').trim();
+  const selectedAvatar = ($('#authAvatar').value || '').trim();
 
   if(!name){ toast('Inserisci il tuo nome.'); return; }
   if(!email || !validEmail(email)){ toast('Inserisci un\'email valida.'); return; }
   if(!password || password.length < 8){ toast('La password deve avere almeno 8 caratteri.'); return; }
-  if(!avatarUrl){ toast('Scegli un avatar.'); return; }
 
-  const { data: existing } = await sb.from('profiles').select('id').eq('avatar_url', avatarUrl).maybeSingle();
-  if(existing){ toast('Avatar già scelto da un altro utente.'); return; }
+  const hasPredefined = !!selectedAvatar;
+  const hasCustomFile = !!pendingAvatarFile;
+  if(!hasPredefined && !hasCustomFile){
+    toast('Scegli un avatar o carica un\'immagine.');
+    return;
+  }
 
-  const { error } = await sb.auth.signUp({
+  if(hasPredefined && !hasCustomFile){
+    const { data: existing } = await sb.from('profiles').select('id').eq('avatar_url', selectedAvatar).maybeSingle();
+    if(existing){ toast('Avatar già scelto da un altro utente.'); return; }
+  }
+
+  const placeholderAvatar = hasPredefined ? selectedAvatar : AVATAR_IMAGES[0];
+  const { data: signUpData, error: signUpError } = await sb.auth.signUp({
     email, password,
-    options: { data: { name, avatar_url: avatarUrl } }
+    options: { data: { name, avatar_url: placeholderAvatar } }
   });
-  if(error){ toast(error.message); return; }
+  if(signUpError){ toast(signUpError.message); return; }
+
+  if(hasCustomFile && signUpData.user){
+    const userId = signUpData.user.id;
+    const ext = pendingAvatarFile.name.split('.').pop().toLowerCase().replace(/[^a-z0-9]/g, '') || 'png';
+    const path = `${userId}/avatar.${ext}`;
+    const { error: uploadError } = await sb.storage
+      .from('avatars')
+      .upload(path, pendingAvatarFile, { upsert: true, contentType: pendingAvatarFile.type });
+    if(uploadError){
+      toast('Registrazione ok, ma errore caricamento immagine: ' + uploadError.message);
+    } else {
+      const { data: publicUrlData } = sb.storage.from('avatars').getPublicUrl(path);
+      await sb.from('profiles').update({ avatar_url: publicUrlData.publicUrl + '?t=' + Date.now() }).eq('id', userId);
+    }
+  }
+
+  pendingAvatarFile = null;
+  const fileInput = document.getElementById('avatarFileInput');
+  if(fileInput) fileInput.value = '';
 
   await refreshDB();
   await refreshCurrentUser();
@@ -1455,7 +1685,6 @@ function renderCampaignDetail(c){
   const closeInline = detail.querySelector('[data-close-inline]');
   if(closeInline) closeInline.addEventListener('click', ()=>{ $('#campaignModal').hidden = true; });
 
-  // Cambio ruolo
   detail.querySelectorAll('[data-change-role]').forEach(sel => {
     sel.addEventListener('change', async function(){
       const targetUserId = sel.dataset.changeRole;
@@ -1482,7 +1711,6 @@ function renderCampaignDetail(c){
     });
   });
 
-  // Modifica sessione
   detail.querySelectorAll('[data-edit-session]').forEach(btn=>{
     btn.addEventListener('click', ()=>{
       editingSessionId = btn.dataset.editSession;
@@ -1518,7 +1746,6 @@ function renderCampaignDetail(c){
     });
   });
 
-  // Commenti
   detail.querySelectorAll('[data-toggle-comment]').forEach(btn=>{
     btn.addEventListener('click', ()=>{
       const sid = btn.dataset.toggleComment;
@@ -1615,7 +1842,6 @@ function renderCampaignDetail(c){
     }
   }
 
-  // Rimozione membro
   detail.querySelectorAll('[data-remove-member]').forEach(btn=>{
     btn.addEventListener('click', async ()=>{
       const rid = btn.dataset.removeMember;
