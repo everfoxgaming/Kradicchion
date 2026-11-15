@@ -30,7 +30,7 @@
   .btn.danger{background:transparent;border-color:rgba(217,92,92,.55);color:#ffb0a2}
   .btn.danger:hover{background:rgba(217,74,58,.16);border-color:rgba(217,92,92,.9);color:#ff9a8a}
   .btn.success{background:linear-gradient(180deg,#6fce9a,#3aa16a);border-color:rgba(127,224,168,.9);color:#0a1218;text-shadow:none}
-  .btn.success:hover{background:linear-gradient(180deg,#8fe0b4,#4ab07a);border-color:#8fe0b4;box-shadow:0 6px 22px rgba(127,224,168,.28)}
+  .btn.success:hover{background:linear-gradient(180deg,#8fe0b4,#4ab07a);border-color:#8fe0b4}
   .btn.small{padding:7px 14px;font-size:.68rem}
   main{max-width:1180px;margin:0 auto;padding:38px 22px 90px}
   .page{display:none;animation:fadeUp .35s ease both}.page.active{display:block}
@@ -58,11 +58,12 @@
   .card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
   .empty-note{font-size:.85rem;color:var(--muted);font-style:italic;margin:6px 0}
   .roster-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
-  .member-card{background:var(--panel);border:1px solid var(--line-soft);border-radius:16px;padding:24px 22px;text-align:center;transition:.28s ease}
-  .member-card:hover{transform:translateY(-4px);border-color:rgba(217,185,92,.45)}
+  .member-card{background:var(--panel);border:1px solid var(--line-soft);border-radius:16px;padding:24px 22px;text-align:center;transition:.28s ease;cursor:pointer}
+  .member-card:hover{transform:translateY(-4px);border-color:rgba(217,185,92,.55);box-shadow:0 14px 40px rgba(0,0,0,.4)}
   .member-card img{width:82px;height:82px;border-radius:50%;margin:0 auto 14px;display:block;background:#1a2430;border:2px solid var(--line);object-fit:cover}
   .member-card .mname{font-family:'Cinzel',serif;font-size:1.02rem;font-weight:700;color:var(--accent-text);display:flex;align-items:center;justify-content:center;gap:8px}
   .member-card .memail{font-size:.8rem;color:var(--muted);margin-top:4px;word-break:break-all}
+  .member-card .mattribute{margin-top:10px}
   .member-card .roles{margin-top:14px;display:flex;flex-direction:column;gap:8px;text-align:left}
   .role-line{font-size:.82rem;color:var(--muted);display:flex;gap:8px;align-items:flex-start}
   .role-line .rlabel{font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:999px;white-space:nowrap;border:1px solid}
@@ -73,6 +74,7 @@
   .camp-entry{display:inline-flex;align-items:center;gap:6px;margin:0 10px 4px 0}
   .camp-entry .cdot{width:9px;height:9px;border-radius:50%}
   .you-badge{display:inline-block;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:#0a1218;background:linear-gradient(180deg,#e6cf87,#c2a24a);padding:2px 8px;border-radius:999px;margin-left:6px;font-weight:700}
+  .attribute-badge{display:inline-block;font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;padding:4px 10px;border-radius:999px;background:linear-gradient(180deg,rgba(217,185,92,.3),rgba(217,185,92,.15));border:1px solid rgba(217,185,92,.6);color:#f2dfa3}
   .camp-card{background:var(--panel);border:1px solid var(--line-soft);border-radius:16px;padding:22px;transition:.28s ease;cursor:pointer;position:relative;overflow:hidden}
   .camp-card:hover{transform:translateY(-4px);border-color:rgba(217,185,92,.5)}
   .camp-card.has-banner{padding-top:0}
@@ -136,7 +138,8 @@
   .detail-count.partial{background:rgba(217,185,92,.15);color:#f0d488}
   .detail-count.full{background:rgba(92,192,138,.28);color:#a8ffc8}
   .detail-voters{display:flex;align-items:center;gap:8px;flex-wrap:wrap;flex:1;min-width:200px}
-  .voter-chip{display:inline-flex;align-items:center;gap:6px;padding:4px 11px 4px 4px;border-radius:999px;background:rgba(8,12,18,.7);border:1px solid var(--line-soft);font-size:.82rem;color:var(--text)}
+  .voter-chip{display:inline-flex;align-items:center;gap:6px;padding:4px 11px 4px 4px;border-radius:999px;background:rgba(8,12,18,.7);border:1px solid var(--line-soft);font-size:.82rem;color:var(--text);cursor:pointer;transition:.2s ease}
+  .voter-chip:hover{border-color:rgba(217,185,92,.55);background:rgba(20,30,45,.9)}
   .voter-chip img{width:22px;height:22px;border-radius:50%;background:#1a2430;object-fit:cover}
   .voter-chip .voter-dot{width:9px;height:9px;border-radius:50%;background:var(--c);box-shadow:0 0 6px var(--c);flex-shrink:0}
   .voter-chip .voter-name{color:var(--c);font-weight:600}
@@ -183,7 +186,8 @@
   .cd-section-title{font-family:'Cinzel',serif;font-size:.78rem;text-transform:uppercase;letter-spacing:.14em;color:var(--accent-text);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--line-soft)}
   .member-row{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;background:rgba(8,12,18,.5);border:1px solid var(--line-soft);margin-bottom:8px;border-left:3px solid var(--c,var(--accent));flex-wrap:wrap}
   .member-row img{width:38px;height:38px;border-radius:50%;background:#1a2430;object-fit:cover;flex-shrink:0}
-  .member-row .mname{font-size:.92rem;font-weight:600;color:var(--text);display:flex;align-items:center;gap:8px}
+  .member-row .mname{font-size:.92rem;font-weight:600;color:var(--text);display:flex;align-items:center;gap:8px;cursor:pointer;transition:color .2s}
+  .member-row .mname:hover{color:var(--accent-text)}
   .member-row .mname .cdot{width:9px;height:9px;border-radius:50%;background:var(--c);box-shadow:0 0 6px var(--c);flex-shrink:0}
   .member-row .mrole{margin-left:auto;display:flex;align-items:center;gap:8px}
   .member-row .btn-remove-member{background:transparent;border:1px solid rgba(217,92,92,.5);color:#ffb0a2;border-radius:50%;width:30px;height:30px;display:grid;place-items:center;cursor:pointer;font-size:1.05rem;padding:0;flex-shrink:0}
@@ -217,7 +221,8 @@
   .comment-item{background:rgba(8,12,18,.55);border:1px solid var(--line-soft);border-left:3px solid var(--c,var(--accent));border-radius:8px;padding:10px 14px}
   .comment-head{display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap}
   .comment-dot{width:10px;height:10px;border-radius:50%;background:var(--c);box-shadow:0 0 6px var(--c);flex-shrink:0}
-  .comment-name{font-family:'Cinzel',serif;font-size:.82rem;font-weight:700;color:var(--c)}
+  .comment-name{font-family:'Cinzel',serif;font-size:.82rem;font-weight:700;color:var(--c);cursor:pointer;transition:opacity .2s}
+  .comment-name:hover{opacity:.75}
   .comment-text{font-size:.88rem;color:var(--text);line-height:1.55;white-space:pre-wrap}
   .comment-text.empty{color:var(--muted);font-style:italic}
   .comment-form{margin-top:12px;padding:12px 14px;border-radius:10px;background:rgba(8,12,18,.7);border:1px dashed rgba(217,185,92,.4)}
@@ -232,11 +237,15 @@
   .add-member-row .email{font-size:.76rem;color:var(--muted);word-break:break-all}
   .add-member-row .role-select{width:auto;min-width:130px;padding:8px 32px 8px 12px;font-size:.82rem;flex-shrink:0}
   .empty-add-note{font-size:.86rem;color:var(--muted);font-style:italic;text-align:center;padding:28px 18px;line-height:1.6}
+  .profile-view-avatar{width:120px;height:120px;border-radius:50%;margin:0 auto 18px;display:block;border:3px solid var(--accent);box-shadow:0 0 24px rgba(217,185,92,.35);object-fit:cover;background:#1a2430}
+  .profile-view-name{font-family:'Cinzel',serif;font-size:1.6rem;text-align:center;color:var(--accent-text);margin-bottom:8px}
+  .profile-view-attribute{text-align:center;margin-bottom:16px}
+  .profile-view-bio{font-size:.94rem;color:var(--text);line-height:1.7;white-space:pre-wrap;padding:14px 18px;background:rgba(8,12,18,.55);border:1px solid var(--line-soft);border-radius:10px;margin:16px 0}
   #toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--panel-solid);border:1px solid var(--accent);border-radius:999px;padding:12px 26px;color:var(--accent-text);font-size:.88rem;box-shadow:0 12px 40px rgba(0,0,0,.6);opacity:0;pointer-events:none;transition:.3s ease;z-index:300;white-space:nowrap}
   #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
   footer{text-align:center;padding:30px 22px;border-top:1px solid var(--line-soft);color:rgba(138,155,173,.6);font-size:.8rem}
   @media(max-width:860px){.user-area{position:static;transform:none;width:100%;justify-content:center;margin-top:6px}}
-  @media(max-width:640px){main{padding:26px 16px 70px}.modal-box{padding:22px 20px}.cal-cell{padding:4px;min-height:46px}.avatar-grid{grid-template-columns:repeat(5,1fr)}.camp-detail-banner{margin:-22px -20px 18px;height:160px}.session-form .form-row .f-date{width:100%}}
+  @media(max-width:640px){main{padding:26px 16px 70px}.modal-box{padding:22px 20px}.cal-cell{padding:4px;min-height:46px}.avatar-grid{grid-template-columns:repeat(5,1fr)}.camp-detail-banner{margin:-22px -20px 18px;height:160px}.session-form .form-row .f-date{width:100%}.profile-view-avatar{width:96px;height:96px}}
 </style>
 </head>
 <body>
@@ -271,7 +280,7 @@
   </section>
 
   <section id="page-roster" class="page">
-    <div class="page-head"><h2>Roster</h2><p>Tutti i giocatori registrati al sito.</p></div>
+    <div class="page-head"><h2>Roster</h2><p>Tutti i giocatori registrati al sito. Clicca su un giocatore per vedere il suo profilo.</p></div>
     <div class="roster-grid" id="rosterGrid"></div>
   </section>
 
@@ -292,6 +301,7 @@
 
 <footer>Kradicchion Hub</footer>
 
+<!-- AUTH MODAL -->
 <div class="modal-overlay" id="authModal" hidden>
   <div class="modal-box">
     <div class="modal-head">
@@ -301,6 +311,66 @@
     <div class="field"><label>Nome (solo per registrazione)</label><input type="text" id="authName" placeholder="Il tuo nome" maxlength="40"></div>
     <div class="field"><label>Email</label><input type="email" id="authEmail" placeholder="nome@esempio.com" maxlength="80"></div>
     <div class="field"><label>Password (min 8 caratteri)</label><input type="password" id="authPassword" placeholder="••••••••" minlength="8"></div>
+    <div class="field">
+      <label>Attributo (solo per registrazione)</label>
+      <select id="authAttribute">
+        <option value="">— Nessun attributo —</option>
+        <option value="Letale">Letale</option>
+        <option value="Petomane">Petomane</option>
+        <option value="Sfortunato">Sfortunato</option>
+        <option value="Carismatico">Carismatico</option>
+        <option value="Ritardatario">Ritardatario</option>
+        <option value="Arcano">Arcano</option>
+        <option value="Cleptomane">Cleptomane</option>
+        <option value="Vanitoso">Vanitoso</option>
+        <option value="Ingordo">Ingordo</option>
+        <option value="Implacabile">Implacabile</option>
+        <option value="Paranoico">Paranoico</option>
+        <option value="Piromane">Piromane</option>
+        <option value="Sonnolento">Sonnolento</option>
+        <option value="Spietato">Spietato</option>
+        <option value="Codardo">Codardo</option>
+        <option value="Etilico">Etilico</option>
+        <option value="Fulmineo">Fulmineo</option>
+        <option value="Caotico">Caotico</option>
+        <option value="Seduttore">Seduttore</option>
+        <option value="Logorroico">Logorroico</option>
+        <option value="Sanguinario">Sanguinario</option>
+        <option value="Taccagno">Taccagno</option>
+        <option value="Lunatico">Lunatico</option>
+        <option value="Ruttatore">Ruttatore</option>
+        <option value="Indomito">Indomito</option>
+        <option value="Saccheggiatore">Saccheggiatore</option>
+        <option value="Cinico">Cinico</option>
+        <option value="Distraibile">Distraibile</option>
+        <option value="Ombratile">Ombratile</option>
+        <option value="Inciampone">Inciampone</option>
+        <option value="Suscettibile">Suscettibile</option>
+        <option value="Goloso">Goloso</option>
+        <option value="Infallibile">Infallibile</option>
+        <option value="Impulsivo">Impulsivo</option>
+        <option value="Ingenuo">Ingenuo</option>
+        <option value="Notturno">Notturno</option>
+        <option value="Temerario">Temerario</option>
+        <option value="Rissoso">Rissoso</option>
+        <option value="Sornione">Sornione</option>
+        <option value="Puzzolente">Puzzolente</option>
+        <option value="Corazzato">Corazzato</option>
+        <option value="Avido">Avido</option>
+        <option value="Lamentoso">Lamentoso</option>
+        <option value="Pigro">Pigro</option>
+        <option value="Veterano">Veterano</option>
+        <option value="Pignolo">Pignolo</option>
+        <option value="Incompreso">Incompreso</option>
+        <option value="Suicida">Suicida</option>
+        <option value="Spavaldo">Spavaldo</option>
+        <option value="Maledetto">Maledetto</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Biografia (solo per registrazione, max 300 caratteri)</label>
+      <textarea id="authBio" placeholder="Raccontaci qualcosa di te, del tuo personaggio, dei tuoi trascorsi..." maxlength="300" style="min-height:80px"></textarea>
+    </div>
     <div class="field">
       <label>Il tuo avatar (solo per registrazione)</label>
       <div class="avatar-picker">
@@ -322,14 +392,75 @@
   </div>
 </div>
 
+<!-- PROFILE EDIT MODAL -->
 <div class="modal-overlay" id="profileModal" hidden>
   <div class="modal-box">
     <div class="modal-head">
-      <div><h3>Il tuo profilo</h3><div class="sub">Modifica nome e avatar.</div></div>
+      <div><h3>Il tuo profilo</h3><div class="sub">Modifica nome, attributo, biografia e avatar.</div></div>
       <button class="close-x" data-close="profileModal">×</button>
     </div>
     <div class="field"><label>Nome visualizzato</label><input type="text" id="profName" maxlength="40"></div>
     <div class="field"><label>Email (non modificabile)</label><input type="email" id="profEmail" disabled></div>
+    <div class="field">
+      <label>Attributo</label>
+      <select id="profAttribute">
+        <option value="">— Nessun attributo —</option>
+        <option value="Letale">Letale</option>
+        <option value="Petomane">Petomane</option>
+        <option value="Sfortunato">Sfortunato</option>
+        <option value="Carismatico">Carismatico</option>
+        <option value="Ritardatario">Ritardatario</option>
+        <option value="Arcano">Arcano</option>
+        <option value="Cleptomane">Cleptomane</option>
+        <option value="Vanitoso">Vanitoso</option>
+        <option value="Ingordo">Ingordo</option>
+        <option value="Implacabile">Implacabile</option>
+        <option value="Paranoico">Paranoico</option>
+        <option value="Piromane">Piromane</option>
+        <option value="Sonnolento">Sonnolento</option>
+        <option value="Spietato">Spietato</option>
+        <option value="Codardo">Codardo</option>
+        <option value="Etilico">Etilico</option>
+        <option value="Fulmineo">Fulmineo</option>
+        <option value="Caotico">Caotico</option>
+        <option value="Seduttore">Seduttore</option>
+        <option value="Logorroico">Logorroico</option>
+        <option value="Sanguinario">Sanguinario</option>
+        <option value="Taccagno">Taccagno</option>
+        <option value="Lunatico">Lunatico</option>
+        <option value="Ruttatore">Ruttatore</option>
+        <option value="Indomito">Indomito</option>
+        <option value="Saccheggiatore">Saccheggiatore</option>
+        <option value="Cinico">Cinico</option>
+        <option value="Distraibile">Distraibile</option>
+        <option value="Ombratile">Ombratile</option>
+        <option value="Inciampone">Inciampone</option>
+        <option value="Suscettibile">Suscettibile</option>
+        <option value="Goloso">Goloso</option>
+        <option value="Infallibile">Infallibile</option>
+        <option value="Impulsivo">Impulsivo</option>
+        <option value="Ingenuo">Ingenuo</option>
+        <option value="Notturno">Notturno</option>
+        <option value="Temerario">Temerario</option>
+        <option value="Rissoso">Rissoso</option>
+        <option value="Sornione">Sornione</option>
+        <option value="Puzzolente">Puzzolente</option>
+        <option value="Corazzato">Corazzato</option>
+        <option value="Avido">Avido</option>
+        <option value="Lamentoso">Lamentoso</option>
+        <option value="Pigro">Pigro</option>
+        <option value="Veterano">Veterano</option>
+        <option value="Pignolo">Pignolo</option>
+        <option value="Incompreso">Incompreso</option>
+        <option value="Suicida">Suicida</option>
+        <option value="Spavaldo">Spavaldo</option>
+        <option value="Maledetto">Maledetto</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Biografia (max 300 caratteri)</label>
+      <textarea id="profBio" placeholder="Raccontaci qualcosa di te..." maxlength="300" style="min-height:80px"></textarea>
+    </div>
     <div class="field">
       <label>Avatar</label>
       <div class="avatar-picker">
@@ -350,6 +481,12 @@
   </div>
 </div>
 
+<!-- VIEW PROFILE MODAL -->
+<div class="modal-overlay" id="viewProfileModal" hidden>
+  <div class="modal-box"><div id="viewProfileContent"></div></div>
+</div>
+
+<!-- CAMPAIGN DETAIL MODAL -->
 <div class="modal-overlay" id="campaignModal" hidden>
   <div class="modal-box wide"><div id="campaignDetail"></div></div>
 </div>
@@ -470,7 +607,6 @@ function dateInputToIso(val){
   const d = new Date(val + 'T12:00:00');
   return d.toISOString();
 }
-// Trova la sessione di una campagna in una certa data (confronto giorno)
 function sessionOnDate(camp, dateStr){
   return (camp.sessions||[]).find(s => {
     if(!s.date) return false;
@@ -491,7 +627,7 @@ async function refreshDB(){
   ]);
   if(pr.error){console.error('profiles',pr.error);return}
   if(cp.error){console.error('campaigns',cp.error);return}
-  DB.users = pr.data.map(p=>({id:p.id,name:p.name,email:p.email,avatarUrl:p.avatar_url,joined:p.created_at}));
+  DB.users = pr.data.map(p=>({id:p.id,name:p.name,email:p.email,avatarUrl:p.avatar_url,attribute:p.attribute||'',bio:p.bio||'',joined:p.created_at}));
   DB.campaigns = cp.data.map(c=>{
     const members = mb.data.filter(m=>m.campaign_id===c.id).map(m=>({userId:m.user_id,role:m.role,color:m.color}));
     const sessions = se.data.filter(s=>s.campaign_id===c.id).map(s=>{
@@ -511,7 +647,7 @@ async function refreshCurrentUser(){
   let u = DB.users.find(x=>x.id===session.user.id);
   if(!u){
     const {data} = await sb.from('profiles').select('*').eq('id',session.user.id).single();
-    if(data){u={id:data.id,name:data.name,email:data.email,avatarUrl:data.avatar_url,joined:data.created_at};DB.users.push(u)}
+    if(data){u={id:data.id,name:data.name,email:data.email,avatarUrl:data.avatar_url,attribute:data.attribute||'',bio:data.bio||'',joined:data.created_at};DB.users.push(u)}
   }
   CURRENT_USER = u || null;
 }
@@ -592,6 +728,7 @@ function updateAvatarPreview(){
 }
 function openAuth(){
   $('#authName').value='';$('#authEmail').value='';$('#authPassword').value='';
+  $('#authAttribute').value='';$('#authBio').value='';
   pendingAvatarFile=null;
   const fi=document.getElementById('avatarFileInput');if(fi)fi.value='';
   const free = pickFreeAvatar();
@@ -612,6 +749,8 @@ function openProfile(){
   profileSelectedAvatar = CURRENT_USER.avatarUrl||'';
   $('#profName').value = CURRENT_USER.name||'';
   $('#profEmail').value = CURRENT_USER.email||'';
+  $('#profAttribute').value = CURRENT_USER.attribute||'';
+  $('#profBio').value = CURRENT_USER.bio||'';
   $('#profAvatar').value = profileSelectedAvatar;
   const prev = $('#profAvatarPreview');
   if(prev){prev.src=getUserAvatar(CURRENT_USER);prev.style.display='block'}
@@ -644,6 +783,43 @@ function renderProfileAvatarGrid(sel){
     }
     g.appendChild(b);
   });
+}
+
+function openViewProfile(userId){
+  const u = getUser(userId);
+  if(!u) return;
+  if(CURRENT_USER && u.id === CURRENT_USER.id){ openProfile(); return; }
+  const mo=[],po=[],oo=[];
+  DB.campaigns.forEach(c=>{
+    const m = (c.members||[]).find(x=>x.userId===u.id);
+    if(!m) return;
+    const e={name:c.name,color:m.color||DEFAULT_COLOR};
+    if(m.role==='master')mo.push(e);else if(m.role==='player')po.push(e);else oo.push(e);
+  });
+  const rh=[];
+  if(mo.length)rh.push(roleLineHtml('master','Master di',mo));
+  if(po.length)rh.push(roleLineHtml('player','Gioca in',po));
+  if(oo.length)rh.push(roleLineHtml('observer','Osserva',oo));
+  let html = '<div class="modal-head"><div><h3>'+esc(u.name)+'</h3>';
+  if(u.attribute) html += '<div class="sub"><span class="attribute-badge">'+esc(u.attribute)+'</span></div>';
+  html += '</div><button class="close-x" data-close="viewProfileModal">×</button></div>';
+  html += '<img class="profile-view-avatar" src="'+getUserAvatar(u)+'" alt="">';
+  html += '<div class="profile-view-name">'+esc(u.name)+'</div>';
+  if(u.attribute){
+    html += '<div class="profile-view-attribute"><span class="attribute-badge">'+esc(u.attribute)+'</span></div>';
+  }
+  if(u.bio){
+    html += '<div class="profile-view-bio">'+esc(u.bio)+'</div>';
+  }
+  html += '<div class="cd-section"><div class="cd-section-title">Campagne</div>';
+  if(rh.length===0){ html += '<p class="empty-note">Non partecipa a nessuna campagna.</p>'; }
+  else{ html += '<div class="roles">'+rh.join('')+'</div>'; }
+  html += '</div>';
+  $('#viewProfileContent').innerHTML = html;
+  $('#viewProfileModal').hidden = false;
+  // handler close
+  const cx = $('#viewProfileContent').querySelector('[data-close="viewProfileModal"]');
+  if(cx) cx.addEventListener('click',()=>{ $('#viewProfileModal').hidden = true; });
 }
 
 document.addEventListener('click',e=>{
@@ -708,6 +884,8 @@ $('#profSaveBtn').addEventListener('click',async()=>{
   if(!CURRENT_USER)return;
   const nn = $('#profName').value.trim();
   if(!nn){toast('Nome vuoto.');return}
+  const newAttr = $('#profAttribute').value;
+  const newBio = $('#profBio').value.trim();
   let newUrl = CURRENT_USER.avatarUrl;
   if(profilePendingFile){
     const userId = CURRENT_USER.id;
@@ -722,7 +900,7 @@ $('#profSaveBtn').addEventListener('click',async()=>{
     if(ex && ex.id!==CURRENT_USER.id){toast('Avatar occupato.');return}
     newUrl = profileSelectedAvatar;
   }
-  const {error} = await sb.from('profiles').update({name:nn,avatar_url:newUrl}).eq('id',CURRENT_USER.id);
+  const {error} = await sb.from('profiles').update({name:nn,avatar_url:newUrl,attribute:newAttr,bio:newBio}).eq('id',CURRENT_USER.id);
   if(error){toast(error.message);return}
   profilePendingFile=null;
   await refreshDB();await refreshCurrentUser();
@@ -745,6 +923,8 @@ $('#authRegister').addEventListener('click',async()=>{
   const name = $('#authName').value.trim();
   const email = $('#authEmail').value.trim().toLowerCase();
   const pw = $('#authPassword').value;
+  const attr = $('#authAttribute').value;
+  const bio = $('#authBio').value.trim();
   const sel = ($('#authAvatar').value||'').trim();
   if(!name){toast('Inserisci nome.');return}
   if(!email||!validEmail(email)){toast('Email non valida.');return}
@@ -756,7 +936,10 @@ $('#authRegister').addEventListener('click',async()=>{
     if(ex){toast('Avatar occupato.');return}
   }
   const ph = hasP?sel:AVATAR_IMAGES[0];
-  const {data:su,error} = await sb.auth.signUp({email,password:pw,options:{data:{name,avatar_url:ph}}});
+  const {data:su,error} = await sb.auth.signUp({
+    email, password: pw,
+    options: { data: { name, avatar_url: ph, attribute: attr, bio: bio } }
+  });
   if(error){toast(error.message);return}
   if(hasF && su.user){
     const userId = su.user.id;
@@ -806,7 +989,7 @@ function renderHome(){
   if(actC.length===0){cont.innerHTML='<p class="empty-note">Nessuna campagna in corso.</p>'}
   else{actC.forEach(c=>cont.appendChild(buildCampaignCard(c)))}
 }
-function roleLine(cls,lbl,items){
+function roleLineHtml(cls,lbl,items){
   return '<div class="role-line"><span class="rlabel '+cls+'">'+lbl+'</span><span class="ctext">'+items.map(it=>'<span class="camp-entry"><span class="cdot" style="background:'+it.color+';box-shadow:0 0 5px '+it.color+'"></span>'+esc(it.name)+'</span>').join('')+'</span></div>';
 }
 function renderRoster(){
@@ -821,13 +1004,14 @@ function renderRoster(){
       if(m.role==='master')mo.push(e);else if(m.role==='player')po.push(e);else oo.push(e);
     });
     const rh=[];
-    if(mo.length)rh.push(roleLine('master','Master di',mo));
-    if(po.length)rh.push(roleLine('player','Gioca in',po));
-    if(oo.length)rh.push(roleLine('observer','Osserva',oo));
+    if(mo.length)rh.push(roleLineHtml('master','Master di',mo));
+    if(po.length)rh.push(roleLineHtml('player','Gioca in',po));
+    if(oo.length)rh.push(roleLineHtml('observer','Osserva',oo));
     if(rh.length===0)rh.push('<div class="role-line"><span class="ctext" style="font-style:italic">Nessuna campagna.</span></div>');
     const card = document.createElement('div');
     card.className = 'member-card';
-    card.innerHTML = '<img src="'+getUserAvatar(u)+'" alt=""><div class="mname">'+esc(u.name)+(me&&me.id===u.id?'<span class="you-badge">Tu</span>':'')+'</div><div class="memail">'+esc(u.email)+'</div><div class="roles">'+rh.join('')+'</div>';
+    card.innerHTML = '<img src="'+getUserAvatar(u)+'" alt=""><div class="mname">'+esc(u.name)+(me&&me.id===u.id?'<span class="you-badge">Tu</span>':'')+'</div><div class="memail">'+esc(u.email)+'</div>'+(u.attribute?'<div class="mattribute"><span class="attribute-badge">'+esc(u.attribute)+'</span></div>':'')+'<div class="roles">'+rh.join('')+'</div>';
+    card.addEventListener('click',()=>openViewProfile(u.id));
     g.appendChild(card);
   });
 }
@@ -879,7 +1063,7 @@ function renderSessionComments(s,campaign,me){
     const color = m.color||DEFAULT_COLOR;
     const txt = (comments[m.userId]||'').trim();
     const isMine = me&&me.id===m.userId;
-    html += '<div class="comment-item" style="--c:'+color+'"><div class="comment-head"><span class="comment-dot"></span><span class="comment-name">'+esc(u.name)+(isMine?' (tu)':'')+'</span>';
+    html += '<div class="comment-item" style="--c:'+color+'"><div class="comment-head"><span class="comment-dot"></span><span class="comment-name" data-view-profile="'+u.id+'">'+esc(u.name)+(isMine?' (tu)':'')+'</span>';
     if(isMine&&canC){
       const lbl = txt?'Modifica':'Scrivi';
       html += '<button type="button" class="btn ghost small" data-toggle-comment="'+s.id+'" style="margin-left:auto;padding:4px 10px;font-size:.62rem">'+lbl+'</button>';
@@ -944,7 +1128,7 @@ function renderCampaignDetail(c){
     }else{
       rh = '<span class="rlabel '+m.role+'" style="font-size:.62rem;padding:4px 10px;border-radius:999px;border:1px solid">'+roleLabel(m.role)+'</span>';
     }
-    html += '<div class="member-row" style="--c:'+color+'"><img src="'+getUserAvatar(u)+'" alt=""><span class="mname"><span class="cdot"></span>'+esc(u.name)+you+'</span><span class="mrole">'+rh+'</span>'+rb+'</div>';
+    html += '<div class="member-row" style="--c:'+color+'"><img src="'+getUserAvatar(u)+'" alt=""><span class="mname" data-view-profile="'+u.id+'"><span class="cdot"></span>'+esc(u.name)+you+'</span><span class="mrole">'+rh+'</span>'+rb+'</div>';
   });
   if(isM)html += '<div style="margin-top:14px"><button class="btn small" id="addMemberBtn">+ Aggiungi giocatori</button></div>';
   html += '</div>';
@@ -983,6 +1167,11 @@ function renderCampaignDetail(c){
   d.innerHTML = html;
   const ci = d.querySelector('[data-close-inline]');
   if(ci)ci.addEventListener('click',()=>{ $('#campaignModal').hidden=true });
+
+  // Click sui nomi → vedi profilo
+  d.querySelectorAll('[data-view-profile]').forEach(el=>{
+    el.addEventListener('click', ()=> openViewProfile(el.dataset.viewProfile));
+  });
 
   d.querySelectorAll('[data-change-role]').forEach(sel=>{
     sel.addEventListener('change',async function(){
@@ -1305,7 +1494,6 @@ function renderCalendarPage(){
   w.appendChild(grid);
   w.appendChild(buildDetailedAvailability(camp,calYear,calMonth,me,isMaster));
 
-  // Handler per conferma data
   w.querySelectorAll('[data-confirm-date]').forEach(b=>{
     b.addEventListener('click', async ()=>{
       const campNow = getCampaign(selectedCalCampaign);
@@ -1324,12 +1512,18 @@ function renderCalendarPage(){
       if(error){ toast(error.message); return; }
       await refreshDB();
       renderCalendarPage();
-      // se il modal dettaglio campagna è aperto, aggiorno pure quello
       if(!document.getElementById('campaignModal').hidden){
         const fresh = getCampaign(selectedCalCampaign);
         if(fresh) renderCampaignDetail(fresh);
       }
       toast('Sessione confermata per '+readable+'.');
+    });
+  });
+  // Click sui voter chips → apri profilo
+  w.querySelectorAll('[data-view-profile]').forEach(el=>{
+    el.addEventListener('click', e=>{
+      e.stopPropagation();
+      openViewProfile(el.dataset.viewProfile);
     });
   });
 }
@@ -1340,139 +1534,4 @@ function buildDetailedAvailability(camp,y,m,me,isMaster){
   const tk = todayKey();
   const td = new Date(y,m,1);
   const mn = td.toLocaleDateString('it-IT',{month:'long'});
-  const mnc = mn.charAt(0).toUpperCase()+mn.slice(1);
-  let html = '<h4>Disponibilità dettagliata — '+mnc+' '+y+'</h4>';
-  if(isMaster) html += '<p class="detail-note">Quando un giorno ha tutti i voti, puoi confermarlo come data della sessione.</p>';
-  else html += '<p class="detail-note">Giorno per giorno, chi ha confermato. Il Master può confermare i giorni in cui tutti sono disponibili.</p>';
-  const rows = [];
-  Object.keys(av).forEach(k=>{
-    const d = new Date(k+'T12:00:00');
-    if(d.getFullYear()!==y || d.getMonth()!==m)return;
-    const v = av[k]||{};
-    const voters = Object.keys(v).filter(u=>v[u]==='yes');
-    if(voters.length===0)return;
-    rows.push({key:k,date:d,voters});
-  });
-  rows.sort((a,b)=>a.key<b.key?-1:1);
-  if(rows.length===0){html += '<p class="detail-empty">Nessuna disponibilità per questo mese.</p>'}
-  else{
-    rows.forEach(r=>{
-      const dl = r.date.toLocaleDateString('it-IT',{weekday:'long',day:'numeric',month:'long'});
-      const isT = r.key===tk;
-      const isF = r.voters.length===tot;
-      const cc = isF?'full':(r.voters.length>=Math.ceil(tot/2)?'partial':'');
-      const confirmed = sessionOnDate(camp, r.key);
-      let cls = '';
-      if(isT) cls += ' is-today';
-      if(isF) cls += ' full';
-      if(confirmed) cls += ' confirmed';
-      html += '<div class="detail-day'+cls+'">';
-      html += '<div class="detail-date"><span class="dd-day">'+r.date.getDate()+'</span><span class="dd-month">'+dl.split(' ').slice(1).join(' ')+'</span></div>';
-      html += '<span class="detail-count '+cc+'">'+r.voters.length+'/'+tot+(isF?' ★':'')+'</span>';
-      html += '<div class="detail-voters">';
-      r.voters.forEach(u=>{
-        const us = getUser(u);if(!us)return;
-        const col = memberColorIn(camp,u);
-        const isMe = me && me.id===u;
-        html += '<span class="voter-chip" style="--c:'+col+'"><img src="'+getUserAvatar(us)+'" alt=""><span class="voter-dot" style="--c:'+col+'"></span><span class="voter-name">'+esc(us.name)+(isMe?' (tu)':'')+'</span></span>';
-      });
-      html += '</div>';
-      // Conferma / stato
-      if(confirmed){
-        html += '<div class="detail-actions"><span class="detail-confirmed">✓ Sessione #'+esc(confirmed.num)+': '+esc(confirmed.title)+'</span></div>';
-      }else if(isF && isMaster){
-        html += '<div class="detail-actions"><button type="button" class="btn success small" data-confirm-date="'+r.key+'">📅 Conferma questa data</button></div>';
-      }
-      html += '</div>';
-    });
-  }
-  p.innerHTML = html;return p;
-}
-function buildCalendarCells(y,m){
-  const fd = new Date(y,m,1);
-  const s = (fd.getDay()+6)%7;
-  const dim = new Date(y,m+1,0).getDate();
-  const tot = Math.ceil((s+dim)/7)*7;
-  const c = [];
-  for(let i=0;i<tot;i++)c.push(new Date(y,m,1-s+i));
-  return c;
-}
-function buildCalendarCell(date,camp,myId,tk,canV){
-  const cell = document.createElement('div');cell.className='cal-cell';
-  const key = dateKey(date);
-  const oth = date.getMonth()!==calMonth;
-  const past = key<tk;
-  const today = key===tk;
-  if(oth)cell.classList.add('other-month');
-  if(past)cell.classList.add('past');
-  if(today)cell.classList.add('today');
-  const da = (camp.availability||{})[key]||{};
-  const voters = Object.keys(da).filter(u=>da[u]==='yes');
-  const myV = myId && da[myId]==='yes';
-  const sess = sessionOnDate(camp, key);
-  if(voters.length>0)cell.classList.add('has-votes');
-  if(voters.length>=3)cell.classList.add('many-votes');
-  if(sess)cell.classList.add('has-session');
-  if(myV){cell.style.setProperty('--my-color',memberColorIn(camp,myId));cell.classList.add('my-voted')}
-  const dn = document.createElement('span');dn.className='cal-daynum';dn.textContent=date.getDate();
-  cell.appendChild(dn);
-  const mk = document.createElement('div');mk.className='cal-marks';
-  voters.forEach(u=>{
-    const us = getUser(u);const col = memberColorIn(camp,u);
-    const d = document.createElement('span');d.className='mark yes';
-    d.style.background=col;d.style.color=col;
-    d.title = (us?us.name:'?')+' — disponibile';
-    mk.appendChild(d);
-  });
-  cell.appendChild(mk);
-  if(sess){
-    cell.title = 'Sessione confermata: '+sess.title;
-  }else if(voters.length>0){
-    cell.title = voters.map(u=>{const us=getUser(u);return us?us.name+': disponibile':''}).filter(Boolean).join('\n');
-  }
-  if(!past && canV && !sess){
-    cell.addEventListener('click',()=>toggleVote(camp,key,myId));
-  }else if(!past && !canV && !sess){
-    cell.addEventListener('click',()=>{
-      if(!currentUser()){toast('Accedi per confermare.');openAuth()}
-      else toast('Non fai parte di questa campagna.');
-    });
-  }
-  return cell;
-}
-async function toggleVote(camp,key,myId){
-  if(!myId)return;
-  const d = (camp.availability||{})[key]||{};
-  if(d[myId]==='yes'){
-    await sb.from('availability').delete().eq('campaign_id',camp.id).eq('user_id',myId).eq('day',key);
-    toast('Disponibilità rimossa');
-  }else{
-    await sb.from('availability').insert({campaign_id:camp.id,user_id:myId,day:key});
-    toast('Disponibilità confermata');
-  }
-  await refreshDB();renderCalendarPage();renderHome();
-}
-
-function renderAll(){
-  renderUserArea();
-  renderHome();
-  renderRoster();
-  renderCampaigns();
-  renderCalendarPage();
-}
-
-(async function init(){
-  await refreshDB();
-  await refreshCurrentUser();
-  renderAll();
-  sb.auth.onAuthStateChange(async(event)=>{
-    if(event==='SIGNED_IN' || event==='SIGNED_OUT'){
-      await refreshDB();await refreshCurrentUser();renderAll();
-    }
-  });
-})();
-
-})();
-</script>
-</body>
-</html>
+  const mnc = mn.charAt(0).to
