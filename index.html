@@ -36,7 +36,6 @@
   .page-head{margin-bottom:28px}
   .page-head h2{font-size:clamp(1.4rem,4vw,2.1rem);text-transform:uppercase;color:var(--accent-text);letter-spacing:.1em;margin-bottom:8px}
   .page-head p{color:var(--muted);margin:0;line-height:1.6;max-width:72ch}
-  .demo-banner{background:linear-gradient(90deg,rgba(217,185,92,.12),rgba(217,185,92,.04));border:1px dashed rgba(217,185,92,.5);border-radius:12px;padding:12px 18px;margin-bottom:26px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-size:.86rem;color:var(--accent-text);line-height:1.5}
   .hero{text-align:center;padding:20px 0 46px}
   .hero-logo{width:min(240px,56vw);height:auto;display:block;margin:0 auto 22px;animation:float 7s ease-in-out infinite}
   @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
@@ -93,33 +92,6 @@
   .banner-picker{display:flex;flex-direction:column;gap:10px}
   .banner-preview{height:120px;background-size:cover;background-position:center;background-color:#1a2430;border:1px dashed var(--line-soft);border-radius:10px;display:grid;place-items:center;color:var(--muted);font-size:.82rem;font-style:italic;overflow:hidden}
   .banner-preview.has-image{border-style:solid}
-  .archive-campaigns{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
-  .archive-camp-pill,.archive-cat{font-family:'Cinzel',serif;font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;font-weight:600;padding:8px 16px;border-radius:999px;background:transparent;border:1px solid var(--line-soft);color:#a8b8c8;cursor:pointer;transition:.22s ease}
-  .archive-camp-pill:hover,.archive-cat:hover{color:#f6ecbf;border-color:var(--line);background:rgba(60,90,120,.28)}
-  .archive-camp-pill.active,.archive-cat.active{color:#0a1218;background:linear-gradient(180deg,#e6cf87,#c2a24a);border-color:#e6cf87;font-weight:700}
-  .archive-cats{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
-  .archive-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px;align-items:start}
-  .archive-card{background:var(--panel);border:1px solid var(--line-soft);border-radius:14px;overflow:hidden;transition:.28s ease;cursor:pointer}
-  .archive-card:hover{transform:translateY(-4px);border-color:rgba(217,185,92,.45)}
-  .archive-card-img{background-size:cover;background-position:center;background-color:#1a2430;border-bottom:1px solid var(--line-soft);display:grid;place-items:center;color:var(--muted);font-size:2rem;height:160px}
-  .archive-card-img.cat-png{aspect-ratio:3/4;height:auto}
-  .archive-card-img.cat-luoghi{aspect-ratio:16/9;height:auto}
-  .archive-card-img.cat-oggetti{aspect-ratio:1/1;height:auto}
-  .archive-card-img.cat-religione{aspect-ratio:4/3;height:auto}
-  .archive-card-img.cat-bestiario{aspect-ratio:3/4;height:auto}
-  .archive-card-body{padding:16px 18px}
-  .archive-card-title{font-family:'Cinzel',serif;font-size:.95rem;color:var(--accent-text);margin-bottom:8px;line-height:1.3}
-  .archive-card-desc{font-size:.85rem;color:var(--muted);line-height:1.55;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;min-height:2.5em}
-  .archive-card-meta{font-size:.7rem;color:var(--muted);margin-top:10px;font-style:italic;letter-spacing:.06em;text-transform:uppercase}
-  .archive-empty{grid-column:1/-1;text-align:center;padding:40px 20px;color:var(--muted);font-style:italic;font-size:.9rem;line-height:1.6}
-  .archive-view-image{background-size:cover;background-position:center;background-color:#1a2430;border-radius:12px;border:1px solid var(--line-soft);margin-bottom:20px;height:280px}
-  .archive-view-image.cat-png{aspect-ratio:3/4;height:auto;max-width:480px;max-height:70vh;margin:0 auto 20px}
-  .archive-view-image.cat-luoghi{aspect-ratio:16/9;height:auto}
-  .archive-view-image.cat-oggetti{aspect-ratio:1/1;height:auto;max-width:480px;max-height:70vh;margin:0 auto 20px}
-  .archive-view-image.cat-religione{aspect-ratio:4/3;height:auto}
-  .archive-view-image.cat-bestiario{aspect-ratio:3/4;height:auto;max-width:480px;max-height:70vh;margin:0 auto 20px}
-  .archive-view-desc{font-size:.95rem;color:var(--text);line-height:1.75;white-space:pre-wrap;margin:0 0 20px}
-  .archive-view-actions{display:flex;gap:12px;justify-content:flex-end;flex-wrap:wrap;margin-top:16px}
   .camp-pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
   .camp-pill{font-family:'Cinzel',serif;font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;font-weight:600;padding:8px 16px;border-radius:999px;background:transparent;border:1px solid var(--line-soft);color:#a8b8c8;cursor:pointer;transition:.22s ease}
   .camp-pill:hover{color:#f6ecbf;border-color:var(--line);background:rgba(60,90,120,.28)}
@@ -264,7 +236,6 @@
       <button data-page="home" class="active">Home</button>
       <button data-page="roster">Roster</button>
       <button data-page="campagne">Campagne</button>
-      <button data-page="archivio">Archivio</button>
       <button data-page="calendario">Calendario</button>
     </nav>
     <div class="user-area" id="userArea"></div>
@@ -273,7 +244,6 @@
 
 <main>
   <section id="page-home" class="page active">
-    <div class="demo-banner"><span>🧪 <strong>Benvenuto su Kradicchion.</strong> Registrati per entrare nel gruppo, scegli il tuo avatar e inizia a partecipare alle campagne.</span></div>
     <div class="hero">
       <img class="hero-logo" src="https://i.imgur.com/FapFjNG.png" alt="Kradicchion">
       <h1>Kradicchion</h1>
@@ -301,19 +271,6 @@
       <button class="btn" id="newCampaignBtn">+ Nuova campagna</button>
     </div>
     <div class="card-grid" id="campaignGrid"></div>
-  </section>
-
-  <section id="page-archivio" class="page">
-    <div class="page-head"><h2>Archivio</h2><p>Le conoscenze delle singole campagne: PNG, luoghi, oggetti e reliquie, religione e bestiario.</p></div>
-    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px;align-items:center">
-      <div style="flex:1"></div>
-      <button class="btn" id="newArchiveBtn">+ Nuova voce</button>
-    </div>
-    <div style="font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Campagna</div>
-    <div class="archive-campaigns" id="archiveCampaigns"></div>
-    <div style="font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;margin-top:14px">Categoria</div>
-    <div class="archive-cats" id="archiveCats"></div>
-    <div class="archive-grid" id="archiveGrid"></div>
   </section>
 
   <section id="page-calendario" class="page">
@@ -427,44 +384,6 @@
   </div>
 </div>
 
-<div class="modal-overlay" id="archiveViewModal" hidden>
-  <div class="modal-box wide"><div id="archiveViewContent"></div></div>
-</div>
-
-<div class="modal-overlay" id="archiveEditModal" hidden style="z-index:210">
-  <div class="modal-box">
-    <div class="modal-head">
-      <div><h3 id="archiveEditTitle">Nuova voce</h3><div class="sub">Aggiungi un'immagine e una descrizione.</div></div>
-      <button class="close-x" data-close="archiveEditModal">×</button>
-    </div>
-    <div class="field"><label>Campagna</label><select id="aeCampaign"></select></div>
-    <div class="field">
-      <label>Categoria</label>
-      <select id="aeCategory">
-        <option value="png">PNG</option>
-        <option value="luoghi">Luoghi</option>
-        <option value="oggetti">Oggetti e Reliquie</option>
-        <option value="religione">Religione</option>
-        <option value="bestiario">Bestiario</option>
-      </select>
-    </div>
-    <div class="field"><label>Titolo</label><input type="text" id="aeTitle" placeholder="Es. Il Tempio Sommerso" maxlength="80"></div>
-    <div class="field">
-      <label>Immagine (opzionale, max 5 MB)</label>
-      <div class="banner-picker">
-        <div class="banner-preview" id="aeImagePreview">Nessuna immagine</div>
-        <button type="button" class="btn ghost small" id="aeImageBtn" style="align-self:flex-start">📷 Scegli immagine</button>
-        <input type="file" id="aeImageInput" accept="image/*" hidden>
-      </div>
-    </div>
-    <div class="field"><label>Descrizione</label><textarea id="aeDescription" placeholder="Descrizione dettagliata..."></textarea></div>
-    <div class="modal-actions">
-      <button class="btn ghost" data-close="archiveEditModal">Annulla</button>
-      <button class="btn" id="aeSaveBtn">Salva</button>
-    </div>
-  </div>
-</div>
-
 <div id="toast"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -478,8 +397,6 @@ const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 const AVATAR_MAX = 4*1024*1024;
 const BANNER_MAX = 5*1024*1024;
-const ARCHIVE_MAX = 5*1024*1024;
-const ARCHIVE_CATS = [{key:'png',label:'PNG'},{key:'luoghi',label:'Luoghi'},{key:'oggetti',label:'Oggetti e Reliquie'},{key:'religione',label:'Religione'},{key:'bestiario',label:'Bestiario'}];
 const USER_COLORS = ['#d9b95c','#6ec6b8','#d97a5c','#b08ae0','#7fb8e0','#e07a9c','#a8d97a','#e0a05c'];
 const DEFAULT_COLOR = '#8a9bad';
 const AVATAR_IMAGES = [
@@ -492,7 +409,7 @@ const AVATAR_IMAGES = [
   'https://i.imgur.com/ay5PVTi.png','https://i.imgur.com/7lSPNwS.png'
 ];
 
-let DB = {users:[],campaigns:[],archive:[]};
+let DB = {users:[],campaigns:[]};
 let CURRENT_USER = null;
 let editingSessionId = null;
 let commentingSessionId = null;
@@ -503,12 +420,6 @@ let addMemberCampaignId = null;
 let pendingAvatarFile = null;
 let profilePendingFile = null;
 let profileSelectedAvatar = '';
-let selectedArchiveCampaign = null;
-let selectedArchiveCat = 'all';
-let editingArchiveId = null;
-let archivePendingFile = null;
-let archivePendingPreview = '';
-let archiveSelectedImage = '';
 let campaignPendingBanner = null;
 let campaignPendingBannerPreview = '';
 
@@ -529,7 +440,6 @@ function fmtDateOnly(iso){return new Date(iso).toLocaleDateString('it-IT',{day:'
 function fmtMonthYear(y,m){return new Date(y,m,1).toLocaleDateString('it-IT',{month:'long',year:'numeric'})}
 function roleLabel(r){return r==='master'?'Master':r==='player'?'Giocatore':'Osservatore'}
 function statusLabel(s){return s==='in-corso'?'In corso':s==='conclusa'?'Conclusa':'In pausa'}
-function catLabel(k){const c=ARCHIVE_CATS.find(x=>x.key===k);return c?c.label:k}
 function validEmail(e){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)}
 function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2600)}
 function bgStyle(url){
@@ -539,14 +449,13 @@ function bgStyle(url){
 }
 
 async function refreshDB(){
-  const [pr,cp,mb,se,cm,av,ar] = await Promise.all([
+  const [pr,cp,mb,se,cm,av] = await Promise.all([
     sb.from('profiles').select('*'),
     sb.from('campaigns').select('*'),
     sb.from('members').select('*'),
     sb.from('sessions').select('*').order('created_at',{ascending:true}),
     sb.from('comments').select('*'),
-    sb.from('availability').select('*'),
-    sb.from('archive_entries').select('*').order('created_at',{ascending:false})
+    sb.from('availability').select('*')
   ]);
   if(pr.error){console.error('profiles',pr.error);return}
   if(cp.error){console.error('campaigns',cp.error);return}
@@ -562,7 +471,6 @@ async function refreshDB(){
     });
     return {id:c.id,name:c.name,system:c.system,description:c.description||'',status:c.status,bannerUrl:c.banner_url||'',members,sessions,availability:av2};
   });
-  DB.archive = (ar.data||[]).map(a=>({id:a.id,category:a.category,title:a.title,imageUrl:a.image_url||'',description:a.description||'',createdBy:a.created_by,createdAt:a.created_at,campaignId:a.campaign_id||null}));
 }
 
 async function refreshCurrentUser(){
@@ -580,7 +488,6 @@ function goTo(p){
   $$('.page').forEach(x=>x.classList.toggle('active',x.id==='page-'+p));
   $$('#mainnav button').forEach(b=>b.classList.toggle('active',b.dataset.page===p));
   window.scrollTo({top:0,behavior:'smooth'});
-  if(p==='archivio') renderArchive();
 }
 $$('#mainnav button').forEach(b=>b.addEventListener('click',()=>goTo(b.dataset.page)));
 $$('[data-goto]').forEach(b=>b.addEventListener('click',()=>goTo(b.dataset.goto)));
@@ -711,7 +618,6 @@ document.addEventListener('click',e=>{
   if(e.target&&e.target.id==='uploadAvatarBtn'){const i=document.getElementById('avatarFileInput');if(i)i.click()}
   if(e.target&&e.target.id==='profUploadAvatarBtn'){const i=document.getElementById('profAvatarFileInput');if(i)i.click()}
   if(e.target&&e.target.id==='ncBannerBtn'){const i=document.getElementById('ncBannerInput');if(i)i.click()}
-  if(e.target&&e.target.id==='aeImageBtn'){const i=document.getElementById('aeImageInput');if(i)i.click()}
 });
 
 document.addEventListener('change',e=>{
@@ -754,31 +660,12 @@ document.addEventListener('change',e=>{
     r.onload=ev=>{campaignPendingBannerPreview=ev.target.result;updateNcBannerPreview()};
     r.readAsDataURL(f);
   }
-  if(e.target&&e.target.id==='aeImageInput'){
-    const f=e.target.files&&e.target.files[0];if(!f)return;
-    if(!f.type.startsWith('image/')){toast('File non è un\'immagine.');return}
-    if(f.size>ARCHIVE_MAX){toast('Max 5 MB.');return}
-    archivePendingFile=f;
-    const r=new FileReader();
-    r.onload=ev=>{archivePendingPreview=ev.target.result;archiveSelectedImage='';updateArchiveImagePreview()};
-    r.readAsDataURL(f);
-  }
 });
 
 function updateNcBannerPreview(){
   const el = $('#ncBannerPreview');if(!el)return;
   if(campaignPendingBannerPreview){
     el.style.cssText = bgStyle(campaignPendingBannerPreview);
-    el.textContent='';el.classList.add('has-image');
-  }else{
-    el.style.cssText='';el.textContent='Nessuna immagine';el.classList.remove('has-image');
-  }
-}
-function updateArchiveImagePreview(){
-  const el = $('#aeImagePreview');if(!el)return;
-  const src = archivePendingPreview||archiveSelectedImage;
-  if(src){
-    el.style.cssText = bgStyle(src);
     el.textContent='';el.classList.add('has-image');
   }else{
     el.style.cssText='';el.textContent='Nessuna immagine';el.classList.remove('has-image');
@@ -1312,153 +1199,6 @@ $('#ncSubmit').addEventListener('click',async()=>{
   renderAll();toast('Campagna "'+name+'" creata.');
 });
 
-function myCampaigns(){
-  const me = currentUser();if(!me)return[];
-  return DB.campaigns.filter(c=>(c.members||[]).some(m=>m.userId===me.id));
-}
-function renderArchive(){
-  const cw = $('#archiveCampaigns'),ct = $('#archiveCats'),gr = $('#archiveGrid');
-  if(!cw||!ct||!gr)return;
-  cw.innerHTML = '';
-  if(DB.campaigns.length===0){
-    gr.innerHTML = '<p class="archive-empty">Nessuna campagna. Creane prima una.</p>';
-    ct.innerHTML = '';
-    return;
-  }
-  if(!selectedArchiveCampaign || !getCampaign(selectedArchiveCampaign)){
-    const mine = myCampaigns();
-    selectedArchiveCampaign = (mine[0]||DB.campaigns[0]).id;
-  }
-  DB.campaigns.forEach(c=>{
-    const b = document.createElement('button');
-    b.type='button';
-    b.className = 'archive-camp-pill'+(c.id===selectedArchiveCampaign?' active':'');
-    b.textContent = c.name;
-    b.addEventListener('click',()=>{selectedArchiveCampaign=c.id;renderArchive()});
-    cw.appendChild(b);
-  });
-  ct.innerHTML = '';
-  const all = document.createElement('button');
-  all.type='button';all.className='archive-cat'+(selectedArchiveCat==='all'?' active':'');all.textContent='Tutte';
-  all.addEventListener('click',()=>{selectedArchiveCat='all';renderArchive()});
-  ct.appendChild(all);
-  ARCHIVE_CATS.forEach(cat=>{
-    const b = document.createElement('button');
-    b.type='button';b.className='archive-cat'+(selectedArchiveCat===cat.key?' active':'');b.textContent=cat.label;
-    b.addEventListener('click',()=>{selectedArchiveCat=cat.key;renderArchive()});
-    ct.appendChild(b);
-  });
-  gr.innerHTML = '';
-  let filtered = DB.archive.filter(e=>e.campaignId===selectedArchiveCampaign);
-  if(selectedArchiveCat!=='all')filtered = filtered.filter(e=>e.category===selectedArchiveCat);
-  if(filtered.length===0){
-    const isMember = myCampaigns().some(c=>c.id===selectedArchiveCampaign);
-    gr.innerHTML = '<p class="archive-empty">Nessuna voce. '+(isMember?'Aggiungine una con "+ Nuova voce".':'Solo i membri della campagna possono aggiungere voci.')+'</p>';
-    return;
-  }
-  filtered.forEach(entry=>{
-    const card = document.createElement('article');
-    card.className = 'archive-card';
-    const img = entry.imageUrl ? 'style="'+bgStyle(entry.imageUrl)+'"' : '';
-    card.innerHTML =
-      '<div class="archive-card-img cat-'+entry.category+'" '+img+'>'+(entry.imageUrl?'':'📜')+'</div>'+
-      '<div class="archive-card-body"><div class="archive-card-title">'+esc(entry.title)+'</div>'+
-      '<div class="archive-card-desc">'+(entry.description?esc(entry.description.substring(0,180)):'<em>Nessuna descrizione</em>')+'</div>'+
-      '<div class="archive-card-meta">'+catLabel(entry.category)+'</div></div>';
-    card.addEventListener('click',()=>openArchiveView(entry.id));
-    gr.appendChild(card);
-  });
-}
-function openArchiveView(eid){
-  const e = DB.archive.find(x=>x.id===eid);if(!e)return;
-  const me = currentUser();
-  const camp = getCampaign(e.campaignId);
-  const m = camp && me ? (camp.members||[]).find(x=>x.userId===me.id) : null;
-  const canEdit = me && (me.id===e.createdBy || (m && m.role==='master'));
-  let html = '<div class="modal-head"><div><h3>'+esc(e.title)+'</h3><div class="sub">'+catLabel(e.category)+' · '+esc((camp&&camp.name)||'')+'</div></div><button class="close-x" data-close="archiveViewModal">×</button></div>';
-  if(e.imageUrl)html += '<div class="archive-view-image cat-'+e.category+'" style="'+bgStyle(e.imageUrl)+'"></div>';
-  html += '<p class="archive-view-desc">'+(e.description?esc(e.description):'<em>Nessuna descrizione.</em>')+'</p>';
-  if(canEdit)html += '<div class="archive-view-actions"><button class="btn danger small" id="archiveDeleteBtn">Elimina</button><button class="btn small" id="archiveEditBtn">Modifica</button></div>';
-  $('#archiveViewContent').innerHTML = html;
-  $('#archiveViewModal').hidden = false;
-  if(canEdit){
-    $('#archiveEditBtn').addEventListener('click',()=>{$('#archiveViewModal').hidden=true;openArchiveEdit(e.id)});
-    $('#archiveDeleteBtn').addEventListener('click',async()=>{
-      if(!confirm('Eliminare "'+e.title+'"?'))return;
-      const {error} = await sb.from('archive_entries').delete().eq('id',e.id);
-      if(error){toast(error.message);return}
-      await refreshDB();$('#archiveViewModal').hidden=true;renderArchive();toast('Voce eliminata.');
-    });
-  }
-}
-function openArchiveEdit(eid){
-  editingArchiveId = eid||null;
-  archivePendingFile=null;archivePendingPreview='';archiveSelectedImage='';
-  const e = eid?DB.archive.find(x=>x.id===eid):null;
-  $('#archiveEditTitle').textContent = e?'Modifica voce':'Nuova voce';
-  const sel = $('#aeCampaign');sel.innerHTML = '';
-  const mine = myCampaigns();
-  if(mine.length===0){toast('Devi essere membro di una campagna.');return}
-  mine.forEach(c=>{
-    const o = document.createElement('option');o.value=c.id;o.textContent=c.name;sel.appendChild(o);
-  });
-  if(e){
-    sel.value = e.campaignId||mine[0].id;
-    $('#aeCategory').value = e.category;
-    $('#aeTitle').value = e.title;
-    $('#aeDescription').value = e.description;
-    archiveSelectedImage = e.imageUrl||'';
-  }else{
-    const pre = mine.find(c=>c.id===selectedArchiveCampaign)?selectedArchiveCampaign:mine[0].id;
-    sel.value = pre;
-    $('#aeCategory').value = selectedArchiveCat==='all'?'png':selectedArchiveCat;
-    $('#aeTitle').value='';$('#aeDescription').value='';
-  }
-  const ai = document.getElementById('aeImageInput');if(ai)ai.value='';
-  updateArchiveImagePreview();
-  $('#archiveEditModal').hidden = false;
-  setTimeout(()=>$('#aeTitle').focus(),60);
-}
-$('#newArchiveBtn').addEventListener('click',()=>{
-  if(!currentUser()){toast('Accedi per aggiungere voci.');openAuth();return}
-  if(myCampaigns().length===0){toast('Devi essere membro di una campagna.');return}
-  openArchiveEdit(null);
-});
-$('#aeSaveBtn').addEventListener('click',async()=>{
-  if(!currentUser())return;
-  const campaignId = $('#aeCampaign').value;
-  const cat = $('#aeCategory').value;
-  const title = $('#aeTitle').value.trim();
-  const desc = $('#aeDescription').value.trim();
-  if(!campaignId){toast('Seleziona campagna.');return}
-  if(!title){toast('Titolo vuoto.');return}
-  const camp = getCampaign(campaignId);
-  const isMember = camp && (camp.members||[]).some(x=>x.userId===CURRENT_USER.id);
-  if(!isMember){toast('Non sei membro.');return}
-  let imageUrl = archiveSelectedImage;
-  if(archivePendingFile){
-    const userId = CURRENT_USER.id;
-    const ext = archivePendingFile.name.split('.').pop().toLowerCase().replace(/[^a-z0-9]/g,'')||'jpg';
-    const path = userId+'/'+Date.now()+'.'+ext;
-    const {error:upErr} = await sb.storage.from('archive-images').upload(path,archivePendingFile,{contentType:archivePendingFile.type,upsert:false});
-    if(upErr){toast('Errore: '+upErr.message);return}
-    const {data} = sb.storage.from('archive-images').getPublicUrl(path);
-    imageUrl = data.publicUrl;
-  }
-  if(editingArchiveId){
-    const {error} = await sb.from('archive_entries').update({campaign_id:campaignId,category:cat,title,image_url:imageUrl,description:desc}).eq('id',editingArchiveId);
-    if(error){toast(error.message);return}
-    toast('Voce aggiornata.');
-  }else{
-    const {error} = await sb.from('archive_entries').insert({campaign_id:campaignId,category:cat,title,image_url:imageUrl,description:desc,created_by:CURRENT_USER.id});
-    if(error){toast(error.message);return}
-    toast('Voce aggiunta.');
-  }
-  archivePendingFile=null;archivePendingPreview='';archiveSelectedImage='';editingArchiveId=null;
-  $('#archiveEditModal').hidden=true;
-  await refreshDB();renderArchive();
-});
-
 const weekdayHeaders = ['Lun','Mar','Mer','Gio','Ven','Sab','Dom'];
 function renderCalendarPage(){
   const w = $('#calendarList');if(!w)return;
@@ -1624,7 +1364,6 @@ function renderAll(){
   renderHome();
   renderRoster();
   renderCampaigns();
-  renderArchive();
   renderCalendarPage();
 }
 
