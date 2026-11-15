@@ -88,6 +88,7 @@
   .status-badge.in-corso{color:#7fe0a8;border-color:rgba(127,224,168,.5);background:rgba(127,224,168,.1)}
   .status-badge.conclusa{color:#9aa8b8;border-color:rgba(154,168,184,.4)}
   .status-badge.in-pausa{color:#e0b04a;border-color:rgba(224,176,74,.5);background:rgba(224,176,74,.1)}
+  .status-badge.in-preparazione{color:#c8a4f0;border-color:rgba(200,164,240,.55);background:rgba(200,164,240,.12)}
   .mini-avatars{display:flex;align-items:center}
   .mini-avatars img{width:26px;height:26px;border-radius:50%;margin-left:-8px;background:#1a2430;object-fit:cover;border:2px solid}
   .mini-avatars img:first-child{margin-left:0}
@@ -193,6 +194,7 @@
   .member-row .btn-remove-member{background:transparent;border:1px solid rgba(217,92,92,.5);color:#ffb0a2;border-radius:50%;width:30px;height:30px;display:grid;place-items:center;cursor:pointer;font-size:1.05rem;padding:0;flex-shrink:0}
   .member-row .btn-remove-member:hover{background:rgba(217,74,58,.18);border-color:rgba(217,92,92,.9)}
   .role-change-select{font-family:'Cinzel',serif;font-size:.62rem;text-transform:uppercase;padding:5px 26px 5px 10px!important;border-radius:999px!important;border:1px solid var(--line-soft)!important;background-color:rgba(8,12,18,.85)!important;color:var(--accent-text)!important;cursor:pointer;width:auto!important;min-width:130px;font-weight:700}
+  .status-change-select{font-family:'Cinzel',serif;font-size:.7rem;text-transform:uppercase;padding:8px 32px 8px 14px!important;border-radius:999px!important;border:1px solid rgba(217,185,92,.55)!important;background-color:rgba(8,12,18,.85)!important;color:var(--accent-text)!important;cursor:pointer;min-width:200px;font-weight:700}
   .session-block{background:rgba(8,12,18,.5);border:1px solid var(--line-soft);border-radius:12px;padding:16px 18px;margin-bottom:12px}
   .session-block.editing{border-color:rgba(217,185,92,.6);background:rgba(8,12,18,.7)}
   .session-block .s-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:10px}
@@ -480,7 +482,12 @@ function memberColorIn(c,uid){if(!c||!c.members)return DEFAULT_COLOR;const m=c.m
 function fmtDateOnly(iso){return new Date(iso).toLocaleDateString('it-IT',{day:'numeric',month:'long',year:'numeric'})}
 function fmtMonthYear(y,m){return new Date(y,m,1).toLocaleDateString('it-IT',{month:'long',year:'numeric'})}
 function roleLabel(r){return r==='master'?'Master':r==='player'?'Giocatore':'Osservatore'}
-function statusLabel(s){return s==='in-corso'?'In corso':s==='conclusa'?'Conclusa':'In pausa'}
+function statusLabel(s){
+  if(s==='in-preparazione') return 'In preparazione';
+  if(s==='in-corso') return 'In corso';
+  if(s==='conclusa') return 'Conclusa';
+  return 'In pausa';
+}
 function validEmail(e){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)}
 function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2600)}
 function bgStyle(url){
@@ -509,7 +516,6 @@ function sessionOnDate(camp, dateStr){
   });
 }
 
-// Popola i select degli attributi
 function fillAttributeSelects(){
   const opts = ATTRIBUTES.map(a=>'<option value="'+a+'">'+a+'</option>').join('');
   const au = $('#authAttribute'); if(au) au.innerHTML = '<option value="">— Nessun attributo —</option>'+opts;
@@ -995,6 +1001,15 @@ function renderSessionBlock(s,c,me,isM){
   return '<div class="session-block"><div class="s-head"><span class="s-num">Sessione '+esc(s.num)+'</span><span class="s-title">'+esc(s.title)+'</span><span class="s-date">'+fmtDateOnly(s.date)+'</span>'+eb+'</div>'+
     '<p class="s-summary'+(s.summary?'':' empty')+'">'+(s.summary?esc(s.summary):'Riassunto non ancora scritto.')+'</p>'+renderSessionComments(s,c,me)+'</div>';
 }
+
+// Opzioni stato campagna
+const STATUS_OPTIONS = [
+  {value:'in-preparazione', label:'In preparazione'},
+  {value:'in-corso', label:'In corso'},
+  {value:'in-pausa', label:'In pausa'},
+  {value:'conclusa', label:'Conclusa'}
+];
+
 function renderCampaignDetail(c){
   const me = currentUser();
   const myM = me?(c.members||[]).find(m=>m.userId===me.id):null;
@@ -1051,11 +1066,19 @@ function renderCampaignDetail(c){
     '<button class="btn small" id="openCalBtn">Apri calendario</button></div>';
 
   if(isM){
+    // Zona Master con stato
+    const statusOpts = STATUS_OPTIONS.map(o=>'<option value="'+o.value+'"'+(c.status===o.value?' selected':'')+'>'+o.label+'</option>').join('');
     html += '<div class="cd-section"><div class="cd-section-title">Zona Master</div>'+
-      '<div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">'+
-        '<button class="btn ghost small" id="changeBannerBtn">'+(c.bannerUrl?'Cambia banner':'+ Aggiungi banner')+'</button>'+
-        (c.bannerUrl?'<button class="btn ghost small" id="removeBannerBtn">Rimuovi banner</button>':'')+
-        '<button class="btn danger small" id="cdDeleteCampaign">Elimina campagna</button>'+
+      '<div style="display:flex;flex-direction:column;gap:14px">'+
+        '<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">'+
+          '<label style="font-family:\'Cinzel\',serif;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)">Stato campagna</label>'+
+          '<select class="status-change-select" id="statusSelect">'+statusOpts+'</select>'+
+        '</div>'+
+        '<div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">'+
+          '<button class="btn ghost small" id="changeBannerBtn">'+(c.bannerUrl?'Cambia banner':'+ Aggiungi banner')+'</button>'+
+          (c.bannerUrl?'<button class="btn ghost small" id="removeBannerBtn">Rimuovi banner</button>':'')+
+          '<button class="btn danger small" id="cdDeleteCampaign">Elimina campagna</button>'+
+        '</div>'+
       '</div></div>';
   }
 
@@ -1067,6 +1090,20 @@ function renderCampaignDetail(c){
   d.querySelectorAll('[data-view-profile]').forEach(el=>{
     el.addEventListener('click', ()=> openViewProfile(el.dataset.viewProfile));
   });
+
+  // Cambio stato
+  const statusSel = $('#statusSelect');
+  if(statusSel){
+    statusSel.addEventListener('change', async ()=>{
+      const newStatus = statusSel.value;
+      if(!STATUS_OPTIONS.find(o=>o.value===newStatus)) return;
+      const {error} = await sb.from('campaigns').update({status:newStatus}).eq('id',c.id);
+      if(error){toast(error.message);return}
+      await refreshDB();
+      const fr = getCampaign(c.id);if(fr)renderCampaignDetail(fr);
+      renderAll();toast('Stato aggiornato: '+statusLabel(newStatus));
+    });
+  }
 
   d.querySelectorAll('[data-change-role]').forEach(sel=>{
     sel.addEventListener('change',async function(){
@@ -1343,8 +1380,8 @@ function renderCalendarPage(){
   const me = currentUser();
   const pills = document.createElement('div');pills.className='camp-pills';
   const sorted = DB.campaigns.slice().sort((a,b)=>{
-    const o = {'in-corso':0,'in-pausa':1,'conclusa':2};
-    return (o[a.status]??3)-(o[b.status]??3);
+    const o = {'in-corso':0,'in-preparazione':1,'in-pausa':2,'conclusa':3};
+    return (o[a.status]??4)-(o[b.status]??4);
   });
   sorted.forEach(c=>{
     const b = document.createElement('button');b.type='button';
