@@ -9,16 +9,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Spectral:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#0d1319;
-    --bg-2:#111822;
-    --panel:rgba(30,42,56,.72);
-    --panel-solid:#1a2430;
-    --line:#4a5d70;
-    --line-soft:rgba(100,130,160,.35);
-    --accent:#d9b95c;
-    --accent-text:#e8d391;
-    --text:#d5dde5;
-    --muted:#8a9bad;
+    --bg:#0d1319;--bg-2:#111822;--panel:rgba(30,42,56,.72);--panel-solid:#1a2430;
+    --line:#4a5d70;--line-soft:rgba(100,130,160,.35);
+    --accent:#d9b95c;--accent-text:#e8d391;--text:#d5dde5;--muted:#8a9bad;
   }
   *{box-sizing:border-box}
   html,body{height:100%}
@@ -33,60 +26,40 @@
   a{color:var(--accent-text)}
   h1,h2,h3,h4{font-family:'Cinzel',serif;font-weight:700;letter-spacing:.06em;margin:0}
 
-  .topbar{
-    position:sticky;top:0;z-index:60;
+  .topbar{position:sticky;top:0;z-index:60;
     background:linear-gradient(180deg, rgba(6,10,15,.96), rgba(6,10,15,.7));
     border-bottom:1px solid var(--line-soft);
-    backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-  }
-  .topbar-inner{
-    max-width:1180px;margin:0 auto;padding:10px 22px;
-    display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;
-    position:relative;
-  }
+    backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}
+  .topbar-inner{max-width:1180px;margin:0 auto;padding:10px 22px;
+    display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;position:relative;}
   .mainnav{display:flex;gap:4px;flex-wrap:wrap;justify-content:center}
   .mainnav button{
     font-family:'Cinzel',serif;font-size:.78rem;letter-spacing:.12em;
     text-transform:uppercase;color:#e4ebf2;font-weight:600;
     text-shadow:0 1px 2px rgba(0,0,0,.55);
     background:transparent;border:1px solid transparent;border-radius:999px;
-    padding:9px 16px;cursor:pointer;transition:.22s ease;
-  }
+    padding:9px 16px;cursor:pointer;transition:.22s ease;}
   .mainnav button:hover{color:#f6ecbf;border-color:var(--line-soft);background:rgba(60,90,120,.28)}
-  .mainnav button.active{
-    color:#0a1218;border-color:#e6cf87;font-weight:700;text-shadow:none;
-    background:linear-gradient(180deg,#e6cf87,#c2a24a);
-    box-shadow:0 0 20px rgba(217,185,92,.35);
-  }
-  .user-area{
-    display:flex;align-items:center;gap:12px;
-    position:absolute;right:22px;top:50%;transform:translateY(-50%);
-  }
-  .user-chip{
-    display:flex;align-items:center;gap:10px;
+  .mainnav button.active{color:#0a1218;border-color:#e6cf87;font-weight:700;text-shadow:none;
+    background:linear-gradient(180deg,#e6cf87,#c2a24a);box-shadow:0 0 20px rgba(217,185,92,.35);}
+  .user-area{display:flex;align-items:center;gap:12px;
+    position:absolute;right:22px;top:50%;transform:translateY(-50%);}
+  .user-chip{display:flex;align-items:center;gap:10px;
     background:rgba(8,12,18,.7);border:1px solid var(--line-soft);
-    border-radius:999px;padding:5px 14px 5px 5px;
-    cursor:pointer;transition:.22s ease;
-  }
+    border-radius:999px;padding:5px 14px 5px 5px;cursor:pointer;transition:.22s ease;}
   .user-chip:hover{border-color:rgba(217,185,92,.55);background:rgba(20,30,45,.9);box-shadow:0 0 14px rgba(217,185,92,.2)}
   .user-chip img{width:32px;height:32px;border-radius:50%;background:#1a2430;object-fit:cover;border:1px solid var(--line-soft)}
   .user-chip .uname{font-size:.9rem;font-weight:700;color:#f2dfa3;text-shadow:0 1px 2px rgba(0,0,0,.5)}
   .user-chip .u-edit{font-size:.62rem;color:var(--muted);margin-left:2px}
-  .btn{
-    font-family:'Cinzel',serif;font-size:.76rem;letter-spacing:.13em;text-transform:uppercase;
-    font-weight:600;
-    padding:10px 20px;border-radius:999px;cursor:pointer;
+  .btn{font-family:'Cinzel',serif;font-size:.76rem;letter-spacing:.13em;text-transform:uppercase;
+    font-weight:600;padding:10px 20px;border-radius:999px;cursor:pointer;
     border:1px solid rgba(217,185,92,.65);
     background:linear-gradient(180deg, rgba(217,185,92,.24), rgba(217,185,92,.08));
     color:#f2dfa3;text-shadow:0 1px 2px rgba(0,0,0,.45);
     transition:.24s ease;text-decoration:none;
-    display:inline-flex;align-items:center;gap:8px;justify-content:center;
-  }
-  .btn:hover{
-    background:linear-gradient(180deg,#e6cf87,#c2a24a);color:#0a1218;
-    border-color:#e6cf87;box-shadow:0 6px 22px rgba(217,185,92,.28);
-    text-shadow:none;
-  }
+    display:inline-flex;align-items:center;gap:8px;justify-content:center;}
+  .btn:hover{background:linear-gradient(180deg,#e6cf87,#c2a24a);color:#0a1218;
+    border-color:#e6cf87;box-shadow:0 6px 22px rgba(217,185,92,.28);text-shadow:none;}
   .btn.ghost{background:transparent;border-color:rgba(120,150,180,.55);color:#a8b8c8;text-shadow:0 1px 2px rgba(0,0,0,.5)}
   .btn.ghost:hover{background:rgba(60,90,120,.25);color:#e4ebf2;border-color:var(--line);box-shadow:none}
   .btn.danger{background:transparent;border-color:rgba(217,92,92,.55);color:#ffb0a2}
@@ -101,24 +74,18 @@
   .page-head h2{font-size:clamp(1.4rem,4vw,2.1rem);text-transform:uppercase;color:var(--accent-text);letter-spacing:.1em;margin-bottom:8px}
   .page-head p{color:var(--muted);margin:0;line-height:1.6;max-width:72ch}
 
-  .demo-banner{
-    background:linear-gradient(90deg, rgba(217,185,92,.12), rgba(217,185,92,.04));
+  .demo-banner{background:linear-gradient(90deg, rgba(217,185,92,.12), rgba(217,185,92,.04));
     border:1px dashed rgba(217,185,92,.5);border-radius:12px;
-    padding:12px 18px;margin-bottom:26px;
-    display:flex;align-items:center;gap:12px;flex-wrap:wrap;
-    font-size:.86rem;color:var(--accent-text);line-height:1.5;
-  }
+    padding:12px 18px;margin-bottom:26px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+    font-size:.86rem;color:var(--accent-text);line-height:1.5;}
   .demo-banner strong{color:#f6ecbf}
 
   .hero{text-align:center;padding:20px 0 46px}
   .hero-logo{width:min(240px, 56vw);height:auto;display:block;margin:0 auto 22px;animation:float 7s ease-in-out infinite}
   @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-  .hero h1{
-    font-size:clamp(1.8rem,5.5vw,3.2rem);text-transform:uppercase;letter-spacing:.13em;
+  .hero h1{font-size:clamp(1.8rem,5.5vw,3.2rem);text-transform:uppercase;letter-spacing:.13em;
     background:linear-gradient(180deg,#f6ecbf,#d9b95c 55%,#8f7430);
-    -webkit-background-clip:text;background-clip:text;color:transparent;
-    margin-bottom:12px;
-  }
+    -webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:12px;}
   .hero p{color:var(--muted);letter-spacing:.16em;text-transform:uppercase;font-size:.74rem;margin:0 0 30px}
   .hero-cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
 
@@ -127,20 +94,14 @@
   .stat .num{font-family:'Cinzel',serif;font-size:2rem;font-weight:700;color:var(--accent-text);line-height:1}
   .stat .lbl{font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:8px}
 
-  .section-title{
-    font-family:'Cinzel',serif;font-size:1rem;text-transform:uppercase;letter-spacing:.14em;
-    color:var(--accent-text);margin:0 0 18px;padding-bottom:10px;
-    border-bottom:1px solid var(--line-soft);
-    display:flex;align-items:center;gap:10px;
-  }
+  .section-title{font-family:'Cinzel',serif;font-size:1rem;text-transform:uppercase;letter-spacing:.14em;
+    color:var(--accent-text);margin:0 0 18px;padding-bottom:10px;border-bottom:1px solid var(--line-soft);
+    display:flex;align-items:center;gap:10px;}
   .section-title::before{content:'◆';color:var(--accent);font-size:.6rem}
 
-  .next-session{
-    background:linear-gradient(135deg, rgba(60,90,120,.3), rgba(30,42,56,.72));
-    border:1px solid rgba(217,185,92,.35);border-radius:16px;
-    padding:26px;margin-bottom:40px;
-    display:flex;align-items:center;gap:22px;flex-wrap:wrap;
-  }
+  .next-session{background:linear-gradient(135deg, rgba(60,90,120,.3), rgba(30,42,56,.72));
+    border:1px solid rgba(217,185,92,.35);border-radius:16px;padding:26px;margin-bottom:40px;
+    display:flex;align-items:center;gap:22px;flex-wrap:wrap;}
   .next-session .ico{font-size:2.6rem;filter:drop-shadow(0 0 14px rgba(217,185,92,.4))}
   .next-session .info{flex:1;min-width:200px}
   .next-session .info .lbl{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-text);margin-bottom:6px}
@@ -151,118 +112,133 @@
   .empty-note{font-size:.85rem;color:var(--muted);font-style:italic;margin:6px 0}
 
   .roster-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
-  .member-card{
-    background:var(--panel);border:1px solid var(--line-soft);border-radius:16px;
-    padding:24px 22px;text-align:center;backdrop-filter:blur(4px);
-    transition:.28s ease;position:relative;
-  }
+  .member-card{background:var(--panel);border:1px solid var(--line-soft);border-radius:16px;
+    padding:24px 22px;text-align:center;backdrop-filter:blur(4px);transition:.28s ease;position:relative;}
   .member-card:hover{transform:translateY(-4px);border-color:rgba(217,185,92,.45);box-shadow:0 14px 40px rgba(0,0,0,.4)}
-  .member-card img{
-    width:82px;height:82px;border-radius:50%;margin:0 auto 14px;display:block;
-    background:#1a2430;border:2px solid var(--line);object-fit:cover;
-  }
-  .member-card .mname{
-    font-family:'Cinzel',serif;font-size:1.02rem;font-weight:700;
+  .member-card img{width:82px;height:82px;border-radius:50%;margin:0 auto 14px;display:block;
+    background:#1a2430;border:2px solid var(--line);object-fit:cover;}
+  .member-card .mname{font-family:'Cinzel',serif;font-size:1.02rem;font-weight:700;
     color:var(--accent-text);letter-spacing:.05em;
-    display:flex;align-items:center;justify-content:center;gap:8px;
-  }
+    display:flex;align-items:center;justify-content:center;gap:8px;}
   .member-card .memail{font-size:.8rem;color:var(--muted);margin-top:4px;word-break:break-all}
   .member-card .roles{margin-top:14px;display:flex;flex-direction:column;gap:8px;text-align:left}
   .role-line{font-size:.82rem;color:var(--muted);display:flex;gap:8px;align-items:flex-start}
-  .role-line .rlabel{
-    font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;
-    padding:3px 8px;border-radius:999px;white-space:nowrap;flex-shrink:0;border:1px solid;
-  }
+  .role-line .rlabel{font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;
+    padding:3px 8px;border-radius:999px;white-space:nowrap;flex-shrink:0;border:1px solid;}
   .role-line .rlabel.master{color:#e0b04a;border-color:rgba(224,176,74,.5);background:rgba(224,176,74,.1)}
   .role-line .rlabel.player{color:#e07a9c;border-color:rgba(224,122,156,.5);background:rgba(224,122,156,.1)}
   .role-line .rlabel.observer{color:#9aa8b8;border-color:rgba(154,168,184,.4);background:rgba(154,168,184,.08)}
   .role-line .ctext{color:var(--text);font-size:.82rem;line-height:1.6}
   .camp-entry{display:inline-flex;align-items:center;gap:6px;margin:0 10px 4px 0}
   .camp-entry .cdot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
-  .you-badge{
-    display:inline-block;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;
+  .you-badge{display:inline-block;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;
     color:#0a1218;background:linear-gradient(180deg,#e6cf87,#c2a24a);
-    padding:2px 8px;border-radius:999px;margin-left:6px;font-weight:700;vertical-align:middle;
-  }
+    padding:2px 8px;border-radius:999px;margin-left:6px;font-weight:700;vertical-align:middle;}
 
-  .camp-card{
-    background:var(--panel);border:1px solid var(--line-soft);border-radius:16px;
+  /* ===== CAMP CARD con banner ===== */
+  .camp-card{background:var(--panel);border:1px solid var(--line-soft);border-radius:16px;
     padding:22px;backdrop-filter:blur(4px);transition:.28s ease;cursor:pointer;
-    position:relative;overflow:hidden;
-  }
+    position:relative;overflow:hidden;}
   .camp-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
     background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:.4}
   .camp-card:hover{transform:translateY(-4px);border-color:rgba(217,185,92,.5);box-shadow:0 16px 44px rgba(0,0,0,.45)}
+  .camp-card.has-banner{padding-top:0}
+  .camp-card.has-banner::before{display:none}
+  .camp-banner{height:160px;background-size:cover;background-position:center;
+    margin:0 -22px 16px;border-bottom:1px solid var(--line-soft);background-color:#1a2430;}
   .camp-card .c-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:10px}
   .camp-card h3{font-size:1.05rem;text-transform:uppercase;color:var(--accent-text);letter-spacing:.06em;line-height:1.3}
   .camp-card .system{font-size:.78rem;color:var(--muted);margin-top:4px;letter-spacing:.04em}
   .camp-card .c-desc{color:var(--muted);font-size:.88rem;line-height:1.55;margin:12px 0 16px;
     display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
   .camp-card .c-footer{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-  .status-badge{
-    font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;
-    padding:4px 10px;border-radius:999px;white-space:nowrap;border:1px solid;
-  }
+  .status-badge{font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;
+    padding:4px 10px;border-radius:999px;white-space:nowrap;border:1px solid;}
   .status-badge.in-corso{color:#7fe0a8;border-color:rgba(127,224,168,.5);background:rgba(127,224,168,.1)}
   .status-badge.conclusa{color:#9aa8b8;border-color:rgba(154,168,184,.4);background:rgba(154,168,184,.08)}
   .status-badge.in-pausa{color:#e0b04a;border-color:rgba(224,176,74,.5);background:rgba(224,176,74,.1)}
   .mini-avatars{display:flex;align-items:center}
-  .mini-avatars img{
-    width:26px;height:26px;border-radius:50%;
-    margin-left:-8px;background:#1a2430;object-fit:cover;
-    border:2px solid;
-  }
+  .mini-avatars img{width:26px;height:26px;border-radius:50%;margin-left:-8px;
+    background:#1a2430;object-fit:cover;border:2px solid;}
   .mini-avatars img:first-child{margin-left:0}
   .c-count{font-size:.78rem;color:var(--muted);margin-left:auto}
 
+  /* ===== Campaign detail banner ===== */
+  .camp-detail-banner{height:220px;background-size:cover;background-position:center;
+    margin:-28px -30px 22px;border-radius:18px 18px 0 0;
+    border-bottom:1px solid var(--line-soft);background-color:#1a2430;position:relative;}
+
+  /* ===== Banner picker (create campaign) ===== */
+  .banner-picker{display:flex;flex-direction:column;gap:10px}
+  .banner-preview{height:120px;background-size:cover;background-position:center;
+    background-color:#1a2430;border:1px dashed var(--line-soft);border-radius:10px;
+    display:grid;place-items:center;color:var(--muted);font-size:.82rem;font-style:italic;overflow:hidden;}
+  .banner-preview.has-image{border-style:solid}
+
+  /* ===== ARCHIVIO ===== */
+  .archive-cats{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+  .archive-cat{font-family:'Cinzel',serif;font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;
+    font-weight:600;padding:8px 16px;border-radius:999px;background:transparent;
+    border:1px solid var(--line-soft);color:#a8b8c8;cursor:pointer;transition:.22s ease;}
+  .archive-cat:hover{color:#f6ecbf;border-color:var(--line);background:rgba(60,90,120,.28)}
+  .archive-cat.active{color:#0a1218;background:linear-gradient(180deg,#e6cf87,#c2a24a);
+    border-color:#e6cf87;font-weight:700;box-shadow:0 0 18px rgba(217,185,92,.3);}
+
+  .archive-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}
+  .archive-card{background:var(--panel);border:1px solid var(--line-soft);border-radius:14px;
+    overflow:hidden;transition:.28s ease;cursor:pointer;position:relative;}
+  .archive-card:hover{transform:translateY(-4px);border-color:rgba(217,185,92,.45);box-shadow:0 14px 40px rgba(0,0,0,.4)}
+  .archive-card-img{height:160px;background-size:cover;background-position:center;
+    background-color:#1a2430;background-image:linear-gradient(135deg, rgba(60,90,120,.3), rgba(30,42,56,.5));
+    border-bottom:1px solid var(--line-soft);display:grid;place-items:center;
+    color:var(--muted);font-size:2rem;}
+  .archive-card-body{padding:16px 18px}
+  .archive-card-title{font-family:'Cinzel',serif;font-size:.95rem;color:var(--accent-text);
+    letter-spacing:.04em;margin-bottom:8px;line-height:1.3;}
+  .archive-card-desc{font-size:.85rem;color:var(--muted);line-height:1.55;
+    display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;min-height:2.5em;}
+  .archive-card-meta{font-size:.7rem;color:var(--muted);margin-top:10px;font-style:italic;
+    letter-spacing:.06em;text-transform:uppercase;}
+  .archive-empty{grid-column:1/-1;text-align:center;padding:40px 20px;
+    color:var(--muted);font-style:italic;font-size:.9rem;line-height:1.6}
+
+  .archive-view-image{height:280px;background-size:cover;background-position:center;
+    background-color:#1a2430;border-radius:12px;border:1px solid var(--line-soft);margin-bottom:20px;}
+  .archive-view-desc{font-size:.95rem;color:var(--text);line-height:1.75;white-space:pre-wrap;margin:0 0 20px}
+  .archive-view-actions{display:flex;gap:12px;justify-content:flex-end;flex-wrap:wrap;margin-top:16px}
+
+  /* ===== Calendario ===== */
   .camp-pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
-  .camp-pill{
-    font-family:'Cinzel',serif;font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;
-    font-weight:600;
-    padding:8px 16px;border-radius:999px;background:transparent;
-    border:1px solid var(--line-soft);color:#a8b8c8;
-    cursor:pointer;transition:.22s ease;
-  }
+  .camp-pill{font-family:'Cinzel',serif;font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;
+    font-weight:600;padding:8px 16px;border-radius:999px;background:transparent;
+    border:1px solid var(--line-soft);color:#a8b8c8;cursor:pointer;transition:.22s ease;}
   .camp-pill:hover{color:#f6ecbf;border-color:var(--line);background:rgba(60,90,120,.28)}
-  .camp-pill.active{
-    color:#0a1218;background:linear-gradient(180deg,#e6cf87,#c2a24a);
-    border-color:#e6cf87;font-weight:700;box-shadow:0 0 18px rgba(217,185,92,.3);
-  }
+  .camp-pill.active{color:#0a1218;background:linear-gradient(180deg,#e6cf87,#c2a24a);
+    border-color:#e6cf87;font-weight:700;box-shadow:0 0 18px rgba(217,185,92,.3);}
   .cal-nav{display:flex;align-items:center;gap:14px;margin-bottom:16px;flex-wrap:wrap}
   .cal-nav h3{font-size:1.2rem;color:var(--accent-text);text-transform:uppercase;letter-spacing:.1em;margin:0;min-width:180px;text-align:center}
-  .cal-nav-arrow{
-    background:transparent;border:1px solid var(--line-soft);
+  .cal-nav-arrow{background:transparent;border:1px solid var(--line-soft);
     color:#f2dfa3;border-radius:50%;width:36px;height:36px;
     display:grid;place-items:center;cursor:pointer;font-size:1.2rem;font-weight:700;
-    font-family:serif;transition:.2s ease;
-  }
+    font-family:serif;transition:.2s ease;}
   .cal-nav-arrow:hover{border-color:var(--accent);background:rgba(217,185,92,.12)}
-  .cal-legend{
-    display:flex;flex-direction:column;gap:10px;margin-bottom:16px;
+  .cal-legend{display:flex;flex-direction:column;gap:10px;margin-bottom:16px;
     padding:12px 16px;background:rgba(8,12,18,.5);
-    border:1px solid var(--line-soft);border-radius:10px;
-    font-size:.82rem;color:var(--muted);
-  }
+    border:1px solid var(--line-soft);border-radius:10px;font-size:.82rem;color:var(--muted);}
   .cal-legend-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
   .cal-legend-lbl{font-family:'Cinzel',serif;font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-text);min-width:64px}
   .legend-member{display:flex;align-items:center;gap:7px;color:var(--text);font-size:.84rem}
   .legend-member .ldot{width:12px;height:12px;border-radius:50%;background:var(--c);box-shadow:0 0 8px var(--c),0 0 0 1px rgba(0,0,0,.4)}
   .cal-legend-hint{font-size:.8rem;color:rgba(138,155,173,.85);font-style:italic}
   .cal-hint{font-size:.85rem;color:var(--accent-text);font-style:italic;margin:0 0 14px}
-
   .cal-weekdays{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:6px}
-  .cal-weekdays span{
-    text-align:center;font-family:'Cinzel',serif;font-size:.68rem;
-    letter-spacing:.14em;text-transform:uppercase;color:var(--accent-text);padding:6px 0;
-  }
+  .cal-weekdays span{text-align:center;font-family:'Cinzel',serif;font-size:.68rem;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--accent-text);padding:6px 0;}
   .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:26px}
-  .cal-cell{
-    position:relative;aspect-ratio:1/1;border-radius:8px;
+  .cal-cell{position:relative;aspect-ratio:1/1;border-radius:8px;
     border:1px solid var(--line-soft);background:rgba(8,12,18,.45);
     padding:7px;cursor:pointer;transition:background .25s ease, border-color .25s ease, transform .18s ease, box-shadow .25s ease;
-    display:flex;flex-direction:column;gap:4px;
-    min-height:56px;user-select:none;
-  }
+    display:flex;flex-direction:column;gap:4px;min-height:56px;user-select:none;}
   .cal-cell.other-month{opacity:.28}
   .cal-cell.past{opacity:.32;cursor:not-allowed}
   .cal-cell.today{border-color:var(--accent);box-shadow:0 0 14px rgba(217,185,92,.35)}
@@ -270,128 +246,78 @@
   .cal-cell.has-votes.many-votes{background:rgba(80,120,160,.6);border-color:rgba(150,190,230,.75)}
   .cal-cell.today.has-votes{background:rgba(60,90,120,.55);border-color:var(--accent)}
   .cal-cell.my-voted{outline:2px solid var(--my-color, var(--accent));outline-offset:-2px}
-  .cal-cell:not(.past):not(.other-month):hover{
-    border-color:rgba(217,185,92,.75);transform:scale(1.04);
-    box-shadow:0 4px 16px rgba(0,0,0,.35);z-index:2;
-  }
+  .cal-cell:not(.past):not(.other-month):hover{border-color:rgba(217,185,92,.75);transform:scale(1.04);
+    box-shadow:0 4px 16px rgba(0,0,0,.35);z-index:2;}
   .cal-daynum{font-family:'Cinzel',serif;font-size:.82rem;font-weight:700;color:var(--text);line-height:1}
   .cal-marks{display:flex;gap:3px;flex-wrap:wrap;margin-top:auto}
   .mark{width:8px;height:8px;border-radius:50%;flex-shrink:0}
   .mark.yes{opacity:1;box-shadow:0 0 4px currentColor}
 
-  .detail-panel{
-    background:var(--panel);border:1px solid var(--line-soft);border-radius:14px;
-    padding:22px 24px;backdrop-filter:blur(4px);margin-top:6px;
-  }
-  .detail-panel h4{
-    font-family:'Cinzel',serif;font-size:.82rem;letter-spacing:.14em;
+  .detail-panel{background:var(--panel);border:1px solid var(--line-soft);border-radius:14px;
+    padding:22px 24px;backdrop-filter:blur(4px);margin-top:6px;}
+  .detail-panel h4{font-family:'Cinzel',serif;font-size:.82rem;letter-spacing:.14em;
     text-transform:uppercase;color:var(--accent-text);margin:0 0 16px;
-    display:flex;align-items:center;gap:10px;
-  }
+    display:flex;align-items:center;gap:10px;}
   .detail-panel h4::before{content:'◆';color:var(--accent);font-size:.55rem}
-
-  .detail-day{
-    background:rgba(8,12,18,.55);
-    border:1px solid var(--line-soft);
-    border-radius:10px;
-    padding:12px 16px;
-    margin-bottom:10px;
-    display:flex;align-items:center;gap:16px;flex-wrap:wrap;
-    transition:.2s ease;
-  }
+  .detail-day{background:rgba(8,12,18,.55);border:1px solid var(--line-soft);
+    border-radius:10px;padding:12px 16px;margin-bottom:10px;
+    display:flex;align-items:center;gap:16px;flex-wrap:wrap;transition:.2s ease;}
   .detail-day:hover{border-color:rgba(217,185,92,.4);background:rgba(8,12,18,.75)}
   .detail-day.is-today{border-color:var(--accent);box-shadow:0 0 12px rgba(217,185,92,.25)}
   .detail-day.full{background:rgba(60,90,120,.35);border-color:rgba(120,160,200,.6)}
-
-  .detail-date{
-    font-family:'Cinzel',serif;
-    font-size:.86rem;
-    color:var(--accent-text);
-    min-width:170px;
-    letter-spacing:.03em;
-  }
+  .detail-date{font-family:'Cinzel',serif;font-size:.86rem;color:var(--accent-text);min-width:170px;letter-spacing:.03em;}
   .detail-date .dd-day{font-weight:700}
   .detail-date .dd-month{color:var(--muted);font-size:.78rem;margin-left:6px;text-transform:uppercase}
-
-  .detail-count{
-    font-family:'Cinzel',serif;font-size:.76rem;font-weight:700;
-    padding:3px 10px;border-radius:999px;
-    background:rgba(92,192,138,.15);color:#8fe8b4;
-    letter-spacing:.03em;
-    flex-shrink:0;
-  }
+  .detail-count{font-family:'Cinzel',serif;font-size:.76rem;font-weight:700;
+    padding:3px 10px;border-radius:999px;background:rgba(92,192,138,.15);color:#8fe8b4;
+    letter-spacing:.03em;flex-shrink:0;}
   .detail-count.partial{background:rgba(217,185,92,.15);color:#f0d488}
   .detail-count.full{background:rgba(92,192,138,.28);color:#a8ffc8;box-shadow:0 0 10px rgba(92,192,138,.3)}
-
-  .detail-voters{
-    display:flex;align-items:center;gap:8px;flex-wrap:wrap;flex:1;min-width:200px;
-  }
-  .voter-chip{
-    display:inline-flex;align-items:center;gap:6px;
-    padding:4px 11px 4px 4px;border-radius:999px;
-    background:rgba(8,12,18,.7);
-    border:1px solid var(--line-soft);
-    font-size:.82rem;color:var(--text);
-    transition:.2s ease;
-  }
-  .voter-chip img{
-    width:22px;height:22px;border-radius:50%;
-    background:#1a2430;object-fit:cover;
-  }
-  .voter-chip .voter-dot{
-    width:9px;height:9px;border-radius:50%;
-    background:var(--c);box-shadow:0 0 6px var(--c);
-    flex-shrink:0;
-  }
+  .detail-voters{display:flex;align-items:center;gap:8px;flex-wrap:wrap;flex:1;min-width:200px;}
+  .voter-chip{display:inline-flex;align-items:center;gap:6px;
+    padding:4px 11px 4px 4px;border-radius:999px;background:rgba(8,12,18,.7);
+    border:1px solid var(--line-soft);font-size:.82rem;color:var(--text);transition:.2s ease;}
+  .voter-chip img{width:22px;height:22px;border-radius:50%;background:#1a2430;object-fit:cover;}
+  .voter-chip .voter-dot{width:9px;height:9px;border-radius:50%;
+    background:var(--c);box-shadow:0 0 6px var(--c);flex-shrink:0;}
   .voter-chip .voter-name{color:var(--c);font-weight:600;letter-spacing:.02em}
   .detail-empty{color:var(--muted);font-style:italic;font-size:.86rem}
   .detail-note{font-size:.82rem;color:var(--muted);font-style:italic;margin:0 0 16px;padding-left:2px}
 
-  .modal-overlay{
-    position:fixed;inset:0;z-index:200;background:rgba(4,8,12,.82);
+  /* ===== Modali ===== */
+  .modal-overlay{position:fixed;inset:0;z-index:200;background:rgba(4,8,12,.82);
     backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
     display:flex;align-items:flex-start;justify-content:center;padding:30px 18px;
-    overflow-y:auto;animation:fadeIn .2s ease both;
-  }
+    overflow-y:auto;animation:fadeIn .2s ease both;}
   .modal-overlay[hidden]{display:none}
   @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-  .modal-box{
-    background:var(--panel-solid);border:1px solid var(--line);border-radius:18px;
+  .modal-box{background:var(--panel-solid);border:1px solid var(--line);border-radius:18px;
     padding:28px 30px 26px;max-width:560px;width:100%;
-    box-shadow:0 24px 70px rgba(0,0,0,.65);animation:modalIn .25s ease both;
-    margin:auto 0;
-  }
+    box-shadow:0 24px 70px rgba(0,0,0,.65);animation:modalIn .25s ease both;margin:auto 0;}
   .modal-box.wide{max-width:820px}
   @keyframes modalIn{from{opacity:0;transform:translateY(16px) scale(.98)}to{opacity:1;transform:none}}
   .modal-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:20px}
   .modal-head h3{font-size:1.2rem;text-transform:uppercase;color:var(--accent-text);letter-spacing:.08em;line-height:1.3}
   .modal-head .sub{font-size:.82rem;color:var(--muted);margin-top:5px;letter-spacing:.04em}
-  .close-x{
-    background:transparent;border:1px solid var(--line-soft);color:#a8b8c8;
+  .close-x{background:transparent;border:1px solid var(--line-soft);color:#a8b8c8;
     width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:1.2rem;font-weight:700;
-    display:grid;place-items:center;transition:.2s;flex-shrink:0;
-  }
+    display:grid;place-items:center;transition:.2s;flex-shrink:0;}
   .close-x:hover{color:#e4ebf2;border-color:var(--line);background:rgba(60,90,120,.2)}
 
   .field{margin-bottom:18px}
-  .field label{
-    display:block;font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.16em;
-    text-transform:uppercase;color:var(--muted);margin-bottom:8px;
-  }
+  .field label{display:block;font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
   input[type=text],input[type=email],input[type=password],textarea,select{
     width:100%;font-family:'Spectral',Georgia,serif;font-size:.96rem;color:var(--text);
     background:rgba(8,12,18,.85);border:1px solid var(--line-soft);border-radius:10px;
-    padding:12px 14px;transition:.2s;outline:none;
-  }
+    padding:12px 14px;transition:.2s;outline:none;}
   input:disabled{opacity:.55;cursor:not-allowed}
   textarea{resize:vertical;min-height:90px;line-height:1.6}
   input:focus,textarea:focus,select:focus{border-color:rgba(217,185,92,.75);box-shadow:0 0 0 3px rgba(217,185,92,.14)}
   input::placeholder,textarea::placeholder{color:rgba(138,155,173,.5);font-style:italic}
-  select{
-    cursor:pointer;appearance:none;
+  select{cursor:pointer;appearance:none;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%23d9b95c' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E");
-    background-repeat:no-repeat;background-position:right 16px center;padding-right:42px;
-  }
+    background-repeat:no-repeat;background-position:right 16px center;padding-right:42px;}
   select option{background:#1a2430;color:var(--text)}
   .modal-actions{display:flex;gap:12px;justify-content:flex-end;flex-wrap:wrap;margin-top:22px}
   .modal-actions.auth-actions .btn{flex:1 1 auto}
@@ -401,180 +327,93 @@
   .avatar-picker .ap-text{flex:1}
   .avatar-picker .ap-hint{font-size:.78rem;color:var(--muted);margin-top:6px;font-style:italic}
 
-  .avatar-grid{
-    display:grid;
-    grid-template-columns:repeat(7, 1fr);
-    gap:8px;
-    margin-top:12px;
-  }
-  .avatar-option{
-    padding:0;border-radius:50%;cursor:pointer;
-    background:transparent;
-    border:2px solid transparent;
-    aspect-ratio:1/1;
-    overflow:hidden;
-    transition:.2s ease;
-    display:flex;align-items:center;justify-content:center;
-    position:relative;
-  }
-  .avatar-option img{
-    width:100%;height:100%;object-fit:cover;
-    border-radius:50%;
-    background:#1a2430;
-  }
+  .avatar-grid{display:grid;grid-template-columns:repeat(7, 1fr);gap:8px;margin-top:12px;}
+  .avatar-option{padding:0;border-radius:50%;cursor:pointer;background:transparent;
+    border:2px solid transparent;aspect-ratio:1/1;overflow:hidden;transition:.2s ease;
+    display:flex;align-items:center;justify-content:center;position:relative;}
+  .avatar-option img{width:100%;height:100%;object-fit:cover;border-radius:50%;background:#1a2430;}
   .avatar-option:hover:not(.taken){border-color:rgba(217,185,92,.5);transform:scale(1.06)}
-  .avatar-option.selected{
-    border-color:var(--accent);
-    box-shadow:0 0 0 2px rgba(217,185,92,.35), 0 0 16px rgba(217,185,92,.35);
-  }
-  .avatar-option.taken{
-    opacity:.22;
-    cursor:not-allowed;
-    filter:grayscale(1);
-  }
-  .avatar-option.taken::after{
-    content:'✕';
-    position:absolute;inset:0;
-    display:grid;place-items:center;
-    color:#ff8a8a;font-size:1.2rem;font-weight:700;
-    text-shadow:0 0 6px rgba(0,0,0,.9);
-    opacity:1;filter:none;
-  }
+  .avatar-option.selected{border-color:var(--accent);
+    box-shadow:0 0 0 2px rgba(217,185,92,.35), 0 0 16px rgba(217,185,92,.35);}
+  .avatar-option.taken{opacity:.22;cursor:not-allowed;filter:grayscale(1);}
+  .avatar-option.taken::after{content:'✕';position:absolute;inset:0;display:grid;place-items:center;
+    color:#ff8a8a;font-size:1.2rem;font-weight:700;text-shadow:0 0 6px rgba(0,0,0,.9);opacity:1;filter:none;}
 
   .cd-info{color:var(--muted);line-height:1.7;font-size:.94rem;margin:0 0 22px}
   .cd-section{margin-top:26px}
-  .cd-section-title{
-    font-family:'Cinzel',serif;font-size:.78rem;text-transform:uppercase;letter-spacing:.14em;
+  .cd-section-title{font-family:'Cinzel',serif;font-size:.78rem;text-transform:uppercase;letter-spacing:.14em;
     color:var(--accent-text);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--line-soft);
-    display:flex;align-items:center;gap:10px;
-  }
+    display:flex;align-items:center;gap:10px;}
   .cd-section-title::before{content:'◆';color:var(--accent);font-size:.55rem}
 
-  .member-row{
-    display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;
+  .member-row{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;
     background:rgba(8,12,18,.5);border:1px solid var(--line-soft);margin-bottom:8px;
-    border-left:3px solid var(--c, var(--accent));
-    flex-wrap:wrap;
-  }
+    border-left:3px solid var(--c, var(--accent));flex-wrap:wrap;}
   .member-row img{width:38px;height:38px;border-radius:50%;background:#1a2430;object-fit:cover;flex-shrink:0}
   .member-row .mname{font-size:.92rem;font-weight:600;color:var(--text);display:flex;align-items:center;gap:8px}
   .member-row .mname .cdot{width:9px;height:9px;border-radius:50%;background:var(--c);box-shadow:0 0 6px var(--c);flex-shrink:0}
   .member-row .mrole{margin-left:auto;display:flex;align-items:center;gap:8px}
-  .member-row .btn-remove-member{
-    background:transparent;border:1px solid rgba(217,92,92,.5);
-    color:#ffb0a2;border-radius:50%;
-    width:30px;height:30px;display:grid;place-items:center;
-    cursor:pointer;font-size:1.05rem;font-weight:700;padding:0;transition:.2s;
-    flex-shrink:0;line-height:1;
-  }
-  .member-row .btn-remove-member:hover{
-    background:rgba(217,74,58,.18);border-color:rgba(217,92,92,.9);color:#ff9a8a;
-  }
-  .role-change-select{
-    font-family:'Cinzel',serif;
-    font-size:.62rem;
-    letter-spacing:.08em;
-    text-transform:uppercase;
-    padding:5px 26px 5px 10px!important;
-    border-radius:999px!important;
-    border:1px solid var(--line-soft)!important;
-    background-color:rgba(8,12,18,.85)!important;
-    background-position:right 10px center!important;
-    color:var(--accent-text)!important;
-    cursor:pointer;
-    width:auto!important;
-    min-width:130px;
-    font-weight:700;
-  }
+  .member-row .btn-remove-member{background:transparent;border:1px solid rgba(217,92,92,.5);
+    color:#ffb0a2;border-radius:50%;width:30px;height:30px;display:grid;place-items:center;
+    cursor:pointer;font-size:1.05rem;font-weight:700;padding:0;transition:.2s;flex-shrink:0;line-height:1;}
+  .member-row .btn-remove-member:hover{background:rgba(217,74,58,.18);border-color:rgba(217,92,92,.9);color:#ff9a8a}
+  .role-change-select{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;
+    padding:5px 26px 5px 10px!important;border-radius:999px!important;
+    border:1px solid var(--line-soft)!important;background-color:rgba(8,12,18,.85)!important;
+    background-position:right 10px center!important;color:var(--accent-text)!important;
+    cursor:pointer;width:auto!important;min-width:130px;font-weight:700;}
   .role-change-select:hover{border-color:rgba(217,185,92,.6)!important}
   .role-change-select:focus{border-color:rgba(217,185,92,.85)!important;box-shadow:0 0 0 3px rgba(217,185,92,.15)!important}
 
-  .session-block{
-    background:rgba(8,12,18,.5);border:1px solid var(--line-soft);border-radius:12px;
-    padding:16px 18px;margin-bottom:12px;
-  }
-  .session-block.editing{
-    border-color:rgba(217,185,92,.6);
-    background:rgba(8,12,18,.7);
-  }
-  .session-block .s-head{
-    display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:10px;
-  }
-  .session-block .s-num{
-    font-family:'Cinzel',serif;font-size:.62rem;font-weight:700;letter-spacing:.14em;
+  .session-block{background:rgba(8,12,18,.5);border:1px solid var(--line-soft);border-radius:12px;
+    padding:16px 18px;margin-bottom:12px;}
+  .session-block.editing{border-color:rgba(217,185,92,.6);background:rgba(8,12,18,.7);}
+  .session-block .s-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:10px;}
+  .session-block .s-num{font-family:'Cinzel',serif;font-size:.62rem;font-weight:700;letter-spacing:.14em;
     text-transform:uppercase;color:#0a1218;padding:4px 10px;border-radius:999px;
-    background:linear-gradient(180deg,#e6cf87,#c2a24a);white-space:nowrap;
-  }
+    background:linear-gradient(180deg,#e6cf87,#c2a24a);white-space:nowrap;}
   .session-block .s-title{font-family:'Cinzel',serif;font-size:.98rem;color:var(--accent-text);letter-spacing:.04em}
   .session-block .s-date{font-size:.78rem;color:var(--muted);margin-left:auto}
-  .session-block .s-summary{
-    font-size:.9rem;color:var(--text);line-height:1.65;white-space:pre-wrap;margin:0;
-  }
+  .session-block .s-summary{font-size:.9rem;color:var(--text);line-height:1.65;white-space:pre-wrap;margin:0;}
   .session-block .s-summary.empty{color:var(--muted);font-style:italic}
 
-  .session-edit-row{
-    display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap;
-  }
-  .session-edit-num{
-    width:70px!important;padding:6px 10px!important;font-size:.85rem!important;
-    text-align:center;
-  }
-  .session-edit-title{
-    flex:1;min-width:180px;padding:6px 12px!important;font-size:.92rem!important;
-  }
-  .session-edit-summary{
-    min-height:80px!important;font-size:.9rem!important;
-  }
+  .session-edit-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap;}
+  .session-edit-num{width:70px!important;padding:6px 10px!important;font-size:.85rem!important;text-align:center;}
+  .session-edit-title{flex:1;min-width:180px;padding:6px 12px!important;font-size:.92rem!important;}
+  .session-edit-summary{min-height:80px!important;font-size:.9rem!important;}
 
-  .session-form{
-    background:rgba(8,12,18,.6);border:1px dashed rgba(217,185,92,.4);
-    border-radius:12px;padding:16px 18px;margin-top:16px;
-  }
+  .session-form{background:rgba(8,12,18,.6);border:1px dashed rgba(217,185,92,.4);
+    border-radius:12px;padding:16px 18px;margin-top:16px;}
   .session-form .s-head{margin-bottom:12px;font-family:'Cinzel',serif;color:var(--accent-text);font-size:.84rem;letter-spacing:.1em;text-transform:uppercase}
   .session-form .form-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:10px}
   .session-form .form-row .f-num{width:110px;flex-shrink:0}
   .session-form .form-row .f-title{flex:1;min-width:180px}
-  .session-form label{
-    display:block;font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.14em;
-    text-transform:uppercase;color:var(--muted);margin-bottom:5px;
-  }
-  .session-form input, .session-form textarea{
-    padding:8px 12px;font-size:.9rem;
-  }
+  .session-form label{display:block;font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--muted);margin-bottom:5px;}
+  .session-form input, .session-form textarea{padding:8px 12px;font-size:.9rem;}
   .session-form textarea{min-height:70px}
 
-  .comments-section{
-    margin-top:16px;padding-top:14px;border-top:1px solid var(--line-soft);
-  }
-  .comments-label{
-    font-family:'Cinzel',serif;font-size:.66rem;letter-spacing:.14em;
+  .comments-section{margin-top:16px;padding-top:14px;border-top:1px solid var(--line-soft);}
+  .comments-label{font-family:'Cinzel',serif;font-size:.66rem;letter-spacing:.14em;
     text-transform:uppercase;color:var(--muted);margin-bottom:10px;
-    display:flex;align-items:center;gap:8px;
-  }
+    display:flex;align-items:center;gap:8px;}
   .comments-label::before{content:'▸';color:var(--accent);font-size:.7rem}
   .comments-list{display:flex;flex-direction:column;gap:8px}
-  .comment-item{
-    background:rgba(8,12,18,.55);border:1px solid var(--line-soft);
-    border-left:3px solid var(--c, var(--accent));
-    border-radius:8px;padding:10px 14px;
-  }
+  .comment-item{background:rgba(8,12,18,.55);border:1px solid var(--line-soft);
+    border-left:3px solid var(--c, var(--accent));border-radius:8px;padding:10px 14px;}
   .comment-head{display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap}
   .comment-dot{width:10px;height:10px;border-radius:50%;background:var(--c);box-shadow:0 0 6px var(--c);flex-shrink:0}
   .comment-name{font-family:'Cinzel',serif;font-size:.82rem;font-weight:700;color:var(--c);letter-spacing:.04em}
   .comment-text{font-size:.88rem;color:var(--text);line-height:1.55;white-space:pre-wrap}
   .comment-text.empty{color:var(--muted);font-style:italic}
-  .comment-form{
-    margin-top:12px;padding:12px 14px;border-radius:10px;
-    background:rgba(8,12,18,.7);border:1px dashed rgba(217,185,92,.4);
-  }
+  .comment-form{margin-top:12px;padding:12px 14px;border-radius:10px;
+    background:rgba(8,12,18,.7);border:1px dashed rgba(217,185,92,.4);}
   .comment-form textarea{min-height:60px!important;font-size:.9rem!important}
   .comment-form .row{display:flex;gap:10px;margin-top:8px;flex-wrap:wrap}
 
   .add-member-list{display:flex;flex-direction:column;gap:10px;max-height:420px;overflow-y:auto;padding:4px 2px}
-  .add-member-row{
-    display:flex;align-items:center;gap:12px;padding:10px 12px;
-    background:rgba(8,12,18,.5);border:1px solid var(--line-soft);border-radius:10px;
-  }
+  .add-member-row{display:flex;align-items:center;gap:12px;padding:10px 12px;
+    background:rgba(8,12,18,.5);border:1px solid var(--line-soft);border-radius:10px;}
   .add-member-row img{width:38px;height:38px;border-radius:50%;background:#1a2430;object-fit:cover;flex-shrink:0}
   .add-member-row .info{flex:1;min-width:0}
   .add-member-row .name{font-size:.92rem;font-weight:600;color:var(--text);display:flex;align-items:center;gap:8px}
@@ -584,19 +423,15 @@
   .add-member-row .btn{flex-shrink:0}
   .empty-add-note{font-size:.86rem;color:var(--muted);font-style:italic;text-align:center;padding:28px 18px;line-height:1.6}
 
-  #toast{
-    position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(20px);
+  #toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(20px);
     background:var(--panel-solid);border:1px solid var(--accent);border-radius:999px;
     padding:12px 26px;color:var(--accent-text);font-size:.88rem;letter-spacing:.04em;
     box-shadow:0 12px 40px rgba(0,0,0,.6),0 0 24px rgba(217,185,92,.2);
-    opacity:0;pointer-events:none;transition:.3s ease;z-index:300;white-space:nowrap;
-  }
+    opacity:0;pointer-events:none;transition:.3s ease;z-index:300;white-space:nowrap;}
   #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
-  footer{
-    text-align:center;padding:30px 22px;border-top:1px solid var(--line-soft);
-    color:rgba(138,155,173,.6);font-size:.8rem;letter-spacing:.06em;
-  }
+  footer{text-align:center;padding:30px 22px;border-top:1px solid var(--line-soft);
+    color:rgba(138,155,173,.6);font-size:.8rem;letter-spacing:.06em;}
 
   @media (max-width:860px){
     .user-area{position:static;transform:none;width:100%;justify-content:center;margin-top:6px}
@@ -623,6 +458,7 @@
     .detail-panel{padding:16px 14px}
     .member-row .mrole{margin-left:0;width:100%;margin-top:4px;justify-content:flex-end}
     .role-change-select{min-width:0;width:100%}
+    .camp-detail-banner{margin:-22px -20px 18px;height:160px}
   }
 </style>
 </head>
@@ -634,6 +470,7 @@
       <button data-page="home" class="active">Home</button>
       <button data-page="roster">Roster</button>
       <button data-page="campagne">Campagne</button>
+      <button data-page="archivio">Archivio</button>
       <button data-page="calendario">Calendario</button>
     </nav>
     <div class="user-area" id="userArea"></div>
@@ -645,7 +482,6 @@
     <div class="demo-banner">
       <span>🧪 <strong>Benvenuto su Kradicchion.</strong> Registrati per entrare nel gruppo, scegli il tuo avatar e inizia a partecipare alle campagne. Ogni giocatore ha un colore personale in ciascuna campagna.</span>
     </div>
-
     <div class="hero">
       <img class="hero-logo" src="https://i.imgur.com/FapFjNG.png" alt="Kradicchion">
       <h1>Kradicchion</h1>
@@ -672,7 +508,7 @@
   <section id="page-campagne" class="page">
     <div class="page-head">
       <h2>Campagne</h2>
-      <p>L'archivio delle nostre avventure. Clicca su una campagna per aprire la scheda completa, con membri, sessioni e gestione dei giocatori.</p>
+      <p>L'archivio delle nostre avventure. Clicca su una campagna per aprire la scheda completa.</p>
     </div>
     <div class="toolbar" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px;align-items:center">
       <div style="flex:1"></div>
@@ -681,10 +517,23 @@
     <div class="card-grid" id="campaignGrid"></div>
   </section>
 
+  <section id="page-archivio" class="page">
+    <div class="page-head">
+      <h2>Archivio</h2>
+      <p>La raccolta di conoscenze del gruppo: PNG, luoghi, oggetti e reliquie, religione e bestiario. Ogni voce ha un'immagine e una descrizione.</p>
+    </div>
+    <div class="toolbar" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px;align-items:center">
+      <div style="flex:1"></div>
+      <button class="btn" id="newArchiveBtn">+ Nuova voce</button>
+    </div>
+    <div class="archive-cats" id="archiveCats"></div>
+    <div class="archive-grid" id="archiveGrid"></div>
+  </section>
+
   <section id="page-calendario" class="page">
     <div class="page-head">
       <h2>Calendario</h2>
-      <p>Un calendario per ogni campagna. Clicca su un giorno per confermare la tua disponibilità: appare il tuo pallino colorato e il riquadro si illumina. Clicca di nuovo per rimuoverla.</p>
+      <p>Un calendario per ogni campagna. Clicca su un giorno per confermare la tua disponibilità.</p>
     </div>
     <div id="calendarList"></div>
   </section>
@@ -692,13 +541,11 @@
 
 <footer>Kradicchion Hub</footer>
 
+<!-- AUTH MODAL -->
 <div class="modal-overlay" id="authModal" hidden>
   <div class="modal-box">
     <div class="modal-head">
-      <div>
-        <h3>Accedi o registrati</h3>
-        <div class="sub">Scegli se accedere con un account esistente o crearne uno nuovo.</div>
-      </div>
+      <div><h3>Accedi o registrati</h3><div class="sub">Scegli se accedere con un account esistente o crearne uno nuovo.</div></div>
       <button class="close-x" data-close="authModal">×</button>
     </div>
     <div class="field"><label>Nome (solo per registrazione)</label><input type="text" id="authName" placeholder="Il tuo nome" maxlength="40"></div>
@@ -710,9 +557,7 @@
         <img id="avatarPreview" alt="Anteprima avatar">
         <div class="ap-text">
           <div class="ap-hint" id="avatarHint">Scegli uno degli avatar qui sotto, oppure carica una tua immagine (max 4 MB).</div>
-          <button type="button" class="btn ghost small" id="uploadAvatarBtn" style="margin-top:8px">
-            📷 Carica la tua immagine
-          </button>
+          <button type="button" class="btn ghost small" id="uploadAvatarBtn" style="margin-top:8px">📷 Carica la tua immagine</button>
           <input type="file" id="avatarFileInput" accept="image/*" hidden>
         </div>
       </div>
@@ -727,32 +572,22 @@
   </div>
 </div>
 
+<!-- PROFILE MODAL -->
 <div class="modal-overlay" id="profileModal" hidden>
   <div class="modal-box">
     <div class="modal-head">
-      <div>
-        <h3>Il tuo profilo</h3>
-        <div class="sub">Modifica il tuo nome visualizzato e il tuo avatar.</div>
-      </div>
+      <div><h3>Il tuo profilo</h3><div class="sub">Modifica il tuo nome visualizzato e il tuo avatar.</div></div>
       <button class="close-x" data-close="profileModal">×</button>
     </div>
-    <div class="field">
-      <label>Nome visualizzato</label>
-      <input type="text" id="profName" maxlength="40" placeholder="Il tuo nome">
-    </div>
-    <div class="field">
-      <label>Email (non modificabile)</label>
-      <input type="email" id="profEmail" disabled>
-    </div>
+    <div class="field"><label>Nome visualizzato</label><input type="text" id="profName" maxlength="40" placeholder="Il tuo nome"></div>
+    <div class="field"><label>Email (non modificabile)</label><input type="email" id="profEmail" disabled></div>
     <div class="field">
       <label>Avatar</label>
       <div class="avatar-picker">
         <img id="profAvatarPreview" alt="Anteprima avatar">
         <div class="ap-text">
           <div class="ap-hint">Scegli uno degli avatar qui sotto, oppure carica una tua immagine (max 4 MB).</div>
-          <button type="button" class="btn ghost small" id="profUploadAvatarBtn" style="margin-top:8px">
-            📷 Carica la tua immagine
-          </button>
+          <button type="button" class="btn ghost small" id="profUploadAvatarBtn" style="margin-top:8px">📷 Carica la tua immagine</button>
           <input type="file" id="profAvatarFileInput" accept="image/*" hidden>
         </div>
       </div>
@@ -766,19 +601,18 @@
   </div>
 </div>
 
+<!-- CAMPAIGN DETAIL MODAL -->
 <div class="modal-overlay" id="campaignModal" hidden>
   <div class="modal-box wide">
     <div id="campaignDetail"></div>
   </div>
 </div>
 
+<!-- ADD MEMBER MODAL -->
 <div class="modal-overlay" id="addMemberModal" hidden style="z-index:210">
   <div class="modal-box">
     <div class="modal-head">
-      <div>
-        <h3>Aggiungi giocatori</h3>
-        <div class="sub" id="addMemberSub"></div>
-      </div>
+      <div><h3>Aggiungi giocatori</h3><div class="sub" id="addMemberSub"></div></div>
       <button class="close-x" data-close="addMemberModal">×</button>
     </div>
     <div class="add-member-list" id="addMemberList"></div>
@@ -788,6 +622,7 @@
   </div>
 </div>
 
+<!-- NEW CAMPAIGN MODAL -->
 <div class="modal-overlay" id="newCampaignModal" hidden>
   <div class="modal-box">
     <div class="modal-head">
@@ -803,9 +638,58 @@
       </select>
     </div>
     <div class="field"><label>Descrizione</label><textarea id="ncDesc" placeholder="Di cosa parla la campagna?"></textarea></div>
+    <div class="field">
+      <label>Immagine di copertina (opzionale, max 5 MB)</label>
+      <div class="banner-picker">
+        <div class="banner-preview" id="ncBannerPreview">Nessuna immagine</div>
+        <button type="button" class="btn ghost small" id="ncBannerBtn" style="align-self:flex-start">📷 Scegli immagine</button>
+        <input type="file" id="ncBannerInput" accept="image/*" hidden>
+      </div>
+    </div>
     <div class="modal-actions">
       <button class="btn ghost" data-close="newCampaignModal">Annulla</button>
       <button class="btn" id="ncSubmit">Crea campagna</button>
+    </div>
+  </div>
+</div>
+
+<!-- ARCHIVE VIEW MODAL -->
+<div class="modal-overlay" id="archiveViewModal" hidden>
+  <div class="modal-box wide">
+    <div id="archiveViewContent"></div>
+  </div>
+</div>
+
+<!-- ARCHIVE EDIT MODAL -->
+<div class="modal-overlay" id="archiveEditModal" hidden style="z-index:210">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div><h3 id="archiveEditTitle">Nuova voce</h3><div class="sub">Aggiungi un'immagine e una descrizione.</div></div>
+      <button class="close-x" data-close="archiveEditModal">×</button>
+    </div>
+    <div class="field">
+      <label>Categoria</label>
+      <select id="aeCategory">
+        <option value="png">PNG</option>
+        <option value="luoghi">Luoghi</option>
+        <option value="oggetti">Oggetti e Reliquie</option>
+        <option value="religione">Religione</option>
+        <option value="bestiario">Bestiario</option>
+      </select>
+    </div>
+    <div class="field"><label>Titolo</label><input type="text" id="aeTitle" placeholder="Es. Il Tempio Sommerso" maxlength="80"></div>
+    <div class="field">
+      <label>Immagine (opzionale, max 5 MB)</label>
+      <div class="banner-picker">
+        <div class="banner-preview" id="aeImagePreview">Nessuna immagine</div>
+        <button type="button" class="btn ghost small" id="aeImageBtn" style="align-self:flex-start">📷 Scegli immagine</button>
+        <input type="file" id="aeImageInput" accept="image/*" hidden>
+      </div>
+    </div>
+    <div class="field"><label>Descrizione</label><textarea id="aeDescription" placeholder="Descrizione dettagliata..."></textarea></div>
+    <div class="modal-actions">
+      <button class="btn ghost" data-close="archiveEditModal">Annulla</button>
+      <button class="btn" id="aeSaveBtn">Salva</button>
     </div>
   </div>
 </div>
@@ -817,47 +701,36 @@
 (function(){
 'use strict';
 
-// ============================================================
-// CONFIGURAZIONE SUPABASE
-// ============================================================
 const SUPABASE_URL = 'https://xvccpdhdnbinrydwelal.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_eforoyFg7vXZoSXkJBIaEQ_ygV6JDAB';
 const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-// Limite dimensione avatar (4 MB)
 const AVATAR_MAX_BYTES = 4 * 1024 * 1024;
-const AVATAR_MAX_LABEL = '4 MB';
+const BANNER_MAX_BYTES = 5 * 1024 * 1024;
+const ARCHIVE_MAX_BYTES = 5 * 1024 * 1024;
 
-// ============================================================
-// COSTANTI
-// ============================================================
-const USER_COLORS = [
-  '#d9b95c', '#6ec6b8', '#d97a5c', '#b08ae0',
-  '#7fb8e0', '#e07a9c', '#a8d97a', '#e0a05c'
+const ARCHIVE_CATEGORIES = [
+  { key:'png', label:'PNG' },
+  { key:'luoghi', label:'Luoghi' },
+  { key:'oggetti', label:'Oggetti e Reliquie' },
+  { key:'religione', label:'Religione' },
+  { key:'bestiario', label:'Bestiario' }
 ];
+
+const USER_COLORS = ['#d9b95c','#6ec6b8','#d97a5c','#b08ae0','#7fb8e0','#e07a9c','#a8d97a','#e0a05c'];
 const DEFAULT_COLOR = '#8a9bad';
 
 const AVATAR_IMAGES = [
-  'https://i.imgur.com/t8bDwnz.png',
-  'https://i.imgur.com/LBR9nXY.png',
-  'https://i.imgur.com/2Yi4shp.png',
-  'https://i.imgur.com/2N1h8RF.png',
-  'https://i.imgur.com/jCcupk8.png',
-  'https://i.imgur.com/cmUt5oC.png',
-  'https://i.imgur.com/LkOMVlk.png',
-  'https://i.imgur.com/V9eP3Wh.png',
-  'https://i.imgur.com/hR0TE8D.png',
-  'https://i.imgur.com/9JR2YPW.png',
-  'https://i.imgur.com/NPsfqrP.png',
-  'https://i.imgur.com/Fo6oGyI.png',
-  'https://i.imgur.com/ay5PVTi.png',
-  'https://i.imgur.com/7lSPNwS.png'
+  'https://i.imgur.com/t8bDwnz.png','https://i.imgur.com/LBR9nXY.png',
+  'https://i.imgur.com/2Yi4shp.png','https://i.imgur.com/2N1h8RF.png',
+  'https://i.imgur.com/jCcupk8.png','https://i.imgur.com/cmUt5oC.png',
+  'https://i.imgur.com/LkOMVlk.png','https://i.imgur.com/V9eP3Wh.png',
+  'https://i.imgur.com/hR0TE8D.png','https://i.imgur.com/9JR2YPW.png',
+  'https://i.imgur.com/NPsfqrP.png','https://i.imgur.com/Fo6oGyI.png',
+  'https://i.imgur.com/ay5PVTi.png','https://i.imgur.com/7lSPNwS.png'
 ];
 
-// ============================================================
-// STATO GLOBALE
-// ============================================================
-let DB = { users: [], campaigns: [] };
+let DB = { users: [], campaigns: [], archive: [] };
 let CURRENT_USER = null;
 let editingSessionId = null;
 let commentingSessionId = null;
@@ -869,159 +742,102 @@ let pendingAvatarFile = null;
 let profilePendingFile = null;
 let profileSelectedAvatar = '';
 
-// ============================================================
-// UTILITY
-// ============================================================
+// Archive state
+let selectedArchiveCat = 'all';
+let editingArchiveId = null;
+let archivePendingFile = null;
+let archivePendingPreview = '';
+let archiveSelectedImage = '';
+
+// Campaign banner state
+let campaignPendingBanner = null;
+let campaignPendingBannerPreview = '';
+
+// ============ UTILITY ============
 function $(sel, root){ return (root||document).querySelector(sel); }
 function $$(sel, root){ return Array.prototype.slice.call((root||document).querySelectorAll(sel)); }
-function esc(s){
-  return String(s==null?'':s).replace(/[&<>"']/g, c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
-}
-function dateKey(d){
-  const pad = n => String(n).padStart(2,'0');
-  return d.getFullYear() + '-' + pad(d.getMonth()+1) + '-' + pad(d.getDate());
-}
+function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g, c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])); }
+function dateKey(d){ const p=n=>String(n).padStart(2,'0'); return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate()); }
 function todayKey(){ return dateKey(new Date()); }
 function getUser(id){ return DB.users.find(u=>u.id===id); }
 function getCampaign(id){ return DB.campaigns.find(c=>c.id===id); }
 function currentUser(){ return CURRENT_USER; }
-
-function getUserAvatar(u){
-  if(u && u.avatarUrl) return u.avatarUrl;
-  return AVATAR_IMAGES[0];
-}
+function getUserAvatar(u){ if(u && u.avatarUrl) return u.avatarUrl; return AVATAR_IMAGES[0]; }
 function takenAvatars(exceptUserId){
   const taken = new Set();
-  DB.users.forEach(u => {
-    if(exceptUserId && u.id === exceptUserId) return;
-    if(u.avatarUrl && AVATAR_IMAGES.indexOf(u.avatarUrl) !== -1) taken.add(u.avatarUrl);
-  });
+  DB.users.forEach(u => { if(exceptUserId && u.id === exceptUserId) return; if(u.avatarUrl && AVATAR_IMAGES.indexOf(u.avatarUrl) !== -1) taken.add(u.avatarUrl); });
   return taken;
 }
-function pickFreeAvatarForNewUser(){
-  const taken = takenAvatars(null);
-  for(const url of AVATAR_IMAGES){
-    if(!taken.has(url)) return url;
-  }
-  return null;
-}
-function pickColorForCampaign(campaign){
-  const used = new Set((campaign.members||[]).map(m=>m.color).filter(Boolean));
-  for(const c of USER_COLORS){ if(!used.has(c)) return c; }
-  return USER_COLORS[(campaign.members||[]).length % USER_COLORS.length];
-}
-function memberColorIn(campaign, userId){
-  if(!campaign || !campaign.members) return DEFAULT_COLOR;
-  const m = campaign.members.find(x=>x.userId===userId);
-  return (m && m.color) ? m.color : DEFAULT_COLOR;
-}
-function fmtDateOnly(iso){
-  const d = new Date(iso);
-  return d.toLocaleDateString('it-IT', { day:'numeric', month:'long', year:'numeric' });
-}
-function fmtMonthYear(year, month){
-  const d = new Date(year, month, 1);
-  return d.toLocaleDateString('it-IT', { month:'long', year:'numeric' });
-}
-function roleLabel(role){
-  return role==='master' ? 'Master' : role==='player' ? 'Giocatore' : 'Osservatore';
-}
-function statusLabel(s){
-  return s==='in-corso' ? 'In corso' : s==='conclusa' ? 'Conclusa' : 'In pausa';
-}
-function validEmail(email){
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
-function toast(msg){
-  const t = $('#toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  clearTimeout(t._t);
-  t._t = setTimeout(()=>t.classList.remove('show'), 2600);
-}
+function pickFreeAvatarForNewUser(){ const t=takenAvatars(null); for(const u of AVATAR_IMAGES){ if(!t.has(u)) return u; } return null; }
+function pickColorForCampaign(campaign){ const u=new Set((campaign.members||[]).map(m=>m.color).filter(Boolean)); for(const c of USER_COLORS){ if(!u.has(c)) return c; } return USER_COLORS[(campaign.members||[]).length%USER_COLORS.length]; }
+function memberColorIn(campaign, userId){ if(!campaign || !campaign.members) return DEFAULT_COLOR; const m=campaign.members.find(x=>x.userId===userId); return (m && m.color)?m.color:DEFAULT_COLOR; }
+function fmtDateOnly(iso){ return new Date(iso).toLocaleDateString('it-IT',{day:'numeric',month:'long',year:'numeric'}); }
+function fmtMonthYear(y,m){ return new Date(y,m,1).toLocaleDateString('it-IT',{month:'long',year:'numeric'}); }
+function roleLabel(r){ return r==='master'?'Master':r==='player'?'Giocatore':'Osservatore'; }
+function statusLabel(s){ return s==='in-corso'?'In corso':s==='conclusa'?'Conclusa':'In pausa'; }
+function catLabel(k){ const c = ARCHIVE_CATEGORIES.find(x=>x.key===k); return c?c.label:k; }
+function validEmail(e){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
+function toast(msg){ const t=$('#toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove('show'),2600); }
 
-// ============================================================
-// CARICAMENTO DATI DA SUPABASE
-// ============================================================
+// ============ LOAD ============
 async function refreshDB(){
-  const [profiles, camps, members, sessions, comments, avail] = await Promise.all([
+  const [profiles, camps, members, sessions, comments, avail, archive] = await Promise.all([
     sb.from('profiles').select('*'),
     sb.from('campaigns').select('*'),
     sb.from('members').select('*'),
-    sb.from('sessions').select('*').order('created_at', { ascending:true }),
+    sb.from('sessions').select('*').order('created_at',{ascending:true}),
     sb.from('comments').select('*'),
     sb.from('availability').select('*'),
+    sb.from('archive_entries').select('*').order('created_at',{ascending:false}),
   ]);
-
   if(profiles.error){ console.error('profiles', profiles.error); return; }
   if(camps.error){ console.error('camps', camps.error); return; }
 
-  DB.users = profiles.data.map(p => ({
-    id: p.id, name: p.name, email: p.email, avatarUrl: p.avatar_url,
-    joined: p.created_at,
-  }));
+  DB.users = profiles.data.map(p=>({ id:p.id, name:p.name, email:p.email, avatarUrl:p.avatar_url, joined:p.created_at }));
 
   DB.campaigns = camps.data.map(c => {
-    const myMembers = members.data
-      .filter(m => m.campaign_id === c.id)
-      .map(m => ({ userId: m.user_id, role: m.role, color: m.color }));
-
-    const mySessions = sessions.data
-      .filter(s => s.campaign_id === c.id)
-      .map(s => {
-        const cs = {};
-        comments.data
-          .filter(cm => cm.session_id === s.id)
-          .forEach(cm => { cs[cm.user_id] = cm.body; });
-        return {
-          id: s.id, num: s.num, title: s.title,
-          date: s.session_date, summary: s.summary || '', comments: cs,
-        };
-      });
-
+    const myMembers = members.data.filter(m=>m.campaign_id===c.id).map(m=>({ userId:m.user_id, role:m.role, color:m.color }));
+    const mySessions = sessions.data.filter(s=>s.campaign_id===c.id).map(s => {
+      const cs = {};
+      comments.data.filter(cm=>cm.session_id===s.id).forEach(cm=>{ cs[cm.user_id]=cm.body; });
+      return { id:s.id, num:s.num, title:s.title, date:s.session_date, summary:s.summary||'', comments:cs };
+    });
     const myAvail = {};
-    avail.data
-      .filter(a => a.campaign_id === c.id)
-      .forEach(a => {
-        if(!myAvail[a.day]) myAvail[a.day] = {};
-        myAvail[a.day][a.user_id] = 'yes';
-      });
-
-    return {
-      id: c.id, name: c.name, system: c.system, description: c.description || '',
-      status: c.status, members: myMembers, sessions: mySessions, availability: myAvail,
-    };
+    avail.data.filter(a=>a.campaign_id===c.id).forEach(a => {
+      if(!myAvail[a.day]) myAvail[a.day]={};
+      myAvail[a.day][a.user_id]='yes';
+    });
+    return { id:c.id, name:c.name, system:c.system, description:c.description||'', status:c.status,
+      bannerUrl:c.banner_url||'', members:myMembers, sessions:mySessions, availability:myAvail };
   });
+
+  DB.archive = (archive.data||[]).map(a => ({
+    id:a.id, category:a.category, title:a.title, imageUrl:a.image_url||'',
+    description:a.description||'', createdBy:a.created_by, createdAt:a.created_at
+  }));
 }
 
 async function refreshCurrentUser(){
-  const { data: { session } } = await sb.auth.getSession();
+  const { data:{ session } } = await sb.auth.getSession();
   if(!session){ CURRENT_USER = null; return; }
-  let u = DB.users.find(x => x.id === session.user.id);
+  let u = DB.users.find(x=>x.id===session.user.id);
   if(!u){
     const { data } = await sb.from('profiles').select('*').eq('id', session.user.id).single();
-    if(data){
-      u = { id: data.id, name: data.name, email: data.email, avatarUrl: data.avatar_url, joined: data.created_at };
-      DB.users.push(u);
-    }
+    if(data){ u={ id:data.id, name:data.name, email:data.email, avatarUrl:data.avatar_url, joined:data.created_at }; DB.users.push(u); }
   }
   CURRENT_USER = u || null;
 }
 
-// ============================================================
-// NAVIGAZIONE
-// ============================================================
+// ============ NAV ============
 function goTo(pageId){
   $$('.page').forEach(p=>p.classList.toggle('active', p.id==='page-'+pageId));
   $$('#mainnav button').forEach(b=>b.classList.toggle('active', b.dataset.page===pageId));
-  window.scrollTo({ top:0, behavior:'smooth' });
+  window.scrollTo({top:0, behavior:'smooth'});
 }
 $$('#mainnav button').forEach(b=>b.addEventListener('click', ()=>goTo(b.dataset.page)));
 $$('[data-goto]').forEach(b=>b.addEventListener('click', ()=>goTo(b.dataset.goto)));
 
-// ============================================================
-// MODALI: CHIUSURA
-// ============================================================
+// ============ MODAL CLOSE ============
 $$('[data-close]').forEach(btn=>{
   btn.addEventListener('click', ()=>{
     const id = btn.dataset.close;
@@ -1030,37 +846,31 @@ $$('[data-close]').forEach(btn=>{
   });
 });
 $$('.modal-overlay').forEach(m=>{
-  m.addEventListener('click', (e)=>{
+  m.addEventListener('click', e => {
     if(e.target===m){
       m.hidden = true;
       if(m.id === 'campaignModal') $('#addMemberModal').hidden = true;
     }
   });
 });
-document.addEventListener('keydown', (e)=>{
+document.addEventListener('keydown', e => {
   if(e.key==='Escape') $$('.modal-overlay').forEach(m=>{ m.hidden = true; });
 });
 
-// ============================================================
-// AUTH + USER AREA
-// ============================================================
+// ============ USER AREA ============
 function renderUserArea(){
   const area = $('#userArea');
   const u = currentUser();
   if(u){
     area.innerHTML =
       '<div class="user-chip" id="userChip" title="Apri il tuo profilo">' +
-        '<img src="' + getUserAvatar(u) + '" alt="">' +
-        '<span class="uname">' + esc(u.name) + '</span>' +
-        '<span class="u-edit">✎</span>' +
+        '<img src="'+getUserAvatar(u)+'" alt="">' +
+        '<span class="uname">'+esc(u.name)+'</span><span class="u-edit">✎</span>' +
       '</div>' +
       '<button class="btn ghost small" id="logoutBtn">Esci</button>';
     $('#userChip').addEventListener('click', openProfile);
     $('#logoutBtn').addEventListener('click', async ()=>{
-      await sb.auth.signOut();
-      CURRENT_USER = null;
-      renderAll();
-      toast('Sei uscito dal gruppo.');
+      await sb.auth.signOut(); CURRENT_USER = null; renderAll(); toast('Sei uscito dal gruppo.');
     });
   }else{
     area.innerHTML = '<button class="btn" id="loginBtn">Accedi / Registrati</button>';
@@ -1068,101 +878,84 @@ function renderUserArea(){
   }
 }
 
+// ============ AVATAR GRID (auth) ============
 function renderAvatarGrid(selectedUrl){
-  const grid = $('#avatarGrid');
-  if(!grid) return;
+  const grid = $('#avatarGrid'); if(!grid) return;
   grid.innerHTML = '';
   const taken = takenAvatars(null);
-  AVATAR_IMAGES.forEach(url => {
+  AVATAR_IMAGES.forEach(url=>{
     const isTaken = taken.has(url);
-    const isSelected = url === selectedUrl;
+    const isSelected = url===selectedUrl;
     const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'avatar-option' + (isSelected ? ' selected' : '') + (isTaken ? ' taken' : '');
-    btn.dataset.avatar = url;
-    btn.disabled = isTaken;
-    btn.title = isTaken ? 'Già scelto da un altro giocatore' : 'Scegli questo avatar';
-    btn.innerHTML = '<img src="' + url + '" alt="">';
+    btn.type='button';
+    btn.className='avatar-option'+(isSelected?' selected':'')+(isTaken?' taken':'');
+    btn.disabled=isTaken; btn.title=isTaken?'Già scelto da un altro giocatore':'Scegli questo avatar';
+    btn.innerHTML='<img src="'+url+'" alt="">';
     if(!isTaken){
-      btn.addEventListener('click', () => {
-        pendingAvatarFile = null;
-        const fi = document.getElementById('avatarFileInput'); if(fi) fi.value = '';
-        $('#authAvatar').value = url;
-        updateAvatarPreview();
-        renderAvatarGrid(url);
+      btn.addEventListener('click', ()=>{
+        pendingAvatarFile=null;
+        const fi=document.getElementById('avatarFileInput'); if(fi) fi.value='';
+        $('#authAvatar').value=url; updateAvatarPreview(); renderAvatarGrid(url);
       });
     }
     grid.appendChild(btn);
   });
 }
-
 function updateAvatarPreview(){
-  const url = ($('#authAvatar').value || '').trim();
-  const img = $('#avatarPreview');
-  if(url){ img.src = url; img.style.display = 'block'; }
-  else if(!pendingAvatarFile){ img.style.display = 'none'; }
+  const url=($('#authAvatar').value||'').trim();
+  const img=$('#avatarPreview');
+  if(url){ img.src=url; img.style.display='block'; }
+  else if(!pendingAvatarFile){ img.style.display='none'; }
 }
-
 function openAuth(){
-  $('#authName').value = '';
-  $('#authEmail').value = '';
-  $('#authPassword').value = '';
-  pendingAvatarFile = null;
-  const _fi = document.getElementById('avatarFileInput'); if(_fi) _fi.value = '';
-  const free = pickFreeAvatarForNewUser();
-  $('#authAvatar').value = free || '';
+  $('#authName').value=''; $('#authEmail').value=''; $('#authPassword').value='';
+  pendingAvatarFile=null;
+  const fi=document.getElementById('avatarFileInput'); if(fi) fi.value='';
+  const free=pickFreeAvatarForNewUser();
+  $('#authAvatar').value=free||'';
   updateAvatarPreview();
   renderAvatarGrid($('#authAvatar').value);
-  if(!free){
-    $('#avatarHint').textContent = 'Tutti gli avatar sono già scelti. Puoi comunque caricare una tua immagine (max ' + AVATAR_MAX_LABEL + ').';
-  }else{
-    $('#avatarHint').textContent = 'Scegli uno degli avatar qui sotto, oppure carica una tua immagine (max ' + AVATAR_MAX_LABEL + ').';
-  }
+  $('#avatarHint').textContent = free
+    ? 'Scegli uno degli avatar qui sotto, oppure carica una tua immagine (max 4 MB).'
+    : 'Tutti gli avatar sono già scelti. Puoi comunque caricare una tua immagine (max 4 MB).';
   $('#authModal').hidden = false;
-  setTimeout(()=>$('#authEmail').focus(), 60);
+  setTimeout(()=>$('#authEmail').focus(),60);
 }
 
-// ============================================================
-// PROFILO
-// ============================================================
+// ============ PROFILE ============
 function openProfile(){
   if(!CURRENT_USER) return;
-  profilePendingFile = null;
-  const fi = document.getElementById('profAvatarFileInput');
-  if(fi) fi.value = '';
-  profileSelectedAvatar = CURRENT_USER.avatarUrl || '';
-  $('#profName').value = CURRENT_USER.name || '';
-  $('#profEmail').value = CURRENT_USER.email || '';
-  $('#profAvatar').value = profileSelectedAvatar;
-  const prev = $('#profAvatarPreview');
-  if(prev){ prev.src = getUserAvatar(CURRENT_USER); prev.style.display = 'block'; }
+  profilePendingFile=null;
+  const fi=document.getElementById('profAvatarFileInput'); if(fi) fi.value='';
+  profileSelectedAvatar=CURRENT_USER.avatarUrl||'';
+  $('#profName').value=CURRENT_USER.name||'';
+  $('#profEmail').value=CURRENT_USER.email||'';
+  $('#profAvatar').value=profileSelectedAvatar;
+  const prev=$('#profAvatarPreview');
+  if(prev){ prev.src=getUserAvatar(CURRENT_USER); prev.style.display='block'; }
   renderProfileAvatarGrid(profileSelectedAvatar);
-  $('#profileModal').hidden = false;
+  $('#profileModal').hidden=false;
 }
-
 function renderProfileAvatarGrid(selectedUrl){
-  const grid = $('#profAvatarGrid');
-  if(!grid) return;
-  grid.innerHTML = '';
-  const taken = takenAvatars(CURRENT_USER ? CURRENT_USER.id : null);
-  AVATAR_IMAGES.forEach(url => {
-    const isTaken = taken.has(url);
-    const isSelected = url === selectedUrl;
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'avatar-option' + (isSelected ? ' selected' : '') + (isTaken ? ' taken' : '');
-    btn.disabled = isTaken;
-    btn.title = isTaken ? 'Già scelto da un altro giocatore' : 'Scegli questo avatar';
-    btn.innerHTML = '<img src="' + url + '" alt="">';
+  const grid=$('#profAvatarGrid'); if(!grid) return;
+  grid.innerHTML='';
+  const taken=takenAvatars(CURRENT_USER?CURRENT_USER.id:null);
+  AVATAR_IMAGES.forEach(url=>{
+    const isTaken=taken.has(url);
+    const isSelected=url===selectedUrl;
+    const btn=document.createElement('button');
+    btn.type='button';
+    btn.className='avatar-option'+(isSelected?' selected':'')+(isTaken?' taken':'');
+    btn.disabled=isTaken; btn.title=isTaken?'Già scelto da un altro giocatore':'Scegli questo avatar';
+    btn.innerHTML='<img src="'+url+'" alt="">';
     if(!isTaken){
-      btn.addEventListener('click', () => {
-        profilePendingFile = null;
-        const fi = document.getElementById('profAvatarFileInput');
-        if(fi) fi.value = '';
-        profileSelectedAvatar = url;
-        $('#profAvatar').value = url;
-        const prev = $('#profAvatarPreview');
-        if(prev){ prev.src = url; prev.style.display = 'block'; }
+      btn.addEventListener('click', ()=>{
+        profilePendingFile=null;
+        const fi=document.getElementById('profAvatarFileInput'); if(fi) fi.value='';
+        profileSelectedAvatar=url;
+        $('#profAvatar').value=url;
+        const prev=$('#profAvatarPreview');
+        if(prev){ prev.src=url; prev.style.display='block'; }
         renderProfileAvatarGrid(url);
       });
     }
@@ -1170,1122 +963,922 @@ function renderProfileAvatarGrid(selectedUrl){
   });
 }
 
-document.addEventListener('click', function(e){
-  if(e.target && e.target.id === 'uploadAvatarBtn'){
-    const input = document.getElementById('avatarFileInput');
-    if(input) input.click();
-  }
-  if(e.target && e.target.id === 'profUploadAvatarBtn'){
-    const input = document.getElementById('profAvatarFileInput');
-    if(input) input.click();
-  }
+document.addEventListener('click', e=>{
+  if(e.target && e.target.id==='uploadAvatarBtn'){ const i=document.getElementById('avatarFileInput'); if(i) i.click(); }
+  if(e.target && e.target.id==='profUploadAvatarBtn'){ const i=document.getElementById('profAvatarFileInput'); if(i) i.click(); }
+  if(e.target && e.target.id==='ncBannerBtn'){ const i=document.getElementById('ncBannerInput'); if(i) i.click(); }
+  if(e.target && e.target.id==='aeImageBtn'){ const i=document.getElementById('aeImageInput'); if(i) i.click(); }
 });
 
-document.addEventListener('change', function(e){
-  if(e.target && e.target.id === 'avatarFileInput'){
-    const file = e.target.files && e.target.files[0];
-    if(!file) return;
+document.addEventListener('change', e=>{
+  // Avatar upload (auth)
+  if(e.target && e.target.id==='avatarFileInput'){
+    const file=e.target.files && e.target.files[0]; if(!file) return;
     if(!file.type.startsWith('image/')){ toast('Il file deve essere un\'immagine.'); return; }
-    if(file.size > AVATAR_MAX_BYTES){ toast('L\'immagine non può superare ' + AVATAR_MAX_LABEL + '.'); return; }
-    pendingAvatarFile = file;
-    const reader = new FileReader();
-    reader.onload = function(ev){
-      const preview = document.getElementById('avatarPreview');
-      if(preview){ preview.src = ev.target.result; preview.style.display = 'block'; }
-      document.getElementById('authAvatar').value = '';
+    if(file.size > AVATAR_MAX_BYTES){ toast('L\'immagine non può superare 4 MB.'); return; }
+    pendingAvatarFile=file;
+    const reader=new FileReader();
+    reader.onload=ev=>{
+      const p=document.getElementById('avatarPreview');
+      if(p){ p.src=ev.target.result; p.style.display='block'; }
+      document.getElementById('authAvatar').value='';
       renderAvatarGrid('');
       toast('Immagine pronta: verrà caricata alla registrazione.');
     };
     reader.readAsDataURL(file);
   }
-  if(e.target && e.target.id === 'profAvatarFileInput'){
-    const file = e.target.files && e.target.files[0];
-    if(!file) return;
+  // Avatar upload (profile)
+  if(e.target && e.target.id==='profAvatarFileInput'){
+    const file=e.target.files && e.target.files[0]; if(!file) return;
     if(!file.type.startsWith('image/')){ toast('Il file deve essere un\'immagine.'); return; }
-    if(file.size > AVATAR_MAX_BYTES){ toast('L\'immagine non può superare ' + AVATAR_MAX_LABEL + '.'); return; }
-    profilePendingFile = file;
-    profileSelectedAvatar = '';
-    const reader = new FileReader();
-    reader.onload = function(ev){
-      const prev = document.getElementById('profAvatarPreview');
-      if(prev){ prev.src = ev.target.result; prev.style.display = 'block'; }
-      $('#profAvatar').value = '';
+    if(file.size > AVATAR_MAX_BYTES){ toast('L\'immagine non può superare 4 MB.'); return; }
+    profilePendingFile=file; profileSelectedAvatar='';
+    const reader=new FileReader();
+    reader.onload=ev=>{
+      const p=document.getElementById('profAvatarPreview');
+      if(p){ p.src=ev.target.result; p.style.display='block'; }
+      $('#profAvatar').value='';
       renderProfileAvatarGrid('');
       toast('Immagine pronta: verrà caricata al salvataggio.');
     };
     reader.readAsDataURL(file);
   }
+  // Campaign banner upload
+  if(e.target && e.target.id==='ncBannerInput'){
+    const file=e.target.files && e.target.files[0]; if(!file) return;
+    if(!file.type.startsWith('image/')){ toast('Il file deve essere un\'immagine.'); return; }
+    if(file.size > BANNER_MAX_BYTES){ toast('L\'immagine non può superare 5 MB.'); return; }
+    campaignPendingBanner=file;
+    const reader=new FileReader();
+    reader.onload=ev=>{
+      campaignPendingBannerPreview=ev.target.result;
+      updateNcBannerPreview();
+    };
+    reader.readAsDataURL(file);
+  }
+  // Archive image upload
+  if(e.target && e.target.id==='aeImageInput'){
+    const file=e.target.files && e.target.files[0]; if(!file) return;
+    if(!file.type.startsWith('image/')){ toast('Il file deve essere un\'immagine.'); return; }
+    if(file.size > ARCHIVE_MAX_BYTES){ toast('L\'immagine non può superare 5 MB.'); return; }
+    archivePendingFile=file;
+    const reader=new FileReader();
+    reader.onload=ev=>{
+      archivePendingPreview=ev.target.result;
+      archiveSelectedImage='';
+      updateArchiveImagePreview();
+    };
+    reader.readAsDataURL(file);
+  }
 });
+
+function updateNcBannerPreview(){
+  const el=$('#ncBannerPreview'); if(!el) return;
+  if(campaignPendingBannerPreview){
+    el.style.backgroundImage='url("'+campaignPendingBannerPreview+'")';
+    el.textContent=''; el.classList.add('has-image');
+  }else{
+    el.style.backgroundImage=''; el.textContent='Nessuna immagine'; el.classList.remove('has-image');
+  }
+}
+function updateArchiveImagePreview(){
+  const el=$('#aeImagePreview'); if(!el) return;
+  const src = archivePendingPreview || archiveSelectedImage;
+  if(src){
+    el.style.backgroundImage='url("'+src+'")';
+    el.textContent=''; el.classList.add('has-image');
+  }else{
+    el.style.backgroundImage=''; el.textContent='Nessuna immagine'; el.classList.remove('has-image');
+  }
+}
 
 $('#profSaveBtn').addEventListener('click', async ()=>{
   if(!CURRENT_USER) return;
-  const newName = $('#profName').value.trim();
+  const newName=$('#profName').value.trim();
   if(!newName){ toast('Il nome non può essere vuoto.'); return; }
-  if(newName.length > 40){ toast('Nome troppo lungo (max 40).'); return; }
-
-  let newAvatarUrl = CURRENT_USER.avatarUrl;
-
+  let newAvatarUrl=CURRENT_USER.avatarUrl;
   if(profilePendingFile){
-    const userId = CURRENT_USER.id;
-    const ext = profilePendingFile.name.split('.').pop().toLowerCase().replace(/[^a-z0-9]/g, '') || 'png';
-    const path = `${userId}/avatar.${ext}`;
-    const { error: uploadError } = await sb.storage
-      .from('avatars')
-      .upload(path, profilePendingFile, { upsert: true, contentType: profilePendingFile.type });
-    if(uploadError){ toast('Errore caricamento immagine: ' + uploadError.message); return; }
-    const { data: publicUrlData } = sb.storage.from('avatars').getPublicUrl(path);
-    newAvatarUrl = publicUrlData.publicUrl + '?t=' + Date.now();
+    const userId=CURRENT_USER.id;
+    const ext=profilePendingFile.name.split('.').pop().toLowerCase().replace(/[^a-z0-9]/g,'')||'png';
+    const path=userId+'/avatar.'+ext;
+    const { error: upErr } = await sb.storage.from('avatars').upload(path,profilePendingFile,{upsert:true,contentType:profilePendingFile.type});
+    if(upErr){ toast('Errore upload: '+upErr.message); return; }
+    const { data:urlData } = sb.storage.from('avatars').getPublicUrl(path);
+    newAvatarUrl=urlData.publicUrl+'?t='+Date.now();
+  }else if(profileSelectedAvatar && profileSelectedAvatar!==CURRENT_USER.avatarUrl){
+    const { data:existing } = await sb.from('profiles').select('id').eq('avatar_url',profileSelectedAvatar).maybeSingle();
+    if(existing && existing.id!==CURRENT_USER.id){ toast('Avatar già scelto da un altro utente.'); return; }
+    newAvatarUrl=profileSelectedAvatar;
   }
-  else if(profileSelectedAvatar && profileSelectedAvatar !== CURRENT_USER.avatarUrl){
-    const { data: existing } = await sb.from('profiles').select('id').eq('avatar_url', profileSelectedAvatar).maybeSingle();
-    if(existing && existing.id !== CURRENT_USER.id){
-      toast('Avatar già scelto da un altro utente.');
-      return;
-    }
-    newAvatarUrl = profileSelectedAvatar;
-  }
-
-  const { error } = await sb.from('profiles').update({
-    name: newName,
-    avatar_url: newAvatarUrl
-  }).eq('id', CURRENT_USER.id);
+  const { error } = await sb.from('profiles').update({name:newName, avatar_url:newAvatarUrl}).eq('id',CURRENT_USER.id);
   if(error){ toast(error.message); return; }
-
-  profilePendingFile = null;
-  await refreshDB();
-  await refreshCurrentUser();
-  $('#profileModal').hidden = true;
-  renderAll();
-  toast('Profilo aggiornato!');
+  profilePendingFile=null;
+  await refreshDB(); await refreshCurrentUser();
+  $('#profileModal').hidden=true; renderAll(); toast('Profilo aggiornato!');
 });
 
-// ============================================================
-// LOGIN / REGISTRAZIONE
-// ============================================================
+// ============ AUTH LOGIN/REGISTER ============
 $('#authLogin').addEventListener('click', async ()=>{
-  const email = $('#authEmail').value.trim().toLowerCase();
-  const password = $('#authPassword').value;
+  const email=$('#authEmail').value.trim().toLowerCase();
+  const password=$('#authPassword').value;
   if(!email || !validEmail(email)){ toast('Inserisci un\'email valida.'); return; }
   if(!password){ toast('Inserisci la password.'); return; }
-
-  const { error } = await sb.auth.signInWithPassword({ email, password });
+  const { error } = await sb.auth.signInWithPassword({email,password});
   if(error){ toast(error.message); return; }
-
-  await refreshDB();
-  await refreshCurrentUser();
-  $('#authModal').hidden = true;
-  renderAll();
-  toast('Bentornato, ' + (CURRENT_USER?.name || '') + '!');
+  await refreshDB(); await refreshCurrentUser();
+  $('#authModal').hidden=true; renderAll();
+  toast('Bentornato, '+(CURRENT_USER?.name||'')+'!');
 });
 
 $('#authRegister').addEventListener('click', async ()=>{
-  const name = $('#authName').value.trim();
-  const email = $('#authEmail').value.trim().toLowerCase();
-  const password = $('#authPassword').value;
-  const selectedAvatar = ($('#authAvatar').value || '').trim();
-
+  const name=$('#authName').value.trim();
+  const email=$('#authEmail').value.trim().toLowerCase();
+  const password=$('#authPassword').value;
+  const selectedAvatar=($('#authAvatar').value||'').trim();
   if(!name){ toast('Inserisci il tuo nome.'); return; }
   if(!email || !validEmail(email)){ toast('Inserisci un\'email valida.'); return; }
-  if(!password || password.length < 8){ toast('La password deve avere almeno 8 caratteri.'); return; }
-
-  const hasPredefined = !!selectedAvatar;
-  const hasCustomFile = !!pendingAvatarFile;
-  if(!hasPredefined && !hasCustomFile){
-    toast('Scegli un avatar o carica un\'immagine.');
-    return;
+  if(!password || password.length<8){ toast('La password deve avere almeno 8 caratteri.'); return; }
+  const hasPredefined=!!selectedAvatar, hasFile=!!pendingAvatarFile;
+  if(!hasPredefined && !hasFile){ toast('Scegli un avatar o carica un\'immagine.'); return; }
+  if(hasPredefined && !hasFile){
+    const { data:ex } = await sb.from('profiles').select('id').eq('avatar_url',selectedAvatar).maybeSingle();
+    if(ex){ toast('Avatar già scelto da un altro utente.'); return; }
   }
-
-  if(hasPredefined && !hasCustomFile){
-    const { data: existing } = await sb.from('profiles').select('id').eq('avatar_url', selectedAvatar).maybeSingle();
-    if(existing){ toast('Avatar già scelto da un altro utente.'); return; }
-  }
-
-  const placeholderAvatar = hasPredefined ? selectedAvatar : AVATAR_IMAGES[0];
-  const { data: signUpData, error: signUpError } = await sb.auth.signUp({
-    email, password,
-    options: { data: { name, avatar_url: placeholderAvatar } }
-  });
-  if(signUpError){ toast(signUpError.message); return; }
-
-  if(hasCustomFile && signUpData.user){
-    const userId = signUpData.user.id;
-    const ext = pendingAvatarFile.name.split('.').pop().toLowerCase().replace(/[^a-z0-9]/g, '') || 'png';
-    const path = `${userId}/avatar.${ext}`;
-    const { error: uploadError } = await sb.storage
-      .from('avatars')
-      .upload(path, pendingAvatarFile, { upsert: true, contentType: pendingAvatarFile.type });
-    if(uploadError){
-      toast('Registrazione ok, ma errore caricamento immagine: ' + uploadError.message);
-    } else {
-      const { data: publicUrlData } = sb.storage.from('avatars').getPublicUrl(path);
-      await sb.from('profiles').update({ avatar_url: publicUrlData.publicUrl + '?t=' + Date.now() }).eq('id', userId);
+  const placeholder=hasPredefined?selectedAvatar:AVATAR_IMAGES[0];
+  const { data:signUpData, error:signUpErr } = await sb.auth.signUp({email,password,options:{data:{name,avatar_url:placeholder}}});
+  if(signUpErr){ toast(signUpErr.message); return; }
+  if(hasFile && signUpData.user){
+    const userId=signUpData.user.id;
+    const ext=pendingAvatarFile.name.split('.').pop().toLowerCase().replace(/[^a-z0-9]/g,'')||'png';
+    const path=userId+'/avatar.'+ext;
+    const { error:upErr } = await sb.storage.from('avatars').upload(path,pendingAvatarFile,{upsert:true,contentType:pendingAvatarFile.type});
+    if(!upErr){
+      const { data:urlData } = sb.storage.from('avatars').getPublicUrl(path);
+      await sb.from('profiles').update({avatar_url:urlData.publicUrl+'?t='+Date.now()}).eq('id',userId);
     }
   }
-
-  pendingAvatarFile = null;
-  const fileInput = document.getElementById('avatarFileInput');
-  if(fileInput) fileInput.value = '';
-
-  await refreshDB();
-  await refreshCurrentUser();
-  $('#authModal').hidden = true;
-  renderAll();
-  toast('Benvenuto nel gruppo, ' + name + '!');
+  pendingAvatarFile=null;
+  const fi=document.getElementById('avatarFileInput'); if(fi) fi.value='';
+  await refreshDB(); await refreshCurrentUser();
+  $('#authModal').hidden=true; renderAll(); toast('Benvenuto nel gruppo, '+name+'!');
 });
 
-// ============================================================
-// RENDER HOME
-// ============================================================
-function renderHome(){
-  const totalSessions = DB.campaigns.reduce((acc,c)=>acc + (c.sessions||[]).length, 0);
-  const active = DB.campaigns.filter(c=>c.status==='in-corso').length;
-  $('#homeStats').innerHTML =
-    statCard(DB.users.length, 'Membri') +
-    statCard(DB.campaigns.length, 'Campagne') +
-    statCard(active, 'In corso') +
-    statCard(totalSessions, 'Sessioni');
-
-  const best = findBestNextSession();
-  const nextWrap = $('#homeNext');
-  if(best){
-    const d = new Date(best.key + 'T12:00:00');
-    nextWrap.innerHTML =
-      '<div class="next-session">' +
-        '<div class="ico">📅</div>' +
-        '<div class="info">' +
-          '<div class="lbl">Miglior giorno disponibile</div>' +
-          '<div class="when">' + d.toLocaleDateString('it-IT', { weekday:'long', day:'numeric', month:'long', year:'numeric' }) + '</div>' +
-          '<div class="camp">' + esc(best.campaign.name) + ' · ' + best.yesCount + '/' + best.totalMembers + ' disponibili</div>' +
-        '</div>' +
-        '<button class="btn" id="nextGoBtn">Apri il calendario</button>' +
-      '</div>';
-    $('#nextGoBtn').addEventListener('click', ()=>{
-      selectedCalCampaign = best.campaign.id;
-      goTo('calendario');
-      renderCalendarPage();
-    });
-  }else{
-    nextWrap.innerHTML = '';
-  }
-
-  const activeCamps = DB.campaigns.filter(c=>c.status==='in-corso');
-  const container = $('#homeCampaigns');
-  container.innerHTML = '';
-  if(activeCamps.length===0){
-    container.innerHTML = '<p class="empty-note">Nessuna campagna in corso al momento. Creane una dalla sezione Campagne.</p>';
-  }else{
-    activeCamps.forEach(c=>container.appendChild(buildCampaignCard(c)));
-  }
-}
-function statCard(num, lbl){
-  return '<div class="stat"><div class="num">' + num + '</div><div class="lbl">' + lbl + '</div></div>';
-}
+// ============ HOME ============
+function statCard(n,l){ return '<div class="stat"><div class="num">'+n+'</div><div class="lbl">'+l+'</div></div>'; }
 function findBestNextSession(){
-  let best = null;
-  const tKey = todayKey();
-  DB.campaigns.forEach(c => {
-    if(c.status !== 'in-corso') return;
-    const total = (c.members||[]).length;
-    const avail = c.availability || {};
-    Object.keys(avail).forEach(key => {
-      if(key < tKey) return;
-      const yesCount = Object.values(avail[key]).filter(v=>v==='yes').length;
-      if(yesCount === 0) return;
-      if(!best || yesCount > best.yesCount || (yesCount === best.yesCount && key < best.key)){
-        best = { key, campaign:c, yesCount, totalMembers: total };
+  let best=null; const tKey=todayKey();
+  DB.campaigns.forEach(c=>{
+    if(c.status!=='in-corso') return;
+    const total=(c.members||[]).length; const avail=c.availability||{};
+    Object.keys(avail).forEach(key=>{
+      if(key<tKey) return;
+      const yesCount=Object.values(avail[key]).filter(v=>v==='yes').length;
+      if(yesCount===0) return;
+      if(!best || yesCount>best.yesCount || (yesCount===best.yesCount && key<best.key)){
+        best={key,campaign:c,yesCount,totalMembers:total};
       }
     });
   });
   return best;
 }
+function renderHome(){
+  const totalSessions=DB.campaigns.reduce((a,c)=>a+(c.sessions||[]).length,0);
+  const active=DB.campaigns.filter(c=>c.status==='in-corso').length;
+  $('#homeStats').innerHTML=statCard(DB.users.length,'Membri')+statCard(DB.campaigns.length,'Campagne')+statCard(active,'In corso')+statCard(totalSessions,'Sessioni');
+  const best=findBestNextSession();
+  const nw=$('#homeNext');
+  if(best){
+    const d=new Date(best.key+'T12:00:00');
+    nw.innerHTML='<div class="next-session"><div class="ico">📅</div><div class="info"><div class="lbl">Miglior giorno disponibile</div><div class="when">'+d.toLocaleDateString('it-IT',{weekday:'long',day:'numeric',month:'long',year:'numeric'})+'</div><div class="camp">'+esc(best.campaign.name)+' · '+best.yesCount+'/'+best.totalMembers+' disponibili</div></div><button class="btn" id="nextGoBtn">Apri il calendario</button></div>';
+    $('#nextGoBtn').addEventListener('click', ()=>{ selectedCalCampaign=best.campaign.id; goTo('calendario'); renderCalendarPage(); });
+  }else{ nw.innerHTML=''; }
+  const activeC=DB.campaigns.filter(c=>c.status==='in-corso');
+  const cont=$('#homeCampaigns'); cont.innerHTML='';
+  if(activeC.length===0){ cont.innerHTML='<p class="empty-note">Nessuna campagna in corso al momento.</p>'; }
+  else{ activeC.forEach(c=>cont.appendChild(buildCampaignCard(c))); }
+}
 
-// ============================================================
-// RENDER ROSTER
-// ============================================================
+// ============ ROSTER ============
+function roleLineHtml(cls,label,items){
+  return '<div class="role-line"><span class="rlabel '+cls+'">'+label+'</span><span class="ctext">'+
+    items.map(it=>'<span class="camp-entry"><span class="cdot" style="background:'+it.color+';box-shadow:0 0 5px '+it.color+'"></span>'+esc(it.name)+'</span>').join('')+
+    '</span></div>';
+}
 function renderRoster(){
-  const grid = $('#rosterGrid');
-  grid.innerHTML = '';
-  const me = currentUser();
-
-  if(DB.users.length === 0){
-    grid.innerHTML = '<p class="empty-note" style="grid-column:1/-1;text-align:center;padding:32px 18px;font-size:.95rem">Nessun giocatore registrato al momento.<br>Registrati per essere il primo del gruppo!</p>';
-    return;
+  const grid=$('#rosterGrid'); grid.innerHTML='';
+  const me=currentUser();
+  if(DB.users.length===0){
+    grid.innerHTML='<p class="empty-note" style="grid-column:1/-1;text-align:center;padding:32px 18px">Nessun giocatore registrato.</p>'; return;
   }
-
   DB.users.forEach(u=>{
-    const masterOf = [], playerOf = [], observerOf = [];
+    const masterOf=[], playerOf=[], observerOf=[];
     DB.campaigns.forEach(c=>{
-      const m = (c.members||[]).find(x=>x.userId===u.id);
-      if(!m) return;
-      const entry = { name: c.name, color: (m.color || DEFAULT_COLOR) };
-      if(m.role==='master') masterOf.push(entry);
-      else if(m.role==='player') playerOf.push(entry);
-      else observerOf.push(entry);
+      const m=(c.members||[]).find(x=>x.userId===u.id); if(!m) return;
+      const e={name:c.name,color:(m.color||DEFAULT_COLOR)};
+      if(m.role==='master') masterOf.push(e);
+      else if(m.role==='player') playerOf.push(e);
+      else observerOf.push(e);
     });
-
-    const rolesHtml = [];
-    if(masterOf.length) rolesHtml.push(roleLineHtml('master','Master di', masterOf));
-    if(playerOf.length) rolesHtml.push(roleLineHtml('player','Gioca in', playerOf));
-    if(observerOf.length) rolesHtml.push(roleLineHtml('observer','Osserva', observerOf));
-    if(rolesHtml.length===0) rolesHtml.push('<div class="role-line"><span class="ctext" style="font-style:italic">Non partecipa a nessuna campagna.</span></div>');
-
-    const card = document.createElement('div');
-    card.className = 'member-card';
-    card.innerHTML =
-      '<img src="' + getUserAvatar(u) + '" alt="">' +
-      '<div class="mname">' +
-        esc(u.name) +
-        (me && me.id===u.id ? '<span class="you-badge">Tu</span>' : '') +
-      '</div>' +
-      '<div class="memail">' + esc(u.email) + '</div>' +
-      '<div class="roles">' + rolesHtml.join('') + '</div>';
+    const rh=[];
+    if(masterOf.length) rh.push(roleLineHtml('master','Master di',masterOf));
+    if(playerOf.length) rh.push(roleLineHtml('player','Gioca in',playerOf));
+    if(observerOf.length) rh.push(roleLineHtml('observer','Osserva',observerOf));
+    if(rh.length===0) rh.push('<div class="role-line"><span class="ctext" style="font-style:italic">Non partecipa a nessuna campagna.</span></div>');
+    const card=document.createElement('div');
+    card.className='member-card';
+    card.innerHTML='<img src="'+getUserAvatar(u)+'" alt=""><div class="mname">'+esc(u.name)+(me&&me.id===u.id?'<span class="you-badge">Tu</span>':'')+'</div><div class="memail">'+esc(u.email)+'</div><div class="roles">'+rh.join('')+'</div>';
     grid.appendChild(card);
   });
 }
-function roleLineHtml(cls, label, items){
-  return '<div class="role-line">' +
-    '<span class="rlabel ' + cls + '">' + label + '</span>' +
-    '<span class="ctext">' +
-      items.map(it =>
-        '<span class="camp-entry">' +
-          '<span class="cdot" style="background:' + it.color + ';box-shadow:0 0 5px ' + it.color + '"></span>' +
-          esc(it.name) +
-        '</span>'
-      ).join('') +
-    '</span></div>';
-}
 
-// ============================================================
-// RENDER CAMPAGNE
-// ============================================================
-function renderCampaigns(){
-  const grid = $('#campaignGrid');
-  grid.innerHTML = '';
-  if(DB.campaigns.length===0){
-    grid.innerHTML = '<p class="empty-note">Nessuna campagna ancora. Creane una!</p>';
-    return;
-  }
-  DB.campaigns.forEach(c=>grid.appendChild(buildCampaignCard(c)));
-}
-
+// ============ CAMPAIGNS ============
 function buildCampaignCard(c){
-  const card = document.createElement('article');
-  card.className = 'camp-card';
-  const members = c.members || [];
-  const avatars = members.slice(0,5).map(m=>{
-    const u = getUser(m.userId);
-    if(!u) return '';
-    return '<img src="' + getUserAvatar(u) + '" alt="' + esc(u.name) + '" title="' + esc(u.name) + '" style="border-color:' + (m.color || DEFAULT_COLOR) + '">';
-  }).join('');
-  const masterM = members.find(m=>m.role==='master');
-  const master = masterM ? getUser(masterM.userId) : null;
-
-  card.innerHTML =
-    '<div class="c-top">' +
-      '<div><h3>' + esc(c.name) + '</h3><div class="system">' + esc(c.system) + '</div></div>' +
-      '<span class="status-badge ' + c.status + '">' + statusLabel(c.status) + '</span>' +
-    '</div>' +
-    '<p class="c-desc">' + esc(c.description||'') + '</p>' +
-    '<div class="c-footer">' +
-      '<div class="mini-avatars">' + avatars + '</div>' +
-      '<span class="c-count">' + members.length + ' membri · ' + (master ? 'Master ' + esc(master.name) : '') + '</span>' +
-    '</div>';
-
+  const card=document.createElement('article');
+  card.className='camp-card'+(c.bannerUrl?' has-banner':'');
+  const members=c.members||[];
+  const avatars=members.slice(0,5).map(m=>{ const u=getUser(m.userId); if(!u) return ''; return '<img src="'+getUserAvatar(u)+'" alt="'+esc(u.name)+'" title="'+esc(u.name)+'" style="border-color:'+(m.color||DEFAULT_COLOR)+'">'; }).join('');
+  const masterM=members.find(m=>m.role==='master');
+  const master=masterM?getUser(masterM.userId):null;
+  let html='';
+  if(c.bannerUrl){ html+='<div class="camp-banner" style="background-image:url("'+c.bannerUrl+'")"></div>'; }
+  html +=
+    '<div class="c-top"><div><h3>'+esc(c.name)+'</h3><div class="system">'+esc(c.system)+'</div></div><span class="status-badge '+c.status+'">'+statusLabel(c.status)+'</span></div>'+
+    '<p class="c-desc">'+esc(c.description||'')+'</p>'+
+    '<div class="c-footer"><div class="mini-avatars">'+avatars+'</div><span class="c-count">'+members.length+' membri · '+(master?'Master '+esc(master.name):'')+'</span></div>';
+  card.innerHTML=html;
   card.addEventListener('click', ()=>openCampaign(c.id));
   return card;
 }
-
+function renderCampaigns(){
+  const grid=$('#campaignGrid'); grid.innerHTML='';
+  if(DB.campaigns.length===0){ grid.innerHTML='<p class="empty-note">Nessuna campagna ancora. Creane una!</p>'; return; }
+  DB.campaigns.forEach(c=>grid.appendChild(buildCampaignCard(c)));
+}
 function openCampaign(id){
-  const c = getCampaign(id);
-  if(!c) return;
-  editingSessionId = null;
-  commentingSessionId = null;
+  const c=getCampaign(id); if(!c) return;
+  editingSessionId=null; commentingSessionId=null;
   renderCampaignDetail(c);
-  $('#campaignModal').hidden = false;
+  $('#campaignModal').hidden=false;
 }
 
-// ============================================================
-// RENDER DETTAGLIO CAMPAGNA
-// ============================================================
+// ============ CAMPAIGN DETAIL ============
 function renderSessionComments(session, campaign, me){
-  const comments = session.comments || {};
-  const myMembership = me ? (campaign.members||[]).find(m=>m.userId===me.id) : null;
-  const canComment = !!myMembership;
-
-  let html = '<div class="comments-section">';
-  html += '<div class="comments-label">Commenti dei giocatori</div>';
-  html += '<div class="comments-list">';
-
-  (campaign.members || []).forEach(m => {
-    const u = getUser(m.userId);
-    if(!u) return;
-    const color = m.color || DEFAULT_COLOR;
-    const text = (comments[m.userId] || '').trim();
-    const isMine = me && me.id === m.userId;
-
-    html += '<div class="comment-item" style="--c:' + color + '">';
-    html += '<div class="comment-head">';
-    html += '<span class="comment-dot"></span>';
-    html += '<span class="comment-name">' + esc(u.name) + (isMine ? ' (tu)' : '') + '</span>';
+  const comments=session.comments||{};
+  const myMembership=me?(campaign.members||[]).find(m=>m.userId===me.id):null;
+  const canComment=!!myMembership;
+  let html='<div class="comments-section"><div class="comments-label">Commenti dei giocatori</div><div class="comments-list">';
+  (campaign.members||[]).forEach(m=>{
+    const u=getUser(m.userId); if(!u) return;
+    const color=m.color||DEFAULT_COLOR;
+    const text=(comments[m.userId]||'').trim();
+    const isMine=me&&me.id===m.userId;
+    html+='<div class="comment-item" style="--c:'+color+'"><div class="comment-head"><span class="comment-dot"></span><span class="comment-name">'+esc(u.name)+(isMine?' (tu)':'')+'</span>';
     if(isMine && canComment){
-      const label = text ? 'Modifica' : 'Scrivi';
-      html += '<button type="button" class="btn ghost small" data-toggle-comment="' + session.id + '" style="margin-left:auto;padding:4px 10px;font-size:.62rem">' + label + '</button>';
+      const label=text?'Modifica':'Scrivi';
+      html+='<button type="button" class="btn ghost small" data-toggle-comment="'+session.id+'" style="margin-left:auto;padding:4px 10px;font-size:.62rem">'+label+'</button>';
     }
-    html += '</div>';
-    html += '<div class="comment-text' + (text ? '' : ' empty') + '">' + (text ? esc(text) : 'Nessun commento.') + '</div>';
-    html += '</div>';
+    html+='</div><div class="comment-text'+(text?'':' empty')+'">'+(text?esc(text):'Nessun commento.')+'</div></div>';
   });
-
-  html += '</div>';
-
-  if(canComment && commentingSessionId === session.id && me){
-    const existing = comments[me.id] || '';
-    html += '<div class="comment-form">';
-    html += '<textarea id="comment-input-' + session.id + '" rows="3" placeholder="Scrivi il tuo commento su questa sessione...">' + esc(existing) + '</textarea>';
-    html += '<div class="row">';
-    html += '<button type="button" class="btn small" data-save-comment="' + session.id + '">Salva</button>';
-    html += '<button type="button" class="btn ghost small" data-cancel-comment="' + session.id + '">Annulla</button>';
-    if(existing){
-      html += '<button type="button" class="btn danger small" data-delete-comment="' + session.id + '">Elimina</button>';
-    }
-    html += '</div>';
-    html += '</div>';
+  html+='</div>';
+  if(canComment && commentingSessionId===session.id && me){
+    const existing=comments[me.id]||'';
+    html+='<div class="comment-form"><textarea id="comment-input-'+session.id+'" rows="3" placeholder="Scrivi il tuo commento...">'+esc(existing)+'</textarea><div class="row">';
+    html+='<button type="button" class="btn small" data-save-comment="'+session.id+'">Salva</button>';
+    html+='<button type="button" class="btn ghost small" data-cancel-comment="'+session.id+'">Annulla</button>';
+    if(existing) html+='<button type="button" class="btn danger small" data-delete-comment="'+session.id+'">Elimina</button>';
+    html+='</div></div>';
   }
-
-  html += '</div>';
+  html+='</div>';
   return html;
 }
-
 function renderSessionBlock(session, campaign, me, isMaster){
-  const isEditing = editingSessionId === session.id;
-
-  if(isEditing){
-    return '' +
-      '<div class="session-block editing">' +
-        '<div class="session-edit-row">' +
-          '<input type="text" class="session-edit-num" id="edit-num-' + session.id + '" value="' + esc(session.num) + '" maxlength="4" inputmode="numeric">' +
-          '<input type="text" class="session-edit-title" id="edit-title-' + session.id + '" value="' + esc(session.title) + '" maxlength="80" placeholder="Titolo">' +
-        '</div>' +
-        '<textarea class="session-edit-summary" id="edit-summary-' + session.id + '" rows="4" placeholder="Riassunto...">' + esc(session.summary || '') + '</textarea>' +
-        '<div class="row" style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap">' +
-          '<button type="button" class="btn small" data-save-session="' + session.id + '">Salva</button>' +
-          '<button type="button" class="btn ghost small" data-cancel-session="' + session.id + '">Annulla</button>' +
-        '</div>' +
-      '</div>';
+  if(editingSessionId===session.id){
+    return '<div class="session-block editing">'+
+      '<div class="session-edit-row">'+
+        '<input type="text" class="session-edit-num" id="edit-num-'+session.id+'" value="'+esc(session.num)+'" maxlength="4">'+
+        '<input type="text" class="session-edit-title" id="edit-title-'+session.id+'" value="'+esc(session.title)+'" maxlength="80">'+
+      '</div>'+
+      '<textarea class="session-edit-summary" id="edit-summary-'+session.id+'" rows="4">'+esc(session.summary||'')+'</textarea>'+
+      '<div class="row" style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap">'+
+        '<button type="button" class="btn small" data-save-session="'+session.id+'">Salva</button>'+
+        '<button type="button" class="btn ghost small" data-cancel-session="'+session.id+'">Annulla</button>'+
+      '</div></div>';
   }
-
-  const editBtn = isMaster
-    ? '<button type="button" class="btn ghost small" data-edit-session="' + session.id + '" style="margin-left:auto;padding:4px 10px;font-size:.62rem">Modifica</button>'
-    : '';
-
-  return '' +
-    '<div class="session-block">' +
-      '<div class="s-head">' +
-        '<span class="s-num">Sessione ' + esc(session.num) + '</span>' +
-        '<span class="s-title">' + esc(session.title) + '</span>' +
-        '<span class="s-date">' + fmtDateOnly(session.date) + '</span>' +
-        editBtn +
-      '</div>' +
-      '<p class="s-summary' + (session.summary ? '' : ' empty') + '">' + (session.summary ? esc(session.summary) : 'Riassunto non ancora scritto.') + '</p>' +
-      renderSessionComments(session, campaign, me) +
-    '</div>';
+  const editBtn=isMaster?'<button type="button" class="btn ghost small" data-edit-session="'+session.id+'" style="margin-left:auto;padding:4px 10px;font-size:.62rem">Modifica</button>':'';
+  return '<div class="session-block"><div class="s-head"><span class="s-num">Sessione '+esc(session.num)+'</span><span class="s-title">'+esc(session.title)+'</span><span class="s-date">'+fmtDateOnly(session.date)+'</span>'+editBtn+'</div>'+
+    '<p class="s-summary'+(session.summary?'':' empty')+'">'+(session.summary?esc(session.summary):'Riassunto non ancora scritto.')+'</p>'+renderSessionComments(session,campaign,me)+'</div>';
 }
-
 function renderCampaignDetail(c){
-  const me = currentUser();
-  const myMembership = me ? (c.members||[]).find(m=>m.userId===me.id) : null;
-  const isMaster = myMembership && myMembership.role==='master';
+  const me=currentUser();
+  const myMembership=me?(c.members||[]).find(m=>m.userId===me.id):null;
+  const isMaster=myMembership&&myMembership.role==='master';
 
-  let html = '';
-  html +=
-    '<div class="modal-head">' +
-      '<div>' +
-        '<h3>' + esc(c.name) + '</h3>' +
-        '<div class="sub">' + esc(c.system) + ' · <span class="status-badge ' + c.status + '" style="display:inline-block;margin-top:6px">' + statusLabel(c.status) + '</span></div>' +
-      '</div>' +
-      '<button class="close-x" data-close-inline>×</button>' +
-    '</div>' +
-    '<p class="cd-info">' + esc(c.description||'') + '</p>';
+  let html='';
+  if(c.bannerUrl){
+    html+='<div class="camp-detail-banner" style="background-image:url("'+c.bannerUrl+'")">'+
+      '<button class="close-x" data-close-inline style="position:absolute;top:12px;right:12px;background:rgba(8,12,18,.75);backdrop-filter:blur(8px)">×</button></div>';
+  }
+  html+='<div class="modal-head"><div><h3>'+esc(c.name)+'</h3><div class="sub">'+esc(c.system)+' · <span class="status-badge '+c.status+'" style="display:inline-block;margin-top:6px">'+statusLabel(c.status)+'</span></div></div>'+
+    (c.bannerUrl?'':'<button class="close-x" data-close-inline>×</button>')+'</div>';
+  html+='<p class="cd-info">'+esc(c.description||'')+'</p>';
 
-  html += '<div class="cd-section"><div class="cd-section-title">Membri (' + (c.members||[]).length + ')</div>';
+  html+='<div class="cd-section"><div class="cd-section-title">Membri ('+(c.members||[]).length+')</div>';
   (c.members||[]).forEach(m=>{
-    const u = getUser(m.userId);
-    if(!u) return;
-    const color = m.color || DEFAULT_COLOR;
-    const you = me && me.id===u.id ? ' <span class="you-badge">Tu</span>' : '';
-    const canRemove = isMaster && (!me || u.id !== me.id);
-    const removeBtn = canRemove
-      ? '<button type="button" class="btn-remove-member" data-remove-member="' + u.id + '" title="Rimuovi">×</button>'
-      : '';
-
+    const u=getUser(m.userId); if(!u) return;
+    const color=m.color||DEFAULT_COLOR;
+    const you=me&&me.id===u.id?' <span class="you-badge">Tu</span>':'';
+    const canRemove=isMaster&&(!me||u.id!==me.id);
+    const removeBtn=canRemove?'<button type="button" class="btn-remove-member" data-remove-member="'+u.id+'" title="Rimuovi">×</button>':'';
     let roleHtml;
-    if(isMaster && (!me || u.id !== me.id)){
-      roleHtml =
-        '<select class="role-change-select" data-change-role="' + u.id + '" title="Cambia ruolo">' +
-          '<option value="master"'   + (m.role==='master'   ? ' selected' : '') + '>Master</option>' +
-          '<option value="player"'   + (m.role==='player'   ? ' selected' : '') + '>Giocatore</option>' +
-          '<option value="observer"' + (m.role==='observer' ? ' selected' : '') + '>Osservatore</option>' +
-        '</select>';
+    if(isMaster&&(!me||u.id!==me.id)){
+      roleHtml='<select class="role-change-select" data-change-role="'+u.id+'">'+
+        '<option value="master"'+(m.role==='master'?' selected':'')+'>Master</option>'+
+        '<option value="player"'+(m.role==='player'?' selected':'')+'>Giocatore</option>'+
+        '<option value="observer"'+(m.role==='observer'?' selected':'')+'>Osservatore</option></select>';
     }else{
-      roleHtml = '<span class="rlabel ' + m.role + '" style="font-size:.62rem;padding:4px 10px;border-radius:999px;border:1px solid;">' + roleLabel(m.role) + '</span>';
+      roleHtml='<span class="rlabel '+m.role+'" style="font-size:.62rem;padding:4px 10px;border-radius:999px;border:1px solid;">'+roleLabel(m.role)+'</span>';
     }
-
-    html +=
-      '<div class="member-row" style="--c:' + color + '">' +
-        '<img src="' + getUserAvatar(u) + '" alt="">' +
-        '<span class="mname"><span class="cdot"></span>' + esc(u.name) + you + '</span>' +
-        '<span class="mrole">' + roleHtml + '</span>' +
-        removeBtn +
-      '</div>';
+    html+='<div class="member-row" style="--c:'+color+'"><img src="'+getUserAvatar(u)+'" alt=""><span class="mname"><span class="cdot"></span>'+esc(u.name)+you+'</span><span class="mrole">'+roleHtml+'</span>'+removeBtn+'</div>';
   });
+  if(isMaster) html+='<div style="margin-top:14px"><button class="btn small" id="addMemberBtn">+ Aggiungi giocatori</button></div>';
+  html+='</div>';
+
+  html+='<div class="cd-section"><div class="cd-section-title">Sessioni ('+(c.sessions||[]).length+')</div>';
+  if(!c.sessions || c.sessions.length===0){ html+='<p class="empty-note">Nessuna sessione registrata.</p>'; }
+  else{ c.sessions.forEach(s=>{ html+=renderSessionBlock(s,c,me,isMaster); }); }
   if(isMaster){
-    html += '<div style="margin-top:14px"><button class="btn small" id="addMemberBtn">+ Aggiungi giocatori</button></div>';
+    const nextNum=(c.sessions||[]).length?Math.max.apply(null,c.sessions.map(x=>parseInt(x.num,10)||0))+1:1;
+    html+='<div class="session-form"><div class="s-head">Nuova sessione</div>'+
+      '<div class="form-row"><div class="f-num"><label>Numero</label><input type="text" id="nsNum" value="'+nextNum+'" maxlength="4"></div>'+
+      '<div class="f-title"><label>Titolo</label><input type="text" id="nsTitle" placeholder="Es. Il Tempio Sommerso" maxlength="80"></div></div>'+
+      '<div><label>Riassunto</label><textarea id="nsSummary" rows="3" placeholder="Cosa è successo..."></textarea></div>'+
+      '<div style="margin-top:10px"><button class="btn small" id="nsAddBtn">+ Aggiungi sessione</button></div></div>';
   }
-  html += '</div>';
+  html+='</div>';
 
-  html += '<div class="cd-section"><div class="cd-section-title">Sessioni (' + (c.sessions||[]).length + ')</div>';
-  if(!c.sessions || c.sessions.length===0){
-    html += '<p class="empty-note">Nessuna sessione registrata.</p>';
-  }else{
-    c.sessions.forEach(s=>{
-      html += renderSessionBlock(s, c, me, isMaster);
-    });
-  }
-
-  if(isMaster){
-    const nextNum = (c.sessions||[]).length
-      ? Math.max.apply(null, c.sessions.map(x=>parseInt(x.num,10)||0)) + 1
-      : 1;
-    html +=
-      '<div class="session-form">' +
-        '<div class="s-head">Nuova sessione</div>' +
-        '<div class="form-row">' +
-          '<div class="f-num"><label>Numero</label><input type="text" id="nsNum" value="' + nextNum + '" maxlength="4" inputmode="numeric"></div>' +
-          '<div class="f-title"><label>Titolo</label><input type="text" id="nsTitle" placeholder="Es. Il Tempio Sommerso" maxlength="80"></div>' +
-        '</div>' +
-        '<div><label>Riassunto</label><textarea id="nsSummary" rows="3" placeholder="Cosa è successo..."></textarea></div>' +
-        '<div style="margin-top:10px"><button class="btn small" id="nsAddBtn">+ Aggiungi sessione</button></div>' +
-      '</div>';
-  }
-  html += '</div>';
-
-  html += '<div class="cd-section"><div class="cd-section-title">Disponibilità</div>' +
-    '<p class="empty-note" style="margin-bottom:12px">Consulta il calendario dedicato a questa campagna per vedere e segnare le disponibilità del gruppo.</p>' +
-    '<button class="btn small" id="openCalBtn">Apri calendario di questa campagna</button>' +
-    '</div>';
+  html+='<div class="cd-section"><div class="cd-section-title">Disponibilità</div>'+
+    '<p class="empty-note" style="margin-bottom:12px">Consulta il calendario dedicato a questa campagna.</p>'+
+    '<button class="btn small" id="openCalBtn">Apri calendario di questa campagna</button></div>';
 
   if(isMaster){
-    html += '<div class="cd-section"><div class="cd-section-title">Zona Master</div>' +
-      '<button class="btn danger small" id="cdDeleteCampaign">Elimina campagna</button></div>';
+    html+='<div class="cd-section"><div class="cd-section-title">Zona Master</div>'+
+      '<div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">'+
+        (c.bannerUrl?'<button class="btn ghost small" id="changeBannerBtn">Cambia banner</button>':'<button class="btn ghost small" id="changeBannerBtn">+ Aggiungi banner</button>')+
+        '<button class="btn danger small" id="cdDeleteCampaign">Elimina campagna</button>'+
+      '</div></div>';
   }
 
-  const detail = $('#campaignDetail');
-  detail.innerHTML = html;
+  const detail=$('#campaignDetail');
+  detail.innerHTML=html;
 
-  const closeInline = detail.querySelector('[data-close-inline]');
-  if(closeInline) closeInline.addEventListener('click', ()=>{ $('#campaignModal').hidden = true; });
+  const ci=detail.querySelector('[data-close-inline]');
+  if(ci) ci.addEventListener('click', ()=>{ $('#campaignModal').hidden=true; });
 
-  detail.querySelectorAll('[data-change-role]').forEach(sel => {
+  detail.querySelectorAll('[data-change-role]').forEach(sel=>{
     sel.addEventListener('change', async function(){
-      const targetUserId = sel.dataset.changeRole;
-      const newRole = sel.value;
-      if(newRole !== 'master' && newRole !== 'player' && newRole !== 'observer') return;
-      const m = (c.members||[]).find(x=>x.userId===targetUserId);
-      if(!m) return;
-      if(m.role === 'master' && newRole !== 'master'){
-        const otherMasters = (c.members||[]).filter(x => x.userId !== targetUserId && x.role === 'master');
-        if(otherMasters.length === 0){
-          const ok = confirm('Stai per rimuovere l\'unico Master dalla campagna "' + c.name + '".\nLa campagna potrebbe restare senza nessuno che possa gestirla.\n\nVuoi continuare?');
-          if(!ok){ sel.value = m.role; return; }
+      const targetUserId=sel.dataset.changeRole;
+      const newRole=sel.value;
+      if(!['master','player','observer'].includes(newRole)) return;
+      const m=(c.members||[]).find(x=>x.userId===targetUserId); if(!m) return;
+      if(m.role==='master' && newRole!=='master'){
+        const otherM=(c.members||[]).filter(x=>x.userId!==targetUserId && x.role==='master');
+        if(otherM.length===0){
+          const ok=confirm('Stai per rimuovere l\'unico Master dalla campagna. Continuare?');
+          if(!ok){ sel.value=m.role; return; }
         }
       }
-      const { error } = await sb.from('members').update({ role: newRole })
-        .eq('campaign_id', c.id).eq('user_id', targetUserId);
+      const { error } = await sb.from('members').update({role:newRole}).eq('campaign_id',c.id).eq('user_id',targetUserId);
       if(error){ toast(error.message); return; }
       await refreshDB();
-      const fresh = getCampaign(c.id);
-      if(fresh) renderCampaignDetail(fresh);
+      const fresh=getCampaign(c.id); if(fresh) renderCampaignDetail(fresh);
       renderAll();
-      const targetUser = getUser(targetUserId);
-      toast(roleLabel(newRole) + ' assegnato a ' + (targetUser ? targetUser.name : 'utente') + '.');
+      toast(roleLabel(newRole)+' assegnato.');
     });
   });
 
   detail.querySelectorAll('[data-edit-session]').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      editingSessionId = btn.dataset.editSession;
-      commentingSessionId = null;
-      renderCampaignDetail(c);
-    });
+    btn.addEventListener('click', ()=>{ editingSessionId=btn.dataset.editSession; commentingSessionId=null; renderCampaignDetail(c); });
   });
   detail.querySelectorAll('[data-cancel-session]').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      editingSessionId = null;
-      renderCampaignDetail(c);
-    });
+    btn.addEventListener('click', ()=>{ editingSessionId=null; renderCampaignDetail(c); });
   });
   detail.querySelectorAll('[data-save-session]').forEach(btn=>{
     btn.addEventListener('click', async ()=>{
-      const sid = btn.dataset.saveSession;
-      const s = (c.sessions||[]).find(x=>x.id===sid);
-      if(!s) return;
-      const newNum = ($('#edit-num-' + sid).value || '').trim() || s.num;
-      const newTitle = ($('#edit-title-' + sid).value || '').trim();
-      const newSummary = ($('#edit-summary-' + sid).value || '').trim();
-      if(!newTitle){ toast('Il titolo non può essere vuoto.'); return; }
-      const { error } = await sb.from('sessions').update({
-        num: newNum, title: newTitle, summary: newSummary
-      }).eq('id', sid);
+      const sid=btn.dataset.saveSession;
+      const s=(c.sessions||[]).find(x=>x.id===sid); if(!s) return;
+      const newNum=($('#edit-num-'+sid).value||'').trim()||s.num;
+      const newTitle=($('#edit-title-'+sid).value||'').trim();
+      const newSum=($('#edit-summary-'+sid).value||'').trim();
+      if(!newTitle){ toast('Titolo non può essere vuoto.'); return; }
+      const { error } = await sb.from('sessions').update({num:newNum,title:newTitle,summary:newSum}).eq('id',sid);
       if(error){ toast(error.message); return; }
-      editingSessionId = null;
+      editingSessionId=null;
       await refreshDB();
-      const fresh = getCampaign(c.id);
-      if(fresh) renderCampaignDetail(fresh);
-      renderHome();
-      toast('Sessione aggiornata.');
+      const fresh=getCampaign(c.id); if(fresh) renderCampaignDetail(fresh);
+      renderHome(); toast('Sessione aggiornata.');
     });
   });
 
   detail.querySelectorAll('[data-toggle-comment]').forEach(btn=>{
     btn.addEventListener('click', ()=>{
-      const sid = btn.dataset.toggleComment;
-      commentingSessionId = (commentingSessionId === sid) ? null : sid;
-      editingSessionId = null;
+      const sid=btn.dataset.toggleComment;
+      commentingSessionId=(commentingSessionId===sid)?null:sid;
+      editingSessionId=null;
       renderCampaignDetail(c);
-      if(commentingSessionId){
-        setTimeout(()=>{ const ta = $('#comment-input-' + sid); if(ta) ta.focus(); }, 60);
-      }
+      if(commentingSessionId){ setTimeout(()=>{ const ta=$('#comment-input-'+sid); if(ta) ta.focus(); },60); }
     });
   });
   detail.querySelectorAll('[data-cancel-comment]').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      commentingSessionId = null;
-      renderCampaignDetail(c);
-    });
+    btn.addEventListener('click', ()=>{ commentingSessionId=null; renderCampaignDetail(c); });
   });
   detail.querySelectorAll('[data-save-comment]').forEach(btn=>{
     btn.addEventListener('click', async ()=>{
       if(!me) return;
-      const sid = btn.dataset.saveComment;
-      const ta = $('#comment-input-' + sid);
-      if(!ta) return;
-      const text = ta.value.trim();
+      const sid=btn.dataset.saveComment;
+      const ta=$('#comment-input-'+sid); if(!ta) return;
+      const text=ta.value.trim();
       if(text){
-        const { error } = await sb.from('comments').upsert({
-          session_id: sid, user_id: me.id, body: text,
-          updated_at: new Date().toISOString()
-        });
+        const { error } = await sb.from('comments').upsert({session_id:sid,user_id:me.id,body:text,updated_at:new Date().toISOString()});
         if(error){ toast(error.message); return; }
       }else{
-        const { error } = await sb.from('comments').delete()
-          .eq('session_id', sid).eq('user_id', me.id);
+        const { error } = await sb.from('comments').delete().eq('session_id',sid).eq('user_id',me.id);
         if(error){ toast(error.message); return; }
       }
-      commentingSessionId = null;
+      commentingSessionId=null;
       await refreshDB();
-      const fresh = getCampaign(c.id);
-      if(fresh) renderCampaignDetail(fresh);
-      toast(text ? 'Commento salvato.' : 'Commento rimosso.');
+      const fresh=getCampaign(c.id); if(fresh) renderCampaignDetail(fresh);
+      toast(text?'Commento salvato.':'Commento rimosso.');
     });
   });
   detail.querySelectorAll('[data-delete-comment]').forEach(btn=>{
     btn.addEventListener('click', async ()=>{
       if(!me) return;
-      const sid = btn.dataset.deleteComment;
-      const { error } = await sb.from('comments').delete()
-        .eq('session_id', sid).eq('user_id', me.id);
+      const sid=btn.dataset.deleteComment;
+      const { error } = await sb.from('comments').delete().eq('session_id',sid).eq('user_id',me.id);
       if(error){ toast(error.message); return; }
-      commentingSessionId = null;
+      commentingSessionId=null;
       await refreshDB();
-      const fresh = getCampaign(c.id);
-      if(fresh) renderCampaignDetail(fresh);
+      const fresh=getCampaign(c.id); if(fresh) renderCampaignDetail(fresh);
       toast('Commento eliminato.');
     });
   });
 
   if(isMaster){
-    const addBtn = $('#nsAddBtn');
+    const addBtn=$('#nsAddBtn');
     if(addBtn){
       addBtn.addEventListener('click', async ()=>{
-        const newNum = ($('#nsNum').value || '').trim();
-        const title = ($('#nsTitle').value || '').trim();
-        const summary = ($('#nsSummary').value || '').trim();
-        if(!newNum){ toast('Inserisci un numero per la sessione.'); return; }
-        if(!title){ toast('Inserisci un titolo per la sessione.'); return; }
-        const { error } = await sb.from('sessions').insert({
-          campaign_id: c.id, num: newNum, title, summary
-        });
+        const newNum=($('#nsNum').value||'').trim();
+        const title=($('#nsTitle').value||'').trim();
+        const summary=($('#nsSummary').value||'').trim();
+        if(!newNum || !title){ toast('Numero e titolo obbligatori.'); return; }
+        const { error } = await sb.from('sessions').insert({campaign_id:c.id,num:newNum,title,summary});
         if(error){ toast(error.message); return; }
         await refreshDB();
-        const fresh = getCampaign(c.id);
-        if(fresh) renderCampaignDetail(fresh);
-        renderHome();
-        toast('Sessione aggiunta.');
+        const fresh=getCampaign(c.id); if(fresh) renderCampaignDetail(fresh);
+        renderHome(); toast('Sessione aggiunta.');
       });
     }
-    const delBtn = $('#cdDeleteCampaign');
+    const delBtn=$('#cdDeleteCampaign');
     if(delBtn){
       delBtn.addEventListener('click', async ()=>{
-        if(!confirm('Eliminare definitivamente la campagna "' + c.name + '"? L\'operazione è permanente.')) return;
-        const { error } = await sb.from('campaigns').delete().eq('id', c.id);
+        if(!confirm('Eliminare definitivamente la campagna "'+c.name+'"?')) return;
+        const { error } = await sb.from('campaigns').delete().eq('id',c.id);
         if(error){ toast(error.message); return; }
-        $('#campaignModal').hidden = true;
-        $('#addMemberModal').hidden = true;
-        await refreshDB();
-        renderAll();
-        toast('Campagna eliminata.');
+        $('#campaignModal').hidden=true; $('#addMemberModal').hidden=true;
+        await refreshDB(); renderAll(); toast('Campagna eliminata.');
       });
     }
-    const addMemBtn = $('#addMemberBtn');
-    if(addMemBtn){
-      addMemBtn.addEventListener('click', ()=>openAddMemberModal(c.id));
+    const addMemBtn=$('#addMemberBtn');
+    if(addMemBtn) addMemBtn.addEventListener('click', ()=>openAddMemberModal(c.id));
+
+    const changeBannerBtn=$('#changeBannerBtn');
+    if(changeBannerBtn){
+      changeBannerBtn.addEventListener('click', ()=>{
+        const input=document.createElement('input');
+        input.type='file'; input.accept='image/*';
+        input.addEventListener('change', async e=>{
+          const file=e.target.files[0]; if(!file) return;
+          if(!file.type.startsWith('image/')){ toast('Deve essere un\'immagine.'); return; }
+          if(file.size > BANNER_MAX_BYTES){ toast('Max 5 MB.'); return; }
+          const userId=CURRENT_USER.id;
+          const ext=file.name.split('.').pop().toLowerCase().replace(/[^a-z0-9]/g,'')||'jpg';
+          const path=userId+'/'+c.id+'.'+ext;
+          const { error:upErr } = await sb.storage.from('campaign-banners').upload(path,file,{contentType:file.type,upsert:true});
+          if(upErr){ toast('Errore upload: '+upErr.message); return; }
+          const { data:urlData } = sb.storage.from('campaign-banners').getPublicUrl(path);
+          const newUrl=urlData.publicUrl+'?t='+Date.now();
+          const { error } = await sb.from('campaigns').update({banner_url:newUrl}).eq('id',c.id);
+          if(error){ toast(error.message); return; }
+          await refreshDB();
+          const fresh=getCampaign(c.id); if(fresh) renderCampaignDetail(fresh);
+          renderAll(); toast('Banner aggiornato.');
+        });
+        input.click();
+      });
     }
   }
 
   detail.querySelectorAll('[data-remove-member]').forEach(btn=>{
     btn.addEventListener('click', async ()=>{
-      const rid = btn.dataset.removeMember;
-      const ru = getUser(rid);
-      if(!ru) return;
-      if(!confirm('Rimuovere ' + ru.name + ' dalla campagna "' + c.name + '"?\nI suoi voti di disponibilità e i commenti alle sessioni verranno eliminati.')) return;
-      await sb.from('availability').delete().eq('campaign_id', c.id).eq('user_id', rid);
-      await sb.from('comments').delete().eq('user_id', rid);
-      const { error } = await sb.from('members').delete().eq('campaign_id', c.id).eq('user_id', rid);
+      const rid=btn.dataset.removeMember;
+      const ru=getUser(rid); if(!ru) return;
+      if(!confirm('Rimuovere '+ru.name+' dalla campagna?')) return;
+      await sb.from('availability').delete().eq('campaign_id',c.id).eq('user_id',rid);
+      await sb.from('comments').delete().eq('user_id',rid);
+      const { error } = await sb.from('members').delete().eq('campaign_id',c.id).eq('user_id',rid);
       if(error){ toast(error.message); return; }
       await refreshDB();
-      const fresh = getCampaign(c.id);
-      if(fresh) renderCampaignDetail(fresh);
-      renderAddMemberList();
-      renderAll();
-      toast(ru.name + ' rimosso dalla campagna.');
+      const fresh=getCampaign(c.id); if(fresh) renderCampaignDetail(fresh);
+      renderAddMemberList(); renderAll(); toast(ru.name+' rimosso.');
     });
   });
 
-  const openCalBtn = $('#openCalBtn');
+  const openCalBtn=$('#openCalBtn');
   if(openCalBtn){
     openCalBtn.addEventListener('click', ()=>{
-      selectedCalCampaign = c.id;
-      $('#campaignModal').hidden = true;
-      $('#addMemberModal').hidden = true;
-      goTo('calendario');
-      renderCalendarPage();
+      selectedCalCampaign=c.id;
+      $('#campaignModal').hidden=true; $('#addMemberModal').hidden=true;
+      goTo('calendario'); renderCalendarPage();
     });
   }
 }
 
-// ============================================================
-// AGGIUNTA MEMBRI
-// ============================================================
-function openAddMemberModal(campaignId){
-  const c = getCampaign(campaignId);
-  if(!c) return;
-  addMemberCampaignId = campaignId;
-  $('#addMemberSub').textContent = 'Campagna: ' + c.name;
+// ============ ADD MEMBER ============
+function openAddMemberModal(cid){
+  const c=getCampaign(cid); if(!c) return;
+  addMemberCampaignId=cid;
+  $('#addMemberSub').textContent='Campagna: '+c.name;
   renderAddMemberList();
-  $('#addMemberModal').hidden = false;
+  $('#addMemberModal').hidden=false;
 }
-
 function renderAddMemberList(){
-  const list = $('#addMemberList');
-  if(!list) return;
-  const c = addMemberCampaignId ? getCampaign(addMemberCampaignId) : null;
-  if(!c){ list.innerHTML = ''; return; }
-
-  list.innerHTML = '';
-  const memberIds = new Set((c.members||[]).map(m=>m.userId));
-  const candidates = DB.users.filter(u=>!memberIds.has(u.id));
-
-  if(candidates.length === 0){
-    const empty = document.createElement('div');
-    empty.className = 'empty-add-note';
-    empty.textContent = 'Tutti gli utenti registrati sono già membri di questa campagna.';
-    list.appendChild(empty);
-    return;
+  const list=$('#addMemberList'); if(!list) return;
+  const c=addMemberCampaignId?getCampaign(addMemberCampaignId):null;
+  if(!c){ list.innerHTML=''; return; }
+  list.innerHTML='';
+  const memberIds=new Set((c.members||[]).map(m=>m.userId));
+  const candidates=DB.users.filter(u=>!memberIds.has(u.id));
+  if(candidates.length===0){
+    const e=document.createElement('div'); e.className='empty-add-note';
+    e.textContent='Tutti gli utenti registrati sono già membri di questa campagna.';
+    list.appendChild(e); return;
   }
-
-  const previewMembers = (c.members||[]).map(m=>({ userId: m.userId, color: m.color }));
+  const previewMembers=(c.members||[]).map(m=>({userId:m.userId,color:m.color}));
   candidates.forEach(u=>{
-    const previewColor = pickColorForCampaign({ members: previewMembers });
-    previewMembers.push({ userId: u.id, color: previewColor });
-
-    const row = document.createElement('div');
-    row.className = 'add-member-row';
-    row.innerHTML =
-      '<img src="' + getUserAvatar(u) + '" alt="">' +
-      '<div class="info">' +
-        '<div class="name">' +
-          '<span class="cdot" style="background:' + previewColor + ';color:' + previewColor + '"></span>' +
-          esc(u.name) +
-        '</div>' +
-        '<div class="email">' + esc(u.email) + '</div>' +
-      '</div>' +
-      '<select class="role-select" data-uid="' + u.id + '">' +
-        '<option value="player">Giocatore</option>' +
-        '<option value="master">Master</option>' +
-        '<option value="observer">Osservatore</option>' +
-      '</select>' +
-      '<button type="button" class="btn small" data-add="' + u.id + '">Aggiungi</button>';
+    const previewColor=pickColorForCampaign({members:previewMembers});
+    previewMembers.push({userId:u.id,color:previewColor});
+    const row=document.createElement('div'); row.className='add-member-row';
+    row.innerHTML='<img src="'+getUserAvatar(u)+'" alt=""><div class="info"><div class="name"><span class="cdot" style="background:'+previewColor+';color:'+previewColor+'"></span>'+esc(u.name)+'</div><div class="email">'+esc(u.email)+'</div></div><select class="role-select" data-uid="'+u.id+'"><option value="player">Giocatore</option><option value="master">Master</option><option value="observer">Osservatore</option></select><button type="button" class="btn small" data-add="'+u.id+'">Aggiungi</button>';
     list.appendChild(row);
   });
-
   list.querySelectorAll('[data-add]').forEach(btn=>{
     btn.addEventListener('click', ()=>{
-      const uidToAdd = btn.dataset.add;
-      const row = btn.closest('.add-member-row');
-      const sel = row.querySelector('.role-select');
-      addMemberToCampaign(addMemberCampaignId, uidToAdd, sel.value);
+      const uid=btn.dataset.add;
+      const row=btn.closest('.add-member-row');
+      const sel=row.querySelector('.role-select');
+      addMemberToCampaign(addMemberCampaignId,uid,sel.value);
     });
   });
 }
-
-async function addMemberToCampaign(campaignId, userId, role){
-  const c = getCampaign(campaignId);
-  if(!c) return;
-  const u = getUser(userId);
-  if(!u) return;
-  if((c.members||[]).some(m=>m.userId===userId)){ toast('Utente già membro.'); return; }
-  const color = pickColorForCampaign(c);
-  const { error } = await sb.from('members').insert({
-    campaign_id: campaignId, user_id: userId, role, color
-  });
+async function addMemberToCampaign(cid,uid,role){
+  const c=getCampaign(cid); if(!c) return;
+  const u=getUser(uid); if(!u) return;
+  if((c.members||[]).some(m=>m.userId===uid)){ toast('Utente già membro.'); return; }
+  const color=pickColorForCampaign(c);
+  const { error } = await sb.from('members').insert({campaign_id:cid,user_id:uid,role,color});
   if(error){ toast(error.message); return; }
   await refreshDB();
-  if(!$('#campaignModal').hidden) renderCampaignDetail(getCampaign(campaignId));
-  renderAddMemberList();
-  renderAll();
-  toast(u.name + ' aggiunto come ' + roleLabel(role) + '.');
+  if(!$('#campaignModal').hidden) renderCampaignDetail(getCampaign(cid));
+  renderAddMemberList(); renderAll();
+  toast(u.name+' aggiunto come '+roleLabel(role)+'.');
 }
 
-// ============================================================
-// CALENDARIO
-// ============================================================
-const weekdayHeaders = ['Lun','Mar','Mer','Gio','Ven','Sab','Dom'];
+// ============ NEW CAMPAIGN ============
+$('#newCampaignBtn').addEventListener('click', ()=>{
+  if(!currentUser()){ toast('Accedi per creare una campagna.'); openAuth(); return; }
+  campaignPendingBanner=null; campaignPendingBannerPreview='';
+  updateNcBannerPreview();
+  const bi=document.getElementById('ncBannerInput'); if(bi) bi.value='';
+  $('#newCampaignModal').hidden=false;
+});
+$('#ncSubmit').addEventListener('click', async ()=>{
+  if(!currentUser()){ toast('Accedi prima.'); return; }
+  const name=$('#ncName').value.trim();
+  const system=$('#ncSystem').value;
+  const desc=$('#ncDesc').value.trim();
+  if(!name){ toast('Dai un nome alla campagna.'); return; }
+  const { data:camp, error } = await sb.from('campaigns').insert({name,system,description:desc,status:'in-corso'}).select().single();
+  if(error){ toast(error.message); return; }
+  const { error:e2 } = await sb.from('members').insert({campaign_id:camp.id,user_id:CURRENT_USER.id,role:'master',color:USER_COLORS[0]});
+  if(e2){ toast(e2.message); return; }
+  if(campaignPendingBanner){
+    const userId=CURRENT_USER.id;
+    const ext=campaignPendingBanner.name.split('.').pop().toLowerCase().replace(/[^a-z0-9]/g,'')||'jpg';
+    const path=userId+'/'+camp.id+'.'+ext;
+    const { error:upErr } = await sb.storage.from('campaign-banners').upload(path,campaignPendingBanner,{contentType:campaignPendingBanner.type,upsert:true});
+    if(!upErr){
+      const { data:urlData } = sb.storage.from('campaign-banners').getPublicUrl(path);
+      await sb.from('campaigns').update({banner_url:urlData.publicUrl+'?t='+Date.now()}).eq('id',camp.id);
+    }
+  }
+  campaignPendingBanner=null; campaignPendingBannerPreview='';
+  const bi=document.getElementById('ncBannerInput'); if(bi) bi.value='';
+  await refreshDB();
+  $('#newCampaignModal').hidden=true;
+  $('#ncName').value=''; $('#ncDesc').value='';
+  renderAll(); toast('Campagna "'+name+'" creata.');
+});
 
-function renderCalendarPage(){
-  const wrap = $('#calendarList');
-  if(!wrap) return;
-  wrap.innerHTML = '';
+// ============ ARCHIVE ============
+function renderArchive(){
+  const cats=$('#archiveCats'); const grid=$('#archiveGrid');
+  if(!cats || !grid) return;
+  cats.innerHTML='';
+  const allBtn=document.createElement('button');
+  allBtn.type='button';
+  allBtn.className='archive-cat'+(selectedArchiveCat==='all'?' active':'');
+  allBtn.textContent='Tutte';
+  allBtn.addEventListener('click', ()=>{ selectedArchiveCat='all'; renderArchive(); });
+  cats.appendChild(allBtn);
+  ARCHIVE_CATEGORIES.forEach(cat=>{
+    const btn=document.createElement('button');
+    btn.type='button';
+    btn.className='archive-cat'+(selectedArchiveCat===cat.key?' active':'');
+    btn.textContent=cat.label;
+    btn.addEventListener('click', ()=>{ selectedArchiveCat=cat.key; renderArchive(); });
+    cats.appendChild(btn);
+  });
 
-  if(DB.campaigns.length === 0){
-    wrap.innerHTML = '<p class="empty-note">Nessuna campagna al momento. Creane una dalla sezione Campagne.</p>';
+  grid.innerHTML='';
+  const filtered=selectedArchiveCat==='all'?DB.archive:DB.archive.filter(e=>e.category===selectedArchiveCat);
+  if(filtered.length===0){
+    grid.innerHTML='<p class="archive-empty">Nessuna voce in questa categoria. '+(currentUser()?'Aggiungine una con il pulsante "+ Nuova voce".':'Accedi per aggiungere voci.')+'</p>';
     return;
   }
-
-  if(!selectedCalCampaign || !getCampaign(selectedCalCampaign)){
-    const activeFirst = DB.campaigns.find(c=>c.status==='in-corso');
-    selectedCalCampaign = (activeFirst || DB.campaigns[0]).id;
-  }
-
-  const me = currentUser();
-
-  const pills = document.createElement('div');
-  pills.className = 'camp-pills';
-  const sortedCamps = DB.campaigns.slice().sort((a,b)=>{
-    const order = { 'in-corso':0, 'in-pausa':1, 'conclusa':2 };
-    return (order[a.status]??3) - (order[b.status]??3);
+  filtered.forEach(entry=>{
+    const card=document.createElement('article');
+    card.className='archive-card';
+    const bg = entry.imageUrl ? 'background-image:url("'+entry.imageUrl+'");background-size:cover;background-position:center' : '';
+    card.innerHTML=
+      '<div class="archive-card-img" style="'+bg+'">'+(entry.imageUrl?'':'📜')+'</div>'+
+      '<div class="archive-card-body">'+
+        '<div class="archive-card-title">'+esc(entry.title)+'</div>'+
+        '<div class="archive-card-desc">'+(entry.description?esc(entry.description.substring(0,180)):'<em>Nessuna descrizione</em>')+'</div>'+
+        '<div class="archive-card-meta">'+catLabel(entry.category)+'</div>'+
+      '</div>';
+    card.addEventListener('click', ()=>openArchiveView(entry.id));
+    grid.appendChild(card);
   });
-  sortedCamps.forEach(c=>{
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'camp-pill' + (c.id === selectedCalCampaign ? ' active' : '');
-    btn.textContent = c.name;
-    btn.addEventListener('click', ()=>{
-      selectedCalCampaign = c.id;
-      renderCalendarPage();
+}
+function openArchiveView(entryId){
+  const entry=DB.archive.find(e=>e.id===entryId); if(!entry) return;
+  const me=currentUser();
+  const isOwner=me && me.id===entry.createdBy;
+  let html='<div class="modal-head"><div><h3>'+esc(entry.title)+'</h3><div class="sub">'+catLabel(entry.category)+'</div></div><button class="close-x" data-close="archiveViewModal">×</button></div>';
+  if(entry.imageUrl){ html+='<div class="archive-view-image" style="background-image:url("'+entry.imageUrl+'")"></div>'; }
+  html+='<p class="archive-view-desc">'+(entry.description?esc(entry.description):'<em>Nessuna descrizione.</em>')+'</p>';
+  if(isOwner){
+    html+='<div class="archive-view-actions"><button class="btn danger small" id="archiveDeleteBtn">Elimina</button><button class="btn small" id="archiveEditBtn">Modifica</button></div>';
+  }
+  $('#archiveViewContent').innerHTML=html;
+  $('#archiveViewModal').hidden=false;
+  if(isOwner){
+    $('#archiveEditBtn').addEventListener('click', ()=>{ $('#archiveViewModal').hidden=true; openArchiveEdit(entry.id); });
+    $('#archiveDeleteBtn').addEventListener('click', async ()=>{
+      if(!confirm('Eliminare "'+entry.title+'"?')) return;
+      const { error } = await sb.from('archive_entries').delete().eq('id',entry.id);
+      if(error){ toast(error.message); return; }
+      await refreshDB(); $('#archiveViewModal').hidden=true; renderArchive(); toast('Voce eliminata.');
     });
+  }
+}
+function openArchiveEdit(entryId){
+  editingArchiveId=entryId||null;
+  archivePendingFile=null; archivePendingPreview=''; archiveSelectedImage='';
+  const entry=entryId?DB.archive.find(e=>e.id===entryId):null;
+  $('#archiveEditTitle').textContent=entry?'Modifica voce':'Nuova voce';
+  if(entry){
+    $('#aeCategory').value=entry.category;
+    $('#aeTitle').value=entry.title;
+    $('#aeDescription').value=entry.description;
+    archiveSelectedImage=entry.imageUrl||'';
+  }else{
+    $('#aeCategory').value = selectedArchiveCat==='all'?'png':selectedArchiveCat;
+    $('#aeTitle').value=''; $('#aeDescription').value='';
+  }
+  const ai=document.getElementById('aeImageInput'); if(ai) ai.value='';
+  updateArchiveImagePreview();
+  $('#archiveEditModal').hidden=false;
+  setTimeout(()=>$('#aeTitle').focus(),60);
+}
+$('#newArchiveBtn').addEventListener('click', ()=>{
+  if(!currentUser()){ toast('Accedi per aggiungere voci.'); openAuth(); return; }
+  openArchiveEdit(null);
+});
+$('#aeSaveBtn').addEventListener('click', async ()=>{
+  if(!currentUser()) return;
+  const cat=$('#aeCategory').value;
+  const title=$('#aeTitle').value.trim();
+  const desc=$('#aeDescription').value.trim();
+  if(!title){ toast('Inserisci un titolo.'); return; }
+  if(!ARCHIVE_CATEGORIES.find(c=>c.key===cat)){ toast('Categoria non valida.'); return; }
+  let imageUrl=archiveSelectedImage;
+  if(archivePendingFile){
+    const userId=CURRENT_USER.id;
+    const ext=archivePendingFile.name.split('.').pop().toLowerCase().replace(/[^a-z0-9]/g,'')||'jpg';
+    const path=userId+'/'+Date.now()+'.'+ext;
+    const { error:upErr } = await sb.storage.from('archive-images').upload(path,archivePendingFile,{contentType:archivePendingFile.type,upsert:false});
+    if(upErr){ toast('Errore upload: '+upErr.message); return; }
+    const { data:urlData } = sb.storage.from('archive-images').getPublicUrl(path);
+    imageUrl=urlData.publicUrl;
+  }
+  if(editingArchiveId){
+    const { error } = await sb.from('archive_entries').update({category:cat,title,image_url:imageUrl,description:desc}).eq('id',editingArchiveId);
+    if(error){ toast(error.message); return; }
+    toast('Voce aggiornata.');
+  }else{
+    const { error } = await sb.from('archive_entries').insert({category:cat,title,image_url:imageUrl,description:desc,created_by:CURRENT_USER.id});
+    if(error){ toast(error.message); return; }
+    toast('Voce aggiunta.');
+  }
+  archivePendingFile=null; archivePendingPreview=''; archiveSelectedImage=''; editingArchiveId=null;
+  $('#archiveEditModal').hidden=true;
+  await refreshDB(); renderArchive();
+});
+
+// ============ CALENDAR ============
+const weekdayHeaders=['Lun','Mar','Mer','Gio','Ven','Sab','Dom'];
+function renderCalendarPage(){
+  const wrap=$('#calendarList'); if(!wrap) return;
+  wrap.innerHTML='';
+  if(DB.campaigns.length===0){ wrap.innerHTML='<p class="empty-note">Nessuna campagna al momento.</p>'; return; }
+  if(!selectedCalCampaign || !getCampaign(selectedCalCampaign)){
+    const a=DB.campaigns.find(c=>c.status==='in-corso');
+    selectedCalCampaign=(a||DB.campaigns[0]).id;
+  }
+  const me=currentUser();
+  const pills=document.createElement('div'); pills.className='camp-pills';
+  const sorted=DB.campaigns.slice().sort((a,b)=>{
+    const o={'in-corso':0,'in-pausa':1,'conclusa':2};
+    return (o[a.status]??3)-(o[b.status]??3);
+  });
+  sorted.forEach(c=>{
+    const btn=document.createElement('button'); btn.type='button';
+    btn.className='camp-pill'+(c.id===selectedCalCampaign?' active':'');
+    btn.textContent=c.name;
+    btn.addEventListener('click', ()=>{ selectedCalCampaign=c.id; renderCalendarPage(); });
     pills.appendChild(btn);
   });
   wrap.appendChild(pills);
 
-  const campaign = getCampaign(selectedCalCampaign);
-  const myMembership = me ? campaign.members.find(m=>m.userId===me.id) : null;
-  const canVote = !!myMembership;
+  const campaign=getCampaign(selectedCalCampaign);
+  const myMembership=me?campaign.members.find(m=>m.userId===me.id):null;
+  const canVote=!!myMembership;
 
-  const head = document.createElement('div');
-  head.style.marginBottom = '18px';
-  head.innerHTML =
-    '<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">' +
-      '<h3 style="font-size:1.05rem;text-transform:uppercase;letter-spacing:.08em;color:var(--accent-text)">' + esc(campaign.name) + '</h3>' +
-      '<span class="status-badge ' + campaign.status + '">' + statusLabel(campaign.status) + '</span>' +
-    '</div>' +
-    '<div style="font-size:.82rem;color:var(--muted);margin-top:4px">' + esc(campaign.system) + ' · ' + campaign.members.length + ' membri</div>';
+  const head=document.createElement('div'); head.style.marginBottom='18px';
+  head.innerHTML='<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap"><h3 style="font-size:1.05rem;text-transform:uppercase;letter-spacing:.08em;color:var(--accent-text)">'+esc(campaign.name)+'</h3><span class="status-badge '+campaign.status+'">'+statusLabel(campaign.status)+'</span></div><div style="font-size:.82rem;color:var(--muted);margin-top:4px">'+esc(campaign.system)+' · '+campaign.members.length+' membri</div>';
   wrap.appendChild(head);
 
-  const nav = document.createElement('div');
-  nav.className = 'cal-nav';
-  nav.innerHTML =
-    '<button class="cal-nav-arrow" id="calPrev" aria-label="Mese precedente">‹</button>' +
-    '<h3>' + fmtMonthYear(calYear, calMonth) + '</h3>' +
-    '<button class="cal-nav-arrow" id="calNext" aria-label="Mese successivo">›</button>';
+  const nav=document.createElement('div'); nav.className='cal-nav';
+  nav.innerHTML='<button class="cal-nav-arrow" id="calPrev">‹</button><h3>'+fmtMonthYear(calYear,calMonth)+'</h3><button class="cal-nav-arrow" id="calNext">›</button>';
   wrap.appendChild(nav);
-  $('#calPrev').addEventListener('click', ()=>{
-    calMonth--; if(calMonth < 0){ calMonth = 11; calYear--; } renderCalendarPage();
-  });
-  $('#calNext').addEventListener('click', ()=>{
-    calMonth++; if(calMonth > 11){ calMonth = 0; calYear++; } renderCalendarPage();
-  });
+  $('#calPrev').addEventListener('click', ()=>{ calMonth--; if(calMonth<0){ calMonth=11; calYear--; } renderCalendarPage(); });
+  $('#calNext').addEventListener('click', ()=>{ calMonth++; if(calMonth>11){ calMonth=0; calYear++; } renderCalendarPage(); });
 
-  const legend = document.createElement('div');
-  legend.className = 'cal-legend';
-  let membersLegend = '';
-  (campaign.members||[]).forEach(m => {
-    const u = getUser(m.userId);
-    if(!u) return;
-    const color = m.color || DEFAULT_COLOR;
-    membersLegend +=
-      '<span class="legend-member">' +
-        '<span class="ldot" style="--c:' + color + '"></span>' +
-        esc(u.name) +
-      '</span>';
+  const legend=document.createElement('div'); legend.className='cal-legend';
+  let ml='';
+  (campaign.members||[]).forEach(m=>{
+    const u=getUser(m.userId); if(!u) return;
+    ml+='<span class="legend-member"><span class="ldot" style="--c:'+(m.color||DEFAULT_COLOR)+'"></span>'+esc(u.name)+'</span>';
   });
-  legend.innerHTML =
-    '<div class="cal-legend-row">' +
-      '<span class="cal-legend-lbl">Membri</span>' +
-      membersLegend +
-    '</div>' +
-    '<div class="cal-legend-hint">Il colore del pallino indica chi ha confermato la disponibilità.</div>';
+  legend.innerHTML='<div class="cal-legend-row"><span class="cal-legend-lbl">Membri</span>'+ml+'</div><div class="cal-legend-hint">Il colore del pallino indica chi ha confermato la disponibilità.</div>';
   wrap.appendChild(legend);
 
   if(!me){
-    const hint = document.createElement('p');
-    hint.className = 'cal-hint';
-    hint.innerHTML = 'Accedi per segnare la tua disponibilità.';
-    wrap.appendChild(hint);
+    const h=document.createElement('p'); h.className='cal-hint'; h.innerHTML='Accedi per segnare la tua disponibilità.'; wrap.appendChild(h);
   }else if(!canVote){
-    const hint = document.createElement('p');
-    hint.className = 'cal-hint';
-    hint.textContent = 'Non fai parte di questa campagna: puoi vedere le disponibilità ma non confermarle.';
-    wrap.appendChild(hint);
+    const h=document.createElement('p'); h.className='cal-hint'; h.textContent='Non fai parte di questa campagna.'; wrap.appendChild(h);
   }
 
-  const weekdays = document.createElement('div');
-  weekdays.className = 'cal-weekdays';
-  weekdayHeaders.forEach(w=>{
-    const s = document.createElement('span');
-    s.textContent = w;
-    weekdays.appendChild(s);
-  });
-  wrap.appendChild(weekdays);
+  const wd=document.createElement('div'); wd.className='cal-weekdays';
+  weekdayHeaders.forEach(w=>{ const s=document.createElement('span'); s.textContent=w; wd.appendChild(s); });
+  wrap.appendChild(wd);
 
-  const grid = document.createElement('div');
-  grid.className = 'cal-grid';
-  const cells = buildCalendarCells(calYear, calMonth);
-  const tKey = todayKey();
-  const myId = me ? me.id : null;
-  cells.forEach(date=>{
-    grid.appendChild(buildCalendarCell(date, campaign, myId, tKey, canVote));
-  });
+  const grid=document.createElement('div'); grid.className='cal-grid';
+  const cells=buildCalendarCells(calYear,calMonth);
+  const tKey=todayKey(); const myId=me?me.id:null;
+  cells.forEach(d=>grid.appendChild(buildCalendarCell(d,campaign,myId,tKey,canVote)));
   wrap.appendChild(grid);
 
-  wrap.appendChild(buildDetailedAvailability(campaign, calYear, calMonth, me));
+  wrap.appendChild(buildDetailedAvailability(campaign,calYear,calMonth,me));
 }
-
-function buildDetailedAvailability(campaign, year, month, me){
-  const panel = document.createElement('div');
-  panel.className = 'detail-panel';
-
-  const totalMembers = campaign.members.length;
-  const avail = campaign.availability || {};
-  const tKey = todayKey();
-  const tDate = new Date(year, month, 1);
-  const monthName = tDate.toLocaleDateString('it-IT', { month:'long' });
-  const monthCap = monthName.charAt(0).toUpperCase() + monthName.slice(1);
-
-  let html = '<h4>Disponibilità dettagliata — ' + monthCap + ' ' + year + '</h4>';
-  html += '<p class="detail-note">Qui vedi, giorno per giorno, chi ha confermato la disponibilità. I giorni pieni di voti sono evidenziati.</p>';
-
-  const rows = [];
-  Object.keys(avail).forEach(key => {
-    const d = new Date(key + 'T12:00:00');
-    if(d.getFullYear() !== year || d.getMonth() !== month) return;
-    const votes = avail[key] || {};
-    const voters = Object.keys(votes).filter(uid => votes[uid] === 'yes');
-    if(voters.length === 0) return;
-    rows.push({ key, date: d, voters });
+function buildDetailedAvailability(campaign,year,month,me){
+  const panel=document.createElement('div'); panel.className='detail-panel';
+  const total=campaign.members.length;
+  const avail=campaign.availability||{};
+  const tKey=todayKey();
+  const tDate=new Date(year,month,1);
+  const mn=tDate.toLocaleDateString('it-IT',{month:'long'});
+  const mnCap=mn.charAt(0).toUpperCase()+mn.slice(1);
+  let html='<h4>Disponibilità dettagliata — '+mnCap+' '+year+'</h4>';
+  html+='<p class="detail-note">Qui vedi, giorno per giorno, chi ha confermato la disponibilità.</p>';
+  const rows=[];
+  Object.keys(avail).forEach(key=>{
+    const d=new Date(key+'T12:00:00');
+    if(d.getFullYear()!==year || d.getMonth()!==month) return;
+    const votes=avail[key]||{};
+    const voters=Object.keys(votes).filter(u=>votes[u]==='yes');
+    if(voters.length===0) return;
+    rows.push({key,date:d,voters});
   });
-
-  rows.sort((a,b) => a.key < b.key ? -1 : 1);
-
-  if(rows.length === 0){
-    html += '<p class="detail-empty">Nessuna disponibilità registrata per questo mese.</p>';
-  }else{
-    rows.forEach(r => {
-      const dateLabel = r.date.toLocaleDateString('it-IT', { weekday:'long', day:'numeric', month:'long' });
-      const isToday = r.key === tKey;
-      const isFull = r.voters.length === totalMembers;
-      const countClass = isFull ? 'full' : (r.voters.length >= Math.ceil(totalMembers / 2) ? 'partial' : '');
-
-      html += '<div class="detail-day'
-        + (isToday ? ' is-today' : '')
-        + (isFull ? ' full' : '')
-        + '">';
-
-      html += '<div class="detail-date">'
-        + '<span class="dd-day">' + r.date.getDate() + '</span>'
-        + '<span class="dd-month">' + dateLabel.split(' ').slice(1).join(' ') + '</span>'
-        + '</div>';
-
-      html += '<span class="detail-count ' + countClass + '">'
-        + r.voters.length + '/' + totalMembers
-        + (isFull ? ' ★' : '')
-        + '</span>';
-
-      html += '<div class="detail-voters">';
-      r.voters.forEach(uid => {
-        const u = getUser(uid);
-        if(!u) return;
-        const color = memberColorIn(campaign, uid);
-        const isMe = me && me.id === uid;
-        html += '<span class="voter-chip" style="--c:' + color + '">'
-          + '<img src="' + getUserAvatar(u) + '" alt="">'
-          + '<span class="voter-dot" style="--c:' + color + '"></span>'
-          + '<span class="voter-name">' + esc(u.name) + (isMe ? ' (tu)' : '') + '</span>'
-          + '</span>';
+  rows.sort((a,b)=>a.key<b.key?-1:1);
+  if(rows.length===0){ html+='<p class="detail-empty">Nessuna disponibilità registrata per questo mese.</p>'; }
+  else{
+    rows.forEach(r=>{
+      const dl=r.date.toLocaleDateString('it-IT',{weekday:'long',day:'numeric',month:'long'});
+      const isToday=r.key===tKey;
+      const isFull=r.voters.length===total;
+      const cc=isFull?'full':(r.voters.length>=Math.ceil(total/2)?'partial':'');
+      html+='<div class="detail-day'+(isToday?' is-today':'')+(isFull?' full':'')+'">';
+      html+='<div class="detail-date"><span class="dd-day">'+r.date.getDate()+'</span><span class="dd-month">'+dl.split(' ').slice(1).join(' ')+'</span></div>';
+      html+='<span class="detail-count '+cc+'">'+r.voters.length+'/'+total+(isFull?' ★':'')+'</span>';
+      html+='<div class="detail-voters">';
+      r.voters.forEach(u=>{
+        const user=getUser(u); if(!user) return;
+        const color=memberColorIn(campaign,u);
+        const isMe=me&&me.id===u;
+        html+='<span class="voter-chip" style="--c:'+color+'"><img src="'+getUserAvatar(user)+'" alt=""><span class="voter-dot" style="--c:'+color+'"></span><span class="voter-name">'+esc(user.name)+(isMe?' (tu)':'')+'</span></span>';
       });
-      html += '</div>';
-
-      html += '</div>';
+      html+='</div></div>';
     });
   }
-
-  panel.innerHTML = html;
-  return panel;
+  panel.innerHTML=html; return panel;
 }
-
-function buildCalendarCells(year, month){
-  const firstDay = new Date(year, month, 1);
-  const startDow = (firstDay.getDay() + 6) % 7;
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
-  const totalCells = Math.ceil((startDow + daysInMonth) / 7) * 7;
-  const cells = [];
-  for(let i=0; i<totalCells; i++){
-    cells.push(new Date(year, month, 1 - startDow + i));
-  }
-  return cells;
+function buildCalendarCells(y,m){
+  const fd=new Date(y,m,1);
+  const s=(fd.getDay()+6)%7;
+  const dim=new Date(y,m+1,0).getDate();
+  const tot=Math.ceil((s+dim)/7)*7;
+  const c=[];
+  for(let i=0;i<tot;i++){ c.push(new Date(y,m,1-s+i)); }
+  return c;
 }
-
-function buildCalendarCell(date, campaign, myId, tKey, canVote){
-  const cell = document.createElement('div');
-  cell.className = 'cal-cell';
-
-  const key = dateKey(date);
-  const otherMonth = date.getMonth() !== calMonth;
-  const isPast = key < tKey;
-  const isToday = key === tKey;
-
-  if(otherMonth) cell.classList.add('other-month');
-  if(isPast) cell.classList.add('past');
-  if(isToday) cell.classList.add('today');
-
-  const dayAvail = (campaign.availability || {})[key] || {};
-  const voterIds = Object.keys(dayAvail).filter(uid => dayAvail[uid] === 'yes');
-  const myVote = myId && dayAvail[myId] === 'yes' ? 'yes' : null;
-
-  if(voterIds.length > 0) cell.classList.add('has-votes');
-  if(voterIds.length >= 3) cell.classList.add('many-votes');
-
-  if(myVote){
-    cell.style.setProperty('--my-color', memberColorIn(campaign, myId));
-    cell.classList.add('my-voted');
-  }
-
-  const daynum = document.createElement('span');
-  daynum.className = 'cal-daynum';
-  daynum.textContent = date.getDate();
-  cell.appendChild(daynum);
-
-  const marks = document.createElement('div');
-  marks.className = 'cal-marks';
-  voterIds.forEach(uid => {
-    const u = getUser(uid);
-    const color = memberColorIn(campaign, uid);
-    const dot = document.createElement('span');
-    dot.className = 'mark yes';
-    dot.style.background = color;
-    dot.style.color = color;
-    dot.title = (u ? u.name : '?') + ' — disponibile';
-    marks.appendChild(dot);
+function buildCalendarCell(date,campaign,myId,tKey,canVote){
+  const cell=document.createElement('div'); cell.className='cal-cell';
+  const key=dateKey(date);
+  const oth=date.getMonth()!==calMonth;
+  const past=key<tKey;
+  const today=key===tKey;
+  if(oth) cell.classList.add('other-month');
+  if(past) cell.classList.add('past');
+  if(today) cell.classList.add('today');
+  const da=(campaign.availability||{})[key]||{};
+  const voters=Object.keys(da).filter(u=>da[u]==='yes');
+  const myVote=myId&&da[myId]==='yes'?'yes':null;
+  if(voters.length>0) cell.classList.add('has-votes');
+  if(voters.length>=3) cell.classList.add('many-votes');
+  if(myVote){ cell.style.setProperty('--my-color',memberColorIn(campaign,myId)); cell.classList.add('my-voted'); }
+  const dn=document.createElement('span'); dn.className='cal-daynum'; dn.textContent=date.getDate();
+  cell.appendChild(dn);
+  const mk=document.createElement('div'); mk.className='cal-marks';
+  voters.forEach(u=>{
+    const usr=getUser(u); const color=memberColorIn(campaign,u);
+    const dot=document.createElement('span'); dot.className='mark yes';
+    dot.style.background=color; dot.style.color=color;
+    dot.title=(usr?usr.name:'?')+' — disponibile';
+    mk.appendChild(dot);
   });
-  cell.appendChild(marks);
-
-  if(voterIds.length > 0){
-    cell.title = voterIds.map(uid => {
-      const u = getUser(uid);
-      return u ? u.name + ': disponibile' : '';
-    }).filter(Boolean).join('\n');
+  cell.appendChild(mk);
+  if(voters.length>0){
+    cell.title=voters.map(u=>{ const usr=getUser(u); return usr?usr.name+': disponibile':''; }).filter(Boolean).join('\n');
   }
-
-  if(!isPast && canVote){
-    cell.addEventListener('click', ()=>toggleVote(campaign, key, myId));
-  }else if(!isPast && !canVote){
-    cell.addEventListener('click', ()=>{
-      if(!currentUser()){ toast('Accedi per confermare la disponibilità.'); openAuth(); }
-      else toast('Non fai parte di questa campagna.');
-    });
+  if(!past && canVote){
+    cell.addEventListener('click', ()=>toggleVote(campaign,key,myId));
+  }else if(!past && !canVote){
+    cell.addEventListener('click', ()=>{ if(!currentUser()){ toast('Accedi per confermare la disponibilità.'); openAuth(); } else toast('Non fai parte di questa campagna.'); });
   }
-
   return cell;
 }
-
-async function toggleVote(campaign, key, myId){
+async function toggleVote(campaign,key,myId){
   if(!myId) return;
-  const day = (campaign.availability || {})[key] || {};
-  if(day[myId] === 'yes'){
-    await sb.from('availability').delete()
-      .eq('campaign_id', campaign.id).eq('user_id', myId).eq('day', key);
+  const day=(campaign.availability||{})[key]||{};
+  if(day[myId]==='yes'){
+    await sb.from('availability').delete().eq('campaign_id',campaign.id).eq('user_id',myId).eq('day',key);
     toast('Disponibilità rimossa');
   }else{
-    await sb.from('availability').insert({
-      campaign_id: campaign.id, user_id: myId, day: key
-    });
+    await sb.from('availability').insert({campaign_id:campaign.id,user_id:myId,day:key});
     toast('Disponibilità confermata');
   }
-  await refreshDB();
-  renderCalendarPage();
-  renderHome();
+  await refreshDB(); renderCalendarPage(); renderHome();
 }
 
-// ============================================================
-// NUOVA CAMPAGNA
-// ============================================================
-$('#newCampaignBtn').addEventListener('click', ()=>{
-  const me = currentUser();
-  if(!me){ toast('Accedi per creare una campagna.'); openAuth(); return; }
-  $('#newCampaignModal').hidden = false;
-});
-
-$('#ncSubmit').addEventListener('click', async ()=>{
-  if(!currentUser()){ toast('Accedi prima.'); return; }
-  const name = $('#ncName').value.trim();
-  const system = $('#ncSystem').value;
-  const desc = $('#ncDesc').value.trim();
-  if(!name){ toast('Dai un nome alla campagna.'); return; }
-
-  const { data: camp, error } = await sb.from('campaigns')
-    .insert({ name, system, description: desc, status: 'in-corso' })
-    .select().single();
-  if(error){ toast(error.message); return; }
-
-  const { error: e2 } = await sb.from('members').insert({
-    campaign_id: camp.id, user_id: CURRENT_USER.id, role: 'master', color: USER_COLORS[0]
-  });
-  if(e2){ toast(e2.message); return; }
-
-  await refreshDB();
-  $('#newCampaignModal').hidden = true;
-  $('#ncName').value = ''; $('#ncDesc').value = '';
-  renderAll();
-  toast('Campagna "' + name + '" creata.');
-});
-
-// ============================================================
-// RENDER ALL + INIT
-// ============================================================
+// ============ RENDER ALL ============
 function renderAll(){
   renderUserArea();
   renderHome();
   renderRoster();
   renderCampaigns();
+  renderArchive();
   renderCalendarPage();
 }
 
@@ -2293,12 +1886,9 @@ function renderAll(){
   await refreshDB();
   await refreshCurrentUser();
   renderAll();
-
-  sb.auth.onAuthStateChange(async (event) => {
-    if(event === 'SIGNED_IN' || event === 'SIGNED_OUT'){
-      await refreshDB();
-      await refreshCurrentUser();
-      renderAll();
+  sb.auth.onAuthStateChange(async (event)=>{
+    if(event==='SIGNED_IN' || event==='SIGNED_OUT'){
+      await refreshDB(); await refreshCurrentUser(); renderAll();
     }
   });
 })();
