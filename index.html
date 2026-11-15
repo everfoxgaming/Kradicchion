@@ -15,14 +15,11 @@
   }
   *{box-sizing:border-box}
   html,body{height:100%}
-  body{
-    margin:0;font-family:'Spectral',Georgia,serif;color:var(--text);
+  body{margin:0;font-family:'Spectral',Georgia,serif;color:var(--text);
     background-color:var(--bg);
-    background-image:
-      radial-gradient(ellipse at 50% 0%, rgba(60,90,120,.4), transparent 60%),
+    background-image:radial-gradient(ellipse at 50% 0%, rgba(60,90,120,.4), transparent 60%),
       radial-gradient(ellipse at 50% 120%, rgba(40,60,85,.45), transparent 65%);
-    background-attachment:fixed;min-height:100vh;-webkit-font-smoothing:antialiased;
-  }
+    background-attachment:fixed;min-height:100vh;-webkit-font-smoothing:antialiased;}
   a{color:var(--accent-text)}
   h1,h2,h3,h4{font-family:'Cinzel',serif;font-weight:700;letter-spacing:.06em;margin:0}
 
@@ -33,8 +30,7 @@
   .topbar-inner{max-width:1180px;margin:0 auto;padding:10px 22px;
     display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;position:relative;}
   .mainnav{display:flex;gap:4px;flex-wrap:wrap;justify-content:center}
-  .mainnav button{
-    font-family:'Cinzel',serif;font-size:.78rem;letter-spacing:.12em;
+  .mainnav button{font-family:'Cinzel',serif;font-size:.78rem;letter-spacing:.12em;
     text-transform:uppercase;color:#e4ebf2;font-weight:600;
     text-shadow:0 1px 2px rgba(0,0,0,.55);
     background:transparent;border:1px solid transparent;border-radius:999px;
@@ -135,7 +131,7 @@
     color:#0a1218;background:linear-gradient(180deg,#e6cf87,#c2a24a);
     padding:2px 8px;border-radius:999px;margin-left:6px;font-weight:700;vertical-align:middle;}
 
-  /* ===== CAMP CARD con banner ===== */
+  /* CAMP CARD con banner */
   .camp-card{background:var(--panel);border:1px solid var(--line-soft);border-radius:16px;
     padding:22px;backdrop-filter:blur(4px);transition:.28s ease;cursor:pointer;
     position:relative;overflow:hidden;}
@@ -163,19 +159,26 @@
   .mini-avatars img:first-child{margin-left:0}
   .c-count{font-size:.78rem;color:var(--muted);margin-left:auto}
 
-  /* ===== Campaign detail banner ===== */
+  /* Campaign detail banner */
   .camp-detail-banner{height:220px;background-size:cover;background-position:center;
     margin:-28px -30px 22px;border-radius:18px 18px 0 0;
     border-bottom:1px solid var(--line-soft);background-color:#1a2430;position:relative;}
 
-  /* ===== Banner picker (create campaign) ===== */
   .banner-picker{display:flex;flex-direction:column;gap:10px}
   .banner-preview{height:120px;background-size:cover;background-position:center;
     background-color:#1a2430;border:1px dashed var(--line-soft);border-radius:10px;
     display:grid;place-items:center;color:var(--muted);font-size:.82rem;font-style:italic;overflow:hidden;}
   .banner-preview.has-image{border-style:solid}
 
-  /* ===== ARCHIVIO ===== */
+  /* ARCHIVIO */
+  .archive-campaigns{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+  .archive-camp-pill{font-family:'Cinzel',serif;font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;
+    font-weight:600;padding:8px 16px;border-radius:999px;background:transparent;
+    border:1px solid var(--line-soft);color:#a8b8c8;cursor:pointer;transition:.22s ease;}
+  .archive-camp-pill:hover{color:#f6ecbf;border-color:var(--line);background:rgba(60,90,120,.28)}
+  .archive-camp-pill.active{color:#0a1218;background:linear-gradient(180deg,#e6cf87,#c2a24a);
+    border-color:#e6cf87;font-weight:700;box-shadow:0 0 18px rgba(217,185,92,.3);}
+
   .archive-cats{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
   .archive-cat{font-family:'Cinzel',serif;font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;
     font-weight:600;padding:8px 16px;border-radius:999px;background:transparent;
@@ -207,7 +210,7 @@
   .archive-view-desc{font-size:.95rem;color:var(--text);line-height:1.75;white-space:pre-wrap;margin:0 0 20px}
   .archive-view-actions{display:flex;gap:12px;justify-content:flex-end;flex-wrap:wrap;margin-top:16px}
 
-  /* ===== Calendario ===== */
+  /* Calendario */
   .camp-pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
   .camp-pill{font-family:'Cinzel',serif;font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;
     font-weight:600;padding:8px 16px;border-radius:999px;background:transparent;
@@ -284,7 +287,7 @@
   .detail-empty{color:var(--muted);font-style:italic;font-size:.86rem}
   .detail-note{font-size:.82rem;color:var(--muted);font-style:italic;margin:0 0 16px;padding-left:2px}
 
-  /* ===== Modali ===== */
+  /* Modali */
   .modal-overlay{position:fixed;inset:0;z-index:200;background:rgba(4,8,12,.82);
     backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
     display:flex;align-items:flex-start;justify-content:center;padding:30px 18px;
@@ -520,12 +523,17 @@
   <section id="page-archivio" class="page">
     <div class="page-head">
       <h2>Archivio</h2>
-      <p>La raccolta di conoscenze del gruppo: PNG, luoghi, oggetti e reliquie, religione e bestiario. Ogni voce ha un'immagine e una descrizione.</p>
+      <p>Le conoscenze delle singole campagne: PNG, luoghi, oggetti e reliquie, religione e bestiario. Ogni voce ha un'immagine e una descrizione.</p>
     </div>
     <div class="toolbar" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px;align-items:center">
       <div style="flex:1"></div>
       <button class="btn" id="newArchiveBtn">+ Nuova voce</button>
     </div>
+    <div id="archiveCampaignsWrap">
+      <div style="font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Campagna</div>
+      <div class="archive-campaigns" id="archiveCampaigns"></div>
+    </div>
+    <div style="font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Categoria</div>
     <div class="archive-cats" id="archiveCats"></div>
     <div class="archive-grid" id="archiveGrid"></div>
   </section>
@@ -541,7 +549,6 @@
 
 <footer>Kradicchion Hub</footer>
 
-<!-- AUTH MODAL -->
 <div class="modal-overlay" id="authModal" hidden>
   <div class="modal-box">
     <div class="modal-head">
@@ -572,7 +579,6 @@
   </div>
 </div>
 
-<!-- PROFILE MODAL -->
 <div class="modal-overlay" id="profileModal" hidden>
   <div class="modal-box">
     <div class="modal-head">
@@ -601,14 +607,12 @@
   </div>
 </div>
 
-<!-- CAMPAIGN DETAIL MODAL -->
 <div class="modal-overlay" id="campaignModal" hidden>
   <div class="modal-box wide">
     <div id="campaignDetail"></div>
   </div>
 </div>
 
-<!-- ADD MEMBER MODAL -->
 <div class="modal-overlay" id="addMemberModal" hidden style="z-index:210">
   <div class="modal-box">
     <div class="modal-head">
@@ -622,7 +626,6 @@
   </div>
 </div>
 
-<!-- NEW CAMPAIGN MODAL -->
 <div class="modal-overlay" id="newCampaignModal" hidden>
   <div class="modal-box">
     <div class="modal-head">
@@ -653,19 +656,21 @@
   </div>
 </div>
 
-<!-- ARCHIVE VIEW MODAL -->
 <div class="modal-overlay" id="archiveViewModal" hidden>
   <div class="modal-box wide">
     <div id="archiveViewContent"></div>
   </div>
 </div>
 
-<!-- ARCHIVE EDIT MODAL -->
 <div class="modal-overlay" id="archiveEditModal" hidden style="z-index:210">
   <div class="modal-box">
     <div class="modal-head">
-      <div><h3 id="archiveEditTitle">Nuova voce</h3><div class="sub">Aggiungi un'immagine e una descrizione.</div></div>
+      <div><h3 id="archiveEditTitle">Nuova voce</h3><div class="sub" id="archiveEditSub">Aggiungi un'immagine e una descrizione.</div></div>
       <button class="close-x" data-close="archiveEditModal">×</button>
+    </div>
+    <div class="field" id="aeCampaignField">
+      <label>Campagna</label>
+      <select id="aeCampaign"></select>
     </div>
     <div class="field">
       <label>Categoria</label>
@@ -743,6 +748,7 @@ let profilePendingFile = null;
 let profileSelectedAvatar = '';
 
 // Archive state
+let selectedArchiveCampaign = null;
 let selectedArchiveCat = 'all';
 let editingArchiveId = null;
 let archivePendingFile = null;
@@ -778,6 +784,8 @@ function statusLabel(s){ return s==='in-corso'?'In corso':s==='conclusa'?'Conclu
 function catLabel(k){ const c = ARCHIVE_CATEGORIES.find(x=>x.key===k); return c?c.label:k; }
 function validEmail(e){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
 function toast(msg){ const t=$('#toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove('show'),2600); }
+// Escape a URL for use inside CSS url('...') in an HTML style attribute
+function cssUrl(u){ return String(u||'').replace(/'/g,"%27").replace(/"/g,'%22').replace(/\(/g,'%28').replace(/\)/g,'%29'); }
 
 // ============ LOAD ============
 async function refreshDB(){
@@ -813,7 +821,8 @@ async function refreshDB(){
 
   DB.archive = (archive.data||[]).map(a => ({
     id:a.id, category:a.category, title:a.title, imageUrl:a.image_url||'',
-    description:a.description||'', createdBy:a.created_by, createdAt:a.created_at
+    description:a.description||'', createdBy:a.created_by, createdAt:a.created_at,
+    campaignId: a.campaign_id || null
   }));
 }
 
@@ -971,7 +980,6 @@ document.addEventListener('click', e=>{
 });
 
 document.addEventListener('change', e=>{
-  // Avatar upload (auth)
   if(e.target && e.target.id==='avatarFileInput'){
     const file=e.target.files && e.target.files[0]; if(!file) return;
     if(!file.type.startsWith('image/')){ toast('Il file deve essere un\'immagine.'); return; }
@@ -987,7 +995,6 @@ document.addEventListener('change', e=>{
     };
     reader.readAsDataURL(file);
   }
-  // Avatar upload (profile)
   if(e.target && e.target.id==='profAvatarFileInput'){
     const file=e.target.files && e.target.files[0]; if(!file) return;
     if(!file.type.startsWith('image/')){ toast('Il file deve essere un\'immagine.'); return; }
@@ -1003,7 +1010,6 @@ document.addEventListener('change', e=>{
     };
     reader.readAsDataURL(file);
   }
-  // Campaign banner upload
   if(e.target && e.target.id==='ncBannerInput'){
     const file=e.target.files && e.target.files[0]; if(!file) return;
     if(!file.type.startsWith('image/')){ toast('Il file deve essere un\'immagine.'); return; }
@@ -1016,7 +1022,6 @@ document.addEventListener('change', e=>{
     };
     reader.readAsDataURL(file);
   }
-  // Archive image upload
   if(e.target && e.target.id==='aeImageInput'){
     const file=e.target.files && e.target.files[0]; if(!file) return;
     if(!file.type.startsWith('image/')){ toast('Il file deve essere un\'immagine.'); return; }
@@ -1035,7 +1040,7 @@ document.addEventListener('change', e=>{
 function updateNcBannerPreview(){
   const el=$('#ncBannerPreview'); if(!el) return;
   if(campaignPendingBannerPreview){
-    el.style.backgroundImage='url("'+campaignPendingBannerPreview+'")';
+    el.style.backgroundImage="url('"+cssUrl(campaignPendingBannerPreview)+"')";
     el.textContent=''; el.classList.add('has-image');
   }else{
     el.style.backgroundImage=''; el.textContent='Nessuna immagine'; el.classList.remove('has-image');
@@ -1045,7 +1050,7 @@ function updateArchiveImagePreview(){
   const el=$('#aeImagePreview'); if(!el) return;
   const src = archivePendingPreview || archiveSelectedImage;
   if(src){
-    el.style.backgroundImage='url("'+src+'")';
+    el.style.backgroundImage="url('"+cssUrl(src)+"')";
     el.textContent=''; el.classList.add('has-image');
   }else{
     el.style.backgroundImage=''; el.textContent='Nessuna immagine'; el.classList.remove('has-image');
@@ -1077,7 +1082,7 @@ $('#profSaveBtn').addEventListener('click', async ()=>{
   $('#profileModal').hidden=true; renderAll(); toast('Profilo aggiornato!');
 });
 
-// ============ AUTH LOGIN/REGISTER ============
+// ============ AUTH ============
 $('#authLogin').addEventListener('click', async ()=>{
   const email=$('#authEmail').value.trim().toLowerCase();
   const password=$('#authPassword').value;
@@ -1200,7 +1205,9 @@ function buildCampaignCard(c){
   const masterM=members.find(m=>m.role==='master');
   const master=masterM?getUser(masterM.userId):null;
   let html='';
-  if(c.bannerUrl){ html+='<div class="camp-banner" style="background-image:url("'+c.bannerUrl+'")"></div>'; }
+  if(c.bannerUrl){
+    html+='<div class="camp-banner" style="background-image:url(\''+cssUrl(c.bannerUrl)+'\')"></div>';
+  }
   html +=
     '<div class="c-top"><div><h3>'+esc(c.name)+'</h3><div class="system">'+esc(c.system)+'</div></div><span class="status-badge '+c.status+'">'+statusLabel(c.status)+'</span></div>'+
     '<p class="c-desc">'+esc(c.description||'')+'</p>'+
@@ -1275,7 +1282,7 @@ function renderCampaignDetail(c){
 
   let html='';
   if(c.bannerUrl){
-    html+='<div class="camp-detail-banner" style="background-image:url("'+c.bannerUrl+'")">'+
+    html+='<div class="camp-detail-banner" style="background-image:url(\''+cssUrl(c.bannerUrl)+'\')">'+
       '<button class="close-x" data-close-inline style="position:absolute;top:12px;right:12px;background:rgba(8,12,18,.75);backdrop-filter:blur(8px)">×</button></div>';
   }
   html+='<div class="modal-head"><div><h3>'+esc(c.name)+'</h3><div class="sub">'+esc(c.system)+' · <span class="status-badge '+c.status+'" style="display:inline-block;margin-top:6px">'+statusLabel(c.status)+'</span></div></div>'+
@@ -1296,604 +1303,4 @@ function renderCampaignDetail(c){
         '<option value="player"'+(m.role==='player'?' selected':'')+'>Giocatore</option>'+
         '<option value="observer"'+(m.role==='observer'?' selected':'')+'>Osservatore</option></select>';
     }else{
-      roleHtml='<span class="rlabel '+m.role+'" style="font-size:.62rem;padding:4px 10px;border-radius:999px;border:1px solid;">'+roleLabel(m.role)+'</span>';
-    }
-    html+='<div class="member-row" style="--c:'+color+'"><img src="'+getUserAvatar(u)+'" alt=""><span class="mname"><span class="cdot"></span>'+esc(u.name)+you+'</span><span class="mrole">'+roleHtml+'</span>'+removeBtn+'</div>';
-  });
-  if(isMaster) html+='<div style="margin-top:14px"><button class="btn small" id="addMemberBtn">+ Aggiungi giocatori</button></div>';
-  html+='</div>';
-
-  html+='<div class="cd-section"><div class="cd-section-title">Sessioni ('+(c.sessions||[]).length+')</div>';
-  if(!c.sessions || c.sessions.length===0){ html+='<p class="empty-note">Nessuna sessione registrata.</p>'; }
-  else{ c.sessions.forEach(s=>{ html+=renderSessionBlock(s,c,me,isMaster); }); }
-  if(isMaster){
-    const nextNum=(c.sessions||[]).length?Math.max.apply(null,c.sessions.map(x=>parseInt(x.num,10)||0))+1:1;
-    html+='<div class="session-form"><div class="s-head">Nuova sessione</div>'+
-      '<div class="form-row"><div class="f-num"><label>Numero</label><input type="text" id="nsNum" value="'+nextNum+'" maxlength="4"></div>'+
-      '<div class="f-title"><label>Titolo</label><input type="text" id="nsTitle" placeholder="Es. Il Tempio Sommerso" maxlength="80"></div></div>'+
-      '<div><label>Riassunto</label><textarea id="nsSummary" rows="3" placeholder="Cosa è successo..."></textarea></div>'+
-      '<div style="margin-top:10px"><button class="btn small" id="nsAddBtn">+ Aggiungi sessione</button></div></div>';
-  }
-  html+='</div>';
-
-  html+='<div class="cd-section"><div class="cd-section-title">Disponibilità</div>'+
-    '<p class="empty-note" style="margin-bottom:12px">Consulta il calendario dedicato a questa campagna.</p>'+
-    '<button class="btn small" id="openCalBtn">Apri calendario di questa campagna</button></div>';
-
-  if(isMaster){
-    html+='<div class="cd-section"><div class="cd-section-title">Zona Master</div>'+
-      '<div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">'+
-        (c.bannerUrl?'<button class="btn ghost small" id="changeBannerBtn">Cambia banner</button>':'<button class="btn ghost small" id="changeBannerBtn">+ Aggiungi banner</button>')+
-        '<button class="btn danger small" id="cdDeleteCampaign">Elimina campagna</button>'+
-      '</div></div>';
-  }
-
-  const detail=$('#campaignDetail');
-  detail.innerHTML=html;
-
-  const ci=detail.querySelector('[data-close-inline]');
-  if(ci) ci.addEventListener('click', ()=>{ $('#campaignModal').hidden=true; });
-
-  detail.querySelectorAll('[data-change-role]').forEach(sel=>{
-    sel.addEventListener('change', async function(){
-      const targetUserId=sel.dataset.changeRole;
-      const newRole=sel.value;
-      if(!['master','player','observer'].includes(newRole)) return;
-      const m=(c.members||[]).find(x=>x.userId===targetUserId); if(!m) return;
-      if(m.role==='master' && newRole!=='master'){
-        const otherM=(c.members||[]).filter(x=>x.userId!==targetUserId && x.role==='master');
-        if(otherM.length===0){
-          const ok=confirm('Stai per rimuovere l\'unico Master dalla campagna. Continuare?');
-          if(!ok){ sel.value=m.role; return; }
-        }
-      }
-      const { error } = await sb.from('members').update({role:newRole}).eq('campaign_id',c.id).eq('user_id',targetUserId);
-      if(error){ toast(error.message); return; }
-      await refreshDB();
-      const fresh=getCampaign(c.id); if(fresh) renderCampaignDetail(fresh);
-      renderAll();
-      toast(roleLabel(newRole)+' assegnato.');
-    });
-  });
-
-  detail.querySelectorAll('[data-edit-session]').forEach(btn=>{
-    btn.addEventListener('click', ()=>{ editingSessionId=btn.dataset.editSession; commentingSessionId=null; renderCampaignDetail(c); });
-  });
-  detail.querySelectorAll('[data-cancel-session]').forEach(btn=>{
-    btn.addEventListener('click', ()=>{ editingSessionId=null; renderCampaignDetail(c); });
-  });
-  detail.querySelectorAll('[data-save-session]').forEach(btn=>{
-    btn.addEventListener('click', async ()=>{
-      const sid=btn.dataset.saveSession;
-      const s=(c.sessions||[]).find(x=>x.id===sid); if(!s) return;
-      const newNum=($('#edit-num-'+sid).value||'').trim()||s.num;
-      const newTitle=($('#edit-title-'+sid).value||'').trim();
-      const newSum=($('#edit-summary-'+sid).value||'').trim();
-      if(!newTitle){ toast('Titolo non può essere vuoto.'); return; }
-      const { error } = await sb.from('sessions').update({num:newNum,title:newTitle,summary:newSum}).eq('id',sid);
-      if(error){ toast(error.message); return; }
-      editingSessionId=null;
-      await refreshDB();
-      const fresh=getCampaign(c.id); if(fresh) renderCampaignDetail(fresh);
-      renderHome(); toast('Sessione aggiornata.');
-    });
-  });
-
-  detail.querySelectorAll('[data-toggle-comment]').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      const sid=btn.dataset.toggleComment;
-      commentingSessionId=(commentingSessionId===sid)?null:sid;
-      editingSessionId=null;
-      renderCampaignDetail(c);
-      if(commentingSessionId){ setTimeout(()=>{ const ta=$('#comment-input-'+sid); if(ta) ta.focus(); },60); }
-    });
-  });
-  detail.querySelectorAll('[data-cancel-comment]').forEach(btn=>{
-    btn.addEventListener('click', ()=>{ commentingSessionId=null; renderCampaignDetail(c); });
-  });
-  detail.querySelectorAll('[data-save-comment]').forEach(btn=>{
-    btn.addEventListener('click', async ()=>{
-      if(!me) return;
-      const sid=btn.dataset.saveComment;
-      const ta=$('#comment-input-'+sid); if(!ta) return;
-      const text=ta.value.trim();
-      if(text){
-        const { error } = await sb.from('comments').upsert({session_id:sid,user_id:me.id,body:text,updated_at:new Date().toISOString()});
-        if(error){ toast(error.message); return; }
-      }else{
-        const { error } = await sb.from('comments').delete().eq('session_id',sid).eq('user_id',me.id);
-        if(error){ toast(error.message); return; }
-      }
-      commentingSessionId=null;
-      await refreshDB();
-      const fresh=getCampaign(c.id); if(fresh) renderCampaignDetail(fresh);
-      toast(text?'Commento salvato.':'Commento rimosso.');
-    });
-  });
-  detail.querySelectorAll('[data-delete-comment]').forEach(btn=>{
-    btn.addEventListener('click', async ()=>{
-      if(!me) return;
-      const sid=btn.dataset.deleteComment;
-      const { error } = await sb.from('comments').delete().eq('session_id',sid).eq('user_id',me.id);
-      if(error){ toast(error.message); return; }
-      commentingSessionId=null;
-      await refreshDB();
-      const fresh=getCampaign(c.id); if(fresh) renderCampaignDetail(fresh);
-      toast('Commento eliminato.');
-    });
-  });
-
-  if(isMaster){
-    const addBtn=$('#nsAddBtn');
-    if(addBtn){
-      addBtn.addEventListener('click', async ()=>{
-        const newNum=($('#nsNum').value||'').trim();
-        const title=($('#nsTitle').value||'').trim();
-        const summary=($('#nsSummary').value||'').trim();
-        if(!newNum || !title){ toast('Numero e titolo obbligatori.'); return; }
-        const { error } = await sb.from('sessions').insert({campaign_id:c.id,num:newNum,title,summary});
-        if(error){ toast(error.message); return; }
-        await refreshDB();
-        const fresh=getCampaign(c.id); if(fresh) renderCampaignDetail(fresh);
-        renderHome(); toast('Sessione aggiunta.');
-      });
-    }
-    const delBtn=$('#cdDeleteCampaign');
-    if(delBtn){
-      delBtn.addEventListener('click', async ()=>{
-        if(!confirm('Eliminare definitivamente la campagna "'+c.name+'"?')) return;
-        const { error } = await sb.from('campaigns').delete().eq('id',c.id);
-        if(error){ toast(error.message); return; }
-        $('#campaignModal').hidden=true; $('#addMemberModal').hidden=true;
-        await refreshDB(); renderAll(); toast('Campagna eliminata.');
-      });
-    }
-    const addMemBtn=$('#addMemberBtn');
-    if(addMemBtn) addMemBtn.addEventListener('click', ()=>openAddMemberModal(c.id));
-
-    const changeBannerBtn=$('#changeBannerBtn');
-    if(changeBannerBtn){
-      changeBannerBtn.addEventListener('click', ()=>{
-        const input=document.createElement('input');
-        input.type='file'; input.accept='image/*';
-        input.addEventListener('change', async e=>{
-          const file=e.target.files[0]; if(!file) return;
-          if(!file.type.startsWith('image/')){ toast('Deve essere un\'immagine.'); return; }
-          if(file.size > BANNER_MAX_BYTES){ toast('Max 5 MB.'); return; }
-          const userId=CURRENT_USER.id;
-          const ext=file.name.split('.').pop().toLowerCase().replace(/[^a-z0-9]/g,'')||'jpg';
-          const path=userId+'/'+c.id+'.'+ext;
-          const { error:upErr } = await sb.storage.from('campaign-banners').upload(path,file,{contentType:file.type,upsert:true});
-          if(upErr){ toast('Errore upload: '+upErr.message); return; }
-          const { data:urlData } = sb.storage.from('campaign-banners').getPublicUrl(path);
-          const newUrl=urlData.publicUrl+'?t='+Date.now();
-          const { error } = await sb.from('campaigns').update({banner_url:newUrl}).eq('id',c.id);
-          if(error){ toast(error.message); return; }
-          await refreshDB();
-          const fresh=getCampaign(c.id); if(fresh) renderCampaignDetail(fresh);
-          renderAll(); toast('Banner aggiornato.');
-        });
-        input.click();
-      });
-    }
-  }
-
-  detail.querySelectorAll('[data-remove-member]').forEach(btn=>{
-    btn.addEventListener('click', async ()=>{
-      const rid=btn.dataset.removeMember;
-      const ru=getUser(rid); if(!ru) return;
-      if(!confirm('Rimuovere '+ru.name+' dalla campagna?')) return;
-      await sb.from('availability').delete().eq('campaign_id',c.id).eq('user_id',rid);
-      await sb.from('comments').delete().eq('user_id',rid);
-      const { error } = await sb.from('members').delete().eq('campaign_id',c.id).eq('user_id',rid);
-      if(error){ toast(error.message); return; }
-      await refreshDB();
-      const fresh=getCampaign(c.id); if(fresh) renderCampaignDetail(fresh);
-      renderAddMemberList(); renderAll(); toast(ru.name+' rimosso.');
-    });
-  });
-
-  const openCalBtn=$('#openCalBtn');
-  if(openCalBtn){
-    openCalBtn.addEventListener('click', ()=>{
-      selectedCalCampaign=c.id;
-      $('#campaignModal').hidden=true; $('#addMemberModal').hidden=true;
-      goTo('calendario'); renderCalendarPage();
-    });
-  }
-}
-
-// ============ ADD MEMBER ============
-function openAddMemberModal(cid){
-  const c=getCampaign(cid); if(!c) return;
-  addMemberCampaignId=cid;
-  $('#addMemberSub').textContent='Campagna: '+c.name;
-  renderAddMemberList();
-  $('#addMemberModal').hidden=false;
-}
-function renderAddMemberList(){
-  const list=$('#addMemberList'); if(!list) return;
-  const c=addMemberCampaignId?getCampaign(addMemberCampaignId):null;
-  if(!c){ list.innerHTML=''; return; }
-  list.innerHTML='';
-  const memberIds=new Set((c.members||[]).map(m=>m.userId));
-  const candidates=DB.users.filter(u=>!memberIds.has(u.id));
-  if(candidates.length===0){
-    const e=document.createElement('div'); e.className='empty-add-note';
-    e.textContent='Tutti gli utenti registrati sono già membri di questa campagna.';
-    list.appendChild(e); return;
-  }
-  const previewMembers=(c.members||[]).map(m=>({userId:m.userId,color:m.color}));
-  candidates.forEach(u=>{
-    const previewColor=pickColorForCampaign({members:previewMembers});
-    previewMembers.push({userId:u.id,color:previewColor});
-    const row=document.createElement('div'); row.className='add-member-row';
-    row.innerHTML='<img src="'+getUserAvatar(u)+'" alt=""><div class="info"><div class="name"><span class="cdot" style="background:'+previewColor+';color:'+previewColor+'"></span>'+esc(u.name)+'</div><div class="email">'+esc(u.email)+'</div></div><select class="role-select" data-uid="'+u.id+'"><option value="player">Giocatore</option><option value="master">Master</option><option value="observer">Osservatore</option></select><button type="button" class="btn small" data-add="'+u.id+'">Aggiungi</button>';
-    list.appendChild(row);
-  });
-  list.querySelectorAll('[data-add]').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      const uid=btn.dataset.add;
-      const row=btn.closest('.add-member-row');
-      const sel=row.querySelector('.role-select');
-      addMemberToCampaign(addMemberCampaignId,uid,sel.value);
-    });
-  });
-}
-async function addMemberToCampaign(cid,uid,role){
-  const c=getCampaign(cid); if(!c) return;
-  const u=getUser(uid); if(!u) return;
-  if((c.members||[]).some(m=>m.userId===uid)){ toast('Utente già membro.'); return; }
-  const color=pickColorForCampaign(c);
-  const { error } = await sb.from('members').insert({campaign_id:cid,user_id:uid,role,color});
-  if(error){ toast(error.message); return; }
-  await refreshDB();
-  if(!$('#campaignModal').hidden) renderCampaignDetail(getCampaign(cid));
-  renderAddMemberList(); renderAll();
-  toast(u.name+' aggiunto come '+roleLabel(role)+'.');
-}
-
-// ============ NEW CAMPAIGN ============
-$('#newCampaignBtn').addEventListener('click', ()=>{
-  if(!currentUser()){ toast('Accedi per creare una campagna.'); openAuth(); return; }
-  campaignPendingBanner=null; campaignPendingBannerPreview='';
-  updateNcBannerPreview();
-  const bi=document.getElementById('ncBannerInput'); if(bi) bi.value='';
-  $('#newCampaignModal').hidden=false;
-});
-$('#ncSubmit').addEventListener('click', async ()=>{
-  if(!currentUser()){ toast('Accedi prima.'); return; }
-  const name=$('#ncName').value.trim();
-  const system=$('#ncSystem').value;
-  const desc=$('#ncDesc').value.trim();
-  if(!name){ toast('Dai un nome alla campagna.'); return; }
-  const { data:camp, error } = await sb.from('campaigns').insert({name,system,description:desc,status:'in-corso'}).select().single();
-  if(error){ toast(error.message); return; }
-  const { error:e2 } = await sb.from('members').insert({campaign_id:camp.id,user_id:CURRENT_USER.id,role:'master',color:USER_COLORS[0]});
-  if(e2){ toast(e2.message); return; }
-  if(campaignPendingBanner){
-    const userId=CURRENT_USER.id;
-    const ext=campaignPendingBanner.name.split('.').pop().toLowerCase().replace(/[^a-z0-9]/g,'')||'jpg';
-    const path=userId+'/'+camp.id+'.'+ext;
-    const { error:upErr } = await sb.storage.from('campaign-banners').upload(path,campaignPendingBanner,{contentType:campaignPendingBanner.type,upsert:true});
-    if(!upErr){
-      const { data:urlData } = sb.storage.from('campaign-banners').getPublicUrl(path);
-      await sb.from('campaigns').update({banner_url:urlData.publicUrl+'?t='+Date.now()}).eq('id',camp.id);
-    }
-  }
-  campaignPendingBanner=null; campaignPendingBannerPreview='';
-  const bi=document.getElementById('ncBannerInput'); if(bi) bi.value='';
-  await refreshDB();
-  $('#newCampaignModal').hidden=true;
-  $('#ncName').value=''; $('#ncDesc').value='';
-  renderAll(); toast('Campagna "'+name+'" creata.');
-});
-
-// ============ ARCHIVE ============
-function renderArchive(){
-  const cats=$('#archiveCats'); const grid=$('#archiveGrid');
-  if(!cats || !grid) return;
-  cats.innerHTML='';
-  const allBtn=document.createElement('button');
-  allBtn.type='button';
-  allBtn.className='archive-cat'+(selectedArchiveCat==='all'?' active':'');
-  allBtn.textContent='Tutte';
-  allBtn.addEventListener('click', ()=>{ selectedArchiveCat='all'; renderArchive(); });
-  cats.appendChild(allBtn);
-  ARCHIVE_CATEGORIES.forEach(cat=>{
-    const btn=document.createElement('button');
-    btn.type='button';
-    btn.className='archive-cat'+(selectedArchiveCat===cat.key?' active':'');
-    btn.textContent=cat.label;
-    btn.addEventListener('click', ()=>{ selectedArchiveCat=cat.key; renderArchive(); });
-    cats.appendChild(btn);
-  });
-
-  grid.innerHTML='';
-  const filtered=selectedArchiveCat==='all'?DB.archive:DB.archive.filter(e=>e.category===selectedArchiveCat);
-  if(filtered.length===0){
-    grid.innerHTML='<p class="archive-empty">Nessuna voce in questa categoria. '+(currentUser()?'Aggiungine una con il pulsante "+ Nuova voce".':'Accedi per aggiungere voci.')+'</p>';
-    return;
-  }
-  filtered.forEach(entry=>{
-    const card=document.createElement('article');
-    card.className='archive-card';
-    const bg = entry.imageUrl ? 'background-image:url("'+entry.imageUrl+'");background-size:cover;background-position:center' : '';
-    card.innerHTML=
-      '<div class="archive-card-img" style="'+bg+'">'+(entry.imageUrl?'':'📜')+'</div>'+
-      '<div class="archive-card-body">'+
-        '<div class="archive-card-title">'+esc(entry.title)+'</div>'+
-        '<div class="archive-card-desc">'+(entry.description?esc(entry.description.substring(0,180)):'<em>Nessuna descrizione</em>')+'</div>'+
-        '<div class="archive-card-meta">'+catLabel(entry.category)+'</div>'+
-      '</div>';
-    card.addEventListener('click', ()=>openArchiveView(entry.id));
-    grid.appendChild(card);
-  });
-}
-function openArchiveView(entryId){
-  const entry=DB.archive.find(e=>e.id===entryId); if(!entry) return;
-  const me=currentUser();
-  const isOwner=me && me.id===entry.createdBy;
-  let html='<div class="modal-head"><div><h3>'+esc(entry.title)+'</h3><div class="sub">'+catLabel(entry.category)+'</div></div><button class="close-x" data-close="archiveViewModal">×</button></div>';
-  if(entry.imageUrl){ html+='<div class="archive-view-image" style="background-image:url("'+entry.imageUrl+'")"></div>'; }
-  html+='<p class="archive-view-desc">'+(entry.description?esc(entry.description):'<em>Nessuna descrizione.</em>')+'</p>';
-  if(isOwner){
-    html+='<div class="archive-view-actions"><button class="btn danger small" id="archiveDeleteBtn">Elimina</button><button class="btn small" id="archiveEditBtn">Modifica</button></div>';
-  }
-  $('#archiveViewContent').innerHTML=html;
-  $('#archiveViewModal').hidden=false;
-  if(isOwner){
-    $('#archiveEditBtn').addEventListener('click', ()=>{ $('#archiveViewModal').hidden=true; openArchiveEdit(entry.id); });
-    $('#archiveDeleteBtn').addEventListener('click', async ()=>{
-      if(!confirm('Eliminare "'+entry.title+'"?')) return;
-      const { error } = await sb.from('archive_entries').delete().eq('id',entry.id);
-      if(error){ toast(error.message); return; }
-      await refreshDB(); $('#archiveViewModal').hidden=true; renderArchive(); toast('Voce eliminata.');
-    });
-  }
-}
-function openArchiveEdit(entryId){
-  editingArchiveId=entryId||null;
-  archivePendingFile=null; archivePendingPreview=''; archiveSelectedImage='';
-  const entry=entryId?DB.archive.find(e=>e.id===entryId):null;
-  $('#archiveEditTitle').textContent=entry?'Modifica voce':'Nuova voce';
-  if(entry){
-    $('#aeCategory').value=entry.category;
-    $('#aeTitle').value=entry.title;
-    $('#aeDescription').value=entry.description;
-    archiveSelectedImage=entry.imageUrl||'';
-  }else{
-    $('#aeCategory').value = selectedArchiveCat==='all'?'png':selectedArchiveCat;
-    $('#aeTitle').value=''; $('#aeDescription').value='';
-  }
-  const ai=document.getElementById('aeImageInput'); if(ai) ai.value='';
-  updateArchiveImagePreview();
-  $('#archiveEditModal').hidden=false;
-  setTimeout(()=>$('#aeTitle').focus(),60);
-}
-$('#newArchiveBtn').addEventListener('click', ()=>{
-  if(!currentUser()){ toast('Accedi per aggiungere voci.'); openAuth(); return; }
-  openArchiveEdit(null);
-});
-$('#aeSaveBtn').addEventListener('click', async ()=>{
-  if(!currentUser()) return;
-  const cat=$('#aeCategory').value;
-  const title=$('#aeTitle').value.trim();
-  const desc=$('#aeDescription').value.trim();
-  if(!title){ toast('Inserisci un titolo.'); return; }
-  if(!ARCHIVE_CATEGORIES.find(c=>c.key===cat)){ toast('Categoria non valida.'); return; }
-  let imageUrl=archiveSelectedImage;
-  if(archivePendingFile){
-    const userId=CURRENT_USER.id;
-    const ext=archivePendingFile.name.split('.').pop().toLowerCase().replace(/[^a-z0-9]/g,'')||'jpg';
-    const path=userId+'/'+Date.now()+'.'+ext;
-    const { error:upErr } = await sb.storage.from('archive-images').upload(path,archivePendingFile,{contentType:archivePendingFile.type,upsert:false});
-    if(upErr){ toast('Errore upload: '+upErr.message); return; }
-    const { data:urlData } = sb.storage.from('archive-images').getPublicUrl(path);
-    imageUrl=urlData.publicUrl;
-  }
-  if(editingArchiveId){
-    const { error } = await sb.from('archive_entries').update({category:cat,title,image_url:imageUrl,description:desc}).eq('id',editingArchiveId);
-    if(error){ toast(error.message); return; }
-    toast('Voce aggiornata.');
-  }else{
-    const { error } = await sb.from('archive_entries').insert({category:cat,title,image_url:imageUrl,description:desc,created_by:CURRENT_USER.id});
-    if(error){ toast(error.message); return; }
-    toast('Voce aggiunta.');
-  }
-  archivePendingFile=null; archivePendingPreview=''; archiveSelectedImage=''; editingArchiveId=null;
-  $('#archiveEditModal').hidden=true;
-  await refreshDB(); renderArchive();
-});
-
-// ============ CALENDAR ============
-const weekdayHeaders=['Lun','Mar','Mer','Gio','Ven','Sab','Dom'];
-function renderCalendarPage(){
-  const wrap=$('#calendarList'); if(!wrap) return;
-  wrap.innerHTML='';
-  if(DB.campaigns.length===0){ wrap.innerHTML='<p class="empty-note">Nessuna campagna al momento.</p>'; return; }
-  if(!selectedCalCampaign || !getCampaign(selectedCalCampaign)){
-    const a=DB.campaigns.find(c=>c.status==='in-corso');
-    selectedCalCampaign=(a||DB.campaigns[0]).id;
-  }
-  const me=currentUser();
-  const pills=document.createElement('div'); pills.className='camp-pills';
-  const sorted=DB.campaigns.slice().sort((a,b)=>{
-    const o={'in-corso':0,'in-pausa':1,'conclusa':2};
-    return (o[a.status]??3)-(o[b.status]??3);
-  });
-  sorted.forEach(c=>{
-    const btn=document.createElement('button'); btn.type='button';
-    btn.className='camp-pill'+(c.id===selectedCalCampaign?' active':'');
-    btn.textContent=c.name;
-    btn.addEventListener('click', ()=>{ selectedCalCampaign=c.id; renderCalendarPage(); });
-    pills.appendChild(btn);
-  });
-  wrap.appendChild(pills);
-
-  const campaign=getCampaign(selectedCalCampaign);
-  const myMembership=me?campaign.members.find(m=>m.userId===me.id):null;
-  const canVote=!!myMembership;
-
-  const head=document.createElement('div'); head.style.marginBottom='18px';
-  head.innerHTML='<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap"><h3 style="font-size:1.05rem;text-transform:uppercase;letter-spacing:.08em;color:var(--accent-text)">'+esc(campaign.name)+'</h3><span class="status-badge '+campaign.status+'">'+statusLabel(campaign.status)+'</span></div><div style="font-size:.82rem;color:var(--muted);margin-top:4px">'+esc(campaign.system)+' · '+campaign.members.length+' membri</div>';
-  wrap.appendChild(head);
-
-  const nav=document.createElement('div'); nav.className='cal-nav';
-  nav.innerHTML='<button class="cal-nav-arrow" id="calPrev">‹</button><h3>'+fmtMonthYear(calYear,calMonth)+'</h3><button class="cal-nav-arrow" id="calNext">›</button>';
-  wrap.appendChild(nav);
-  $('#calPrev').addEventListener('click', ()=>{ calMonth--; if(calMonth<0){ calMonth=11; calYear--; } renderCalendarPage(); });
-  $('#calNext').addEventListener('click', ()=>{ calMonth++; if(calMonth>11){ calMonth=0; calYear++; } renderCalendarPage(); });
-
-  const legend=document.createElement('div'); legend.className='cal-legend';
-  let ml='';
-  (campaign.members||[]).forEach(m=>{
-    const u=getUser(m.userId); if(!u) return;
-    ml+='<span class="legend-member"><span class="ldot" style="--c:'+(m.color||DEFAULT_COLOR)+'"></span>'+esc(u.name)+'</span>';
-  });
-  legend.innerHTML='<div class="cal-legend-row"><span class="cal-legend-lbl">Membri</span>'+ml+'</div><div class="cal-legend-hint">Il colore del pallino indica chi ha confermato la disponibilità.</div>';
-  wrap.appendChild(legend);
-
-  if(!me){
-    const h=document.createElement('p'); h.className='cal-hint'; h.innerHTML='Accedi per segnare la tua disponibilità.'; wrap.appendChild(h);
-  }else if(!canVote){
-    const h=document.createElement('p'); h.className='cal-hint'; h.textContent='Non fai parte di questa campagna.'; wrap.appendChild(h);
-  }
-
-  const wd=document.createElement('div'); wd.className='cal-weekdays';
-  weekdayHeaders.forEach(w=>{ const s=document.createElement('span'); s.textContent=w; wd.appendChild(s); });
-  wrap.appendChild(wd);
-
-  const grid=document.createElement('div'); grid.className='cal-grid';
-  const cells=buildCalendarCells(calYear,calMonth);
-  const tKey=todayKey(); const myId=me?me.id:null;
-  cells.forEach(d=>grid.appendChild(buildCalendarCell(d,campaign,myId,tKey,canVote)));
-  wrap.appendChild(grid);
-
-  wrap.appendChild(buildDetailedAvailability(campaign,calYear,calMonth,me));
-}
-function buildDetailedAvailability(campaign,year,month,me){
-  const panel=document.createElement('div'); panel.className='detail-panel';
-  const total=campaign.members.length;
-  const avail=campaign.availability||{};
-  const tKey=todayKey();
-  const tDate=new Date(year,month,1);
-  const mn=tDate.toLocaleDateString('it-IT',{month:'long'});
-  const mnCap=mn.charAt(0).toUpperCase()+mn.slice(1);
-  let html='<h4>Disponibilità dettagliata — '+mnCap+' '+year+'</h4>';
-  html+='<p class="detail-note">Qui vedi, giorno per giorno, chi ha confermato la disponibilità.</p>';
-  const rows=[];
-  Object.keys(avail).forEach(key=>{
-    const d=new Date(key+'T12:00:00');
-    if(d.getFullYear()!==year || d.getMonth()!==month) return;
-    const votes=avail[key]||{};
-    const voters=Object.keys(votes).filter(u=>votes[u]==='yes');
-    if(voters.length===0) return;
-    rows.push({key,date:d,voters});
-  });
-  rows.sort((a,b)=>a.key<b.key?-1:1);
-  if(rows.length===0){ html+='<p class="detail-empty">Nessuna disponibilità registrata per questo mese.</p>'; }
-  else{
-    rows.forEach(r=>{
-      const dl=r.date.toLocaleDateString('it-IT',{weekday:'long',day:'numeric',month:'long'});
-      const isToday=r.key===tKey;
-      const isFull=r.voters.length===total;
-      const cc=isFull?'full':(r.voters.length>=Math.ceil(total/2)?'partial':'');
-      html+='<div class="detail-day'+(isToday?' is-today':'')+(isFull?' full':'')+'">';
-      html+='<div class="detail-date"><span class="dd-day">'+r.date.getDate()+'</span><span class="dd-month">'+dl.split(' ').slice(1).join(' ')+'</span></div>';
-      html+='<span class="detail-count '+cc+'">'+r.voters.length+'/'+total+(isFull?' ★':'')+'</span>';
-      html+='<div class="detail-voters">';
-      r.voters.forEach(u=>{
-        const user=getUser(u); if(!user) return;
-        const color=memberColorIn(campaign,u);
-        const isMe=me&&me.id===u;
-        html+='<span class="voter-chip" style="--c:'+color+'"><img src="'+getUserAvatar(user)+'" alt=""><span class="voter-dot" style="--c:'+color+'"></span><span class="voter-name">'+esc(user.name)+(isMe?' (tu)':'')+'</span></span>';
-      });
-      html+='</div></div>';
-    });
-  }
-  panel.innerHTML=html; return panel;
-}
-function buildCalendarCells(y,m){
-  const fd=new Date(y,m,1);
-  const s=(fd.getDay()+6)%7;
-  const dim=new Date(y,m+1,0).getDate();
-  const tot=Math.ceil((s+dim)/7)*7;
-  const c=[];
-  for(let i=0;i<tot;i++){ c.push(new Date(y,m,1-s+i)); }
-  return c;
-}
-function buildCalendarCell(date,campaign,myId,tKey,canVote){
-  const cell=document.createElement('div'); cell.className='cal-cell';
-  const key=dateKey(date);
-  const oth=date.getMonth()!==calMonth;
-  const past=key<tKey;
-  const today=key===tKey;
-  if(oth) cell.classList.add('other-month');
-  if(past) cell.classList.add('past');
-  if(today) cell.classList.add('today');
-  const da=(campaign.availability||{})[key]||{};
-  const voters=Object.keys(da).filter(u=>da[u]==='yes');
-  const myVote=myId&&da[myId]==='yes'?'yes':null;
-  if(voters.length>0) cell.classList.add('has-votes');
-  if(voters.length>=3) cell.classList.add('many-votes');
-  if(myVote){ cell.style.setProperty('--my-color',memberColorIn(campaign,myId)); cell.classList.add('my-voted'); }
-  const dn=document.createElement('span'); dn.className='cal-daynum'; dn.textContent=date.getDate();
-  cell.appendChild(dn);
-  const mk=document.createElement('div'); mk.className='cal-marks';
-  voters.forEach(u=>{
-    const usr=getUser(u); const color=memberColorIn(campaign,u);
-    const dot=document.createElement('span'); dot.className='mark yes';
-    dot.style.background=color; dot.style.color=color;
-    dot.title=(usr?usr.name:'?')+' — disponibile';
-    mk.appendChild(dot);
-  });
-  cell.appendChild(mk);
-  if(voters.length>0){
-    cell.title=voters.map(u=>{ const usr=getUser(u); return usr?usr.name+': disponibile':''; }).filter(Boolean).join('\n');
-  }
-  if(!past && canVote){
-    cell.addEventListener('click', ()=>toggleVote(campaign,key,myId));
-  }else if(!past && !canVote){
-    cell.addEventListener('click', ()=>{ if(!currentUser()){ toast('Accedi per confermare la disponibilità.'); openAuth(); } else toast('Non fai parte di questa campagna.'); });
-  }
-  return cell;
-}
-async function toggleVote(campaign,key,myId){
-  if(!myId) return;
-  const day=(campaign.availability||{})[key]||{};
-  if(day[myId]==='yes'){
-    await sb.from('availability').delete().eq('campaign_id',campaign.id).eq('user_id',myId).eq('day',key);
-    toast('Disponibilità rimossa');
-  }else{
-    await sb.from('availability').insert({campaign_id:campaign.id,user_id:myId,day:key});
-    toast('Disponibilità confermata');
-  }
-  await refreshDB(); renderCalendarPage(); renderHome();
-}
-
-// ============ RENDER ALL ============
-function renderAll(){
-  renderUserArea();
-  renderHome();
-  renderRoster();
-  renderCampaigns();
-  renderArchive();
-  renderCalendarPage();
-}
-
-(async function init(){
-  await refreshDB();
-  await refreshCurrentUser();
-  renderAll();
-  sb.auth.onAuthStateChange(async (event)=>{
-    if(event==='SIGNED_IN' || event==='SIGNED_OUT'){
-      await refreshDB(); await refreshCurrentUser(); renderAll();
-    }
-  });
-})();
-
-})();
-</script>
-</body>
-</html>
+     
