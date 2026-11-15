@@ -29,6 +29,8 @@
   .btn.ghost:hover{background:rgba(60,90,120,.25);color:#e4ebf2;border-color:var(--line)}
   .btn.danger{background:transparent;border-color:rgba(217,92,92,.55);color:#ffb0a2}
   .btn.danger:hover{background:rgba(217,74,58,.16);border-color:rgba(217,92,92,.9);color:#ff9a8a}
+  .btn.success{background:linear-gradient(180deg,#6fce9a,#3aa16a);border-color:rgba(127,224,168,.9);color:#0a1218;text-shadow:none}
+  .btn.success:hover{background:linear-gradient(180deg,#8fe0b4,#4ab07a);border-color:#8fe0b4;box-shadow:0 6px 22px rgba(127,224,168,.28)}
   .btn.small{padding:7px 14px;font-size:.68rem}
   main{max-width:1180px;margin:0 auto;padding:38px 22px 90px}
   .page{display:none;animation:fadeUp .35s ease both}.page.active{display:block}
@@ -116,6 +118,8 @@
   .cal-cell.has-votes{background:rgba(60,90,120,.45);border-color:rgba(120,160,200,.55)}
   .cal-cell.has-votes.many-votes{background:rgba(80,120,160,.6);border-color:rgba(150,190,230,.75)}
   .cal-cell.my-voted{outline:2px solid var(--my-color,var(--accent));outline-offset:-2px}
+  .cal-cell.has-session{border-color:#7fe0a8;background:rgba(127,224,168,.18);box-shadow:0 0 0 2px rgba(127,224,168,.4),0 0 16px rgba(127,224,168,.25)}
+  .cal-cell.has-session::after{content:'📖';position:absolute;top:2px;right:4px;font-size:.72rem}
   .cal-cell:not(.past):not(.other-month):hover{border-color:rgba(217,185,92,.75);transform:scale(1.04);z-index:2}
   .cal-daynum{font-family:'Cinzel',serif;font-size:.82rem;font-weight:700;color:var(--text);line-height:1}
   .cal-marks{display:flex;gap:3px;flex-wrap:wrap;margin-top:auto}
@@ -125,6 +129,7 @@
   .detail-day{background:rgba(8,12,18,.55);border:1px solid var(--line-soft);border-radius:10px;padding:12px 16px;margin-bottom:10px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
   .detail-day.is-today{border-color:var(--accent)}
   .detail-day.full{background:rgba(60,90,120,.35);border-color:rgba(120,160,200,.6)}
+  .detail-day.confirmed{background:rgba(127,224,168,.12);border-color:rgba(127,224,168,.55)}
   .detail-date{font-family:'Cinzel',serif;font-size:.86rem;color:var(--accent-text);min-width:170px}
   .detail-date .dd-day{font-weight:700}.detail-date .dd-month{color:var(--muted);font-size:.78rem;margin-left:6px;text-transform:uppercase}
   .detail-count{font-family:'Cinzel',serif;font-size:.76rem;font-weight:700;padding:3px 10px;border-radius:999px;background:rgba(92,192,138,.15);color:#8fe8b4;flex-shrink:0}
@@ -137,6 +142,8 @@
   .voter-chip .voter-name{color:var(--c);font-weight:600}
   .detail-empty{color:var(--muted);font-style:italic;font-size:.86rem}
   .detail-note{font-size:.82rem;color:var(--muted);font-style:italic;margin:0 0 16px}
+  .detail-confirmed{color:#7fe0a8;font-size:.78rem;font-weight:700;letter-spacing:.04em;margin-left:auto;display:inline-flex;align-items:center;gap:5px}
+  .detail-actions{margin-left:auto;display:flex;gap:10px;align-items:center}
   .modal-overlay{position:fixed;inset:0;z-index:200;background:rgba(4,8,12,.82);backdrop-filter:blur(7px);display:flex;align-items:flex-start;justify-content:center;padding:30px 18px;overflow-y:auto;animation:fadeIn .2s ease both}
   .modal-overlay[hidden]{display:none}
   @keyframes fadeIn{from{opacity:0}to{opacity:1}}
@@ -149,8 +156,10 @@
   .close-x:hover{color:#e4ebf2;border-color:var(--line);background:rgba(60,90,120,.2)}
   .field{margin-bottom:18px}
   .field label{display:block;font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
-  input[type=text],input[type=email],input[type=password],textarea,select{width:100%;font-family:'Spectral',Georgia,serif;font-size:.96rem;color:var(--text);background:rgba(8,12,18,.85);border:1px solid var(--line-soft);border-radius:10px;padding:12px 14px;outline:none}
+  input[type=text],input[type=email],input[type=password],input[type=date],textarea,select{width:100%;font-family:'Spectral',Georgia,serif;font-size:.96rem;color:var(--text);background:rgba(8,12,18,.85);border:1px solid var(--line-soft);border-radius:10px;padding:12px 14px;outline:none}
   input:disabled{opacity:.55;cursor:not-allowed}
+  input[type=date]{cursor:pointer}
+  input[type=date]::-webkit-calendar-picker-indicator{filter:invert(.75) sepia(.5) saturate(2) hue-rotate(5deg);cursor:pointer}
   textarea{resize:vertical;min-height:90px;line-height:1.6}
   input:focus,textarea:focus,select:focus{border-color:rgba(217,185,92,.75);box-shadow:0 0 0 3px rgba(217,185,92,.14)}
   input::placeholder,textarea::placeholder{color:rgba(138,155,173,.5);font-style:italic}
@@ -191,11 +200,13 @@
   .session-edit-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
   .session-edit-num{width:70px!important;padding:6px 10px!important;font-size:.85rem!important;text-align:center}
   .session-edit-title{flex:1;min-width:180px;padding:6px 12px!important;font-size:.92rem!important}
+  .session-edit-date{width:auto!important;padding:6px 12px!important;font-size:.88rem!important}
   .session-edit-summary{min-height:80px!important;font-size:.9rem!important}
   .session-form{background:rgba(8,12,18,.6);border:1px dashed rgba(217,185,92,.4);border-radius:12px;padding:16px 18px;margin-top:16px}
   .session-form .s-head{margin-bottom:12px;font-family:'Cinzel',serif;color:var(--accent-text);font-size:.84rem;text-transform:uppercase}
   .session-form .form-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:10px}
   .session-form .form-row .f-num{width:110px;flex-shrink:0}
+  .session-form .form-row .f-date{width:160px;flex-shrink:0}
   .session-form .form-row .f-title{flex:1;min-width:180px}
   .session-form label{display:block;font-family:'Cinzel',serif;font-size:.62rem;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
   .session-form input,.session-form textarea{padding:8px 12px;font-size:.9rem}
@@ -225,7 +236,7 @@
   #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
   footer{text-align:center;padding:30px 22px;border-top:1px solid var(--line-soft);color:rgba(138,155,173,.6);font-size:.8rem}
   @media(max-width:860px){.user-area{position:static;transform:none;width:100%;justify-content:center;margin-top:6px}}
-  @media(max-width:640px){main{padding:26px 16px 70px}.modal-box{padding:22px 20px}.cal-cell{padding:4px;min-height:46px}.avatar-grid{grid-template-columns:repeat(5,1fr)}.camp-detail-banner{margin:-22px -20px 18px;height:160px}}
+  @media(max-width:640px){main{padding:26px 16px 70px}.modal-box{padding:22px 20px}.cal-cell{padding:4px;min-height:46px}.avatar-grid{grid-template-columns:repeat(5,1fr)}.camp-detail-banner{margin:-22px -20px 18px;height:160px}.session-form .form-row .f-date{width:100%}}
 </style>
 </head>
 <body>
@@ -446,6 +457,27 @@ function bgStyle(url){
   if(!url) return '';
   const safe = String(url).replace(/'/g,"%27").replace(/"/g,'%22').replace(/\\/g,'%5C').replace(/\(/g,'%28').replace(/\)/g,'%29');
   return "background-image:url('"+safe+"')";
+}
+function isoToDateInput(iso){
+  if(!iso) return '';
+  const d = new Date(iso);
+  if(isNaN(d.getTime())) return '';
+  const p = n => String(n).padStart(2,'0');
+  return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate());
+}
+function dateInputToIso(val){
+  if(!val) return new Date().toISOString();
+  const d = new Date(val + 'T12:00:00');
+  return d.toISOString();
+}
+// Trova la sessione di una campagna in una certa data (confronto giorno)
+function sessionOnDate(camp, dateStr){
+  return (camp.sessions||[]).find(s => {
+    if(!s.date) return false;
+    const d = new Date(s.date);
+    if(isNaN(d.getTime())) return false;
+    return dateKey(d) === dateStr;
+  });
 }
 
 async function refreshDB(){
@@ -810,6 +842,9 @@ function buildCampaignCard(c){
   }).join('');
   const mm = members.find(m=>m.role==='master');
   const master = mm?getUser(mm.userId):null;
+  const memLabel = members.length === 1 ? 'membro' : 'membri';
+  let rolesTxt = '';
+  if(master) rolesTxt = 'Master: ' + esc(master.name);
   let html = '';
   if(c.bannerUrl){
     html += '<div class="camp-banner" style="'+bgStyle(c.bannerUrl)+'"></div>';
@@ -817,7 +852,7 @@ function buildCampaignCard(c){
   html +=
     '<div class="c-top"><div><h3>'+esc(c.name)+'</h3><div class="system">'+esc(c.system)+'</div></div><span class="status-badge '+c.status+'">'+statusLabel(c.status)+'</span></div>'+
     '<p class="c-desc">'+esc(c.description||'')+'</p>'+
-    '<div class="c-footer"><div class="mini-avatars">'+avatars+'</div><span class="c-count">'+members.length+' membri · '+(master?'Master '+esc(master.name):'')+'</span></div>';
+    '<div class="c-footer"><div class="mini-avatars">'+avatars+'</div><span class="c-count">'+members.length+' '+memLabel+' · '+rolesTxt+'</span></div>';
   card.innerHTML = html;
   card.addEventListener('click',()=>openCampaign(c.id));
   return card;
@@ -865,9 +900,12 @@ function renderSessionComments(s,campaign,me){
 }
 function renderSessionBlock(s,c,me,isM){
   if(editingSessionId===s.id){
+    const dateVal = isoToDateInput(s.date);
     return '<div class="session-block editing"><div class="session-edit-row">'+
-      '<input type="text" class="session-edit-num" id="edit-num-'+s.id+'" value="'+esc(s.num)+'" maxlength="4">'+
-      '<input type="text" class="session-edit-title" id="edit-title-'+s.id+'" value="'+esc(s.title)+'" maxlength="80"></div>'+
+      '<input type="text" class="session-edit-num" id="edit-num-'+s.id+'" value="'+esc(s.num)+'" maxlength="4" placeholder="N°">'+
+      '<input type="date" class="session-edit-date" id="edit-date-'+s.id+'" value="'+dateVal+'">'+
+      '<input type="text" class="session-edit-title" id="edit-title-'+s.id+'" value="'+esc(s.title)+'" maxlength="80" placeholder="Titolo">'+
+      '</div>'+
       '<textarea class="session-edit-summary" id="edit-summary-'+s.id+'" rows="4">'+esc(s.summary||'')+'</textarea>'+
       '<div style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap">'+
       '<button type="button" class="btn small" data-save-session="'+s.id+'">Salva</button>'+
@@ -916,16 +954,20 @@ function renderCampaignDetail(c){
   else{c.sessions.forEach(s=>{html+=renderSessionBlock(s,c,me,isM)})}
   if(isM){
     const nn = (c.sessions||[]).length?Math.max.apply(null,c.sessions.map(x=>parseInt(x.num,10)||0))+1:1;
+    const todayInput = isoToDateInput(new Date().toISOString());
     html += '<div class="session-form"><div class="s-head">Nuova sessione</div>'+
-      '<div class="form-row"><div class="f-num"><label>Numero</label><input type="text" id="nsNum" value="'+nn+'" maxlength="4"></div>'+
-      '<div class="f-title"><label>Titolo</label><input type="text" id="nsTitle" placeholder="Es. Il Tempio Sommerso" maxlength="80"></div></div>'+
+      '<div class="form-row">'+
+        '<div class="f-num"><label>Numero</label><input type="text" id="nsNum" value="'+nn+'" maxlength="4"></div>'+
+        '<div class="f-date"><label>Data</label><input type="date" id="nsDate" value="'+todayInput+'"></div>'+
+        '<div class="f-title"><label>Titolo</label><input type="text" id="nsTitle" placeholder="Es. Il Tempio Sommerso" maxlength="80"></div>'+
+      '</div>'+
       '<div><label>Riassunto</label><textarea id="nsSummary" rows="3" placeholder="Cosa è successo..."></textarea></div>'+
       '<div style="margin-top:10px"><button class="btn small" id="nsAddBtn">+ Aggiungi sessione</button></div></div>';
   }
   html += '</div>';
 
   html += '<div class="cd-section"><div class="cd-section-title">Disponibilità</div>'+
-    '<p class="empty-note" style="margin-bottom:12px">Consulta il calendario dedicato a questa campagna.</p>'+
+    '<p class="empty-note" style="margin-bottom:12px">Consulta il calendario dedicato a questa campagna: quando tutti hanno votato un giorno, il Master può confermarlo come data della sessione.</p>'+
     '<button class="btn small" id="openCalBtn">Apri calendario</button></div>';
 
   if(isM){
@@ -975,8 +1017,11 @@ function renderCampaignDetail(c){
       const nn = ($('#edit-num-'+sid).value||'').trim()||s.num;
       const nt = ($('#edit-title-'+sid).value||'').trim();
       const nsm = ($('#edit-summary-'+sid).value||'').trim();
+      const dateVal = $('#edit-date-'+sid).value;
       if(!nt){toast('Titolo vuoto.');return}
-      const {error} = await sb.from('sessions').update({num:nn,title:nt,summary:nsm}).eq('id',sid);
+      if(!dateVal){toast('Data obbligatoria.');return}
+      const isoDate = dateInputToIso(dateVal);
+      const {error} = await sb.from('sessions').update({num:nn,title:nt,summary:nsm,session_date:isoDate}).eq('id',sid);
       if(error){toast(error.message);return}
       editingSessionId=null;
       await refreshDB();
@@ -1034,8 +1079,11 @@ function renderCampaignDetail(c){
         const nn = ($('#nsNum').value||'').trim();
         const t = ($('#nsTitle').value||'').trim();
         const s = ($('#nsSummary').value||'').trim();
+        const dateVal = $('#nsDate').value;
         if(!nn||!t){toast('Numero e titolo obbligatori.');return}
-        const {error} = await sb.from('sessions').insert({campaign_id:c.id,num:nn,title:t,summary:s});
+        if(!dateVal){toast('Data obbligatoria.');return}
+        const isoDate = dateInputToIso(dateVal);
+        const {error} = await sb.from('sessions').insert({campaign_id:c.id,num:nn,title:t,summary:s,session_date:isoDate});
         if(error){toast(error.message);return}
         await refreshDB();
         const fr = getCampaign(c.id);if(fr)renderCampaignDetail(fr);
@@ -1225,6 +1273,7 @@ function renderCalendarPage(){
   const camp = getCampaign(selectedCalCampaign);
   const myM = me?camp.members.find(m=>m.userId===me.id):null;
   const canV = !!myM;
+  const isMaster = myM && myM.role==='master';
   const head = document.createElement('div');head.style.marginBottom='18px';
   head.innerHTML = '<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap"><h3 style="font-size:1.05rem;text-transform:uppercase;color:var(--accent-text)">'+esc(camp.name)+'</h3><span class="status-badge '+camp.status+'">'+statusLabel(camp.status)+'</span></div><div style="font-size:.82rem;color:var(--muted);margin-top:4px">'+esc(camp.system)+' · '+camp.members.length+' membri</div>';
   w.appendChild(head);
@@ -1239,7 +1288,7 @@ function renderCalendarPage(){
     const u = getUser(m.userId);if(!u)return;
     ml += '<span class="legend-member"><span class="ldot" style="--c:'+(m.color||DEFAULT_COLOR)+'"></span>'+esc(u.name)+'</span>';
   });
-  legend.innerHTML = '<div class="cal-legend-row"><span class="cal-legend-lbl">Membri</span>'+ml+'</div><div class="cal-legend-hint">Il colore indica chi ha confermato la disponibilità.</div>';
+  legend.innerHTML = '<div class="cal-legend-row"><span class="cal-legend-lbl">Membri</span>'+ml+'</div><div class="cal-legend-hint">Il colore indica chi ha confermato la disponibilità. 📖 = sessione confermata.</div>';
   w.appendChild(legend);
   if(!me){
     const h = document.createElement('p');h.className='cal-hint';h.textContent='Accedi per segnare la tua disponibilità.';w.appendChild(h);
@@ -1254,9 +1303,37 @@ function renderCalendarPage(){
   const tk = todayKey();const myId = me?me.id:null;
   cells.forEach(d=>grid.appendChild(buildCalendarCell(d,camp,myId,tk,canV)));
   w.appendChild(grid);
-  w.appendChild(buildDetailedAvailability(camp,calYear,calMonth,me));
+  w.appendChild(buildDetailedAvailability(camp,calYear,calMonth,me,isMaster));
+
+  // Handler per conferma data
+  w.querySelectorAll('[data-confirm-date]').forEach(b=>{
+    b.addEventListener('click', async ()=>{
+      const campNow = getCampaign(selectedCalCampaign);
+      if(!campNow) return;
+      const dateStr = b.dataset.confirmDate;
+      const already = sessionOnDate(campNow, dateStr);
+      if(already){ toast('Esiste già una sessione confermata per questo giorno.'); return; }
+      const nextNum = (campNow.sessions||[]).length ? Math.max.apply(null, campNow.sessions.map(x=>parseInt(x.num,10)||0))+1 : 1;
+      const readable = new Date(dateStr+'T12:00:00').toLocaleDateString('it-IT',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+      const title = prompt('Titolo della sessione per '+readable, 'Sessione '+nextNum);
+      if(!title || !title.trim()) return;
+      const isoDate = dateInputToIso(dateStr);
+      const { error } = await sb.from('sessions').insert({
+        campaign_id: campNow.id, num: String(nextNum), title: title.trim(), summary: '', session_date: isoDate
+      });
+      if(error){ toast(error.message); return; }
+      await refreshDB();
+      renderCalendarPage();
+      // se il modal dettaglio campagna è aperto, aggiorno pure quello
+      if(!document.getElementById('campaignModal').hidden){
+        const fresh = getCampaign(selectedCalCampaign);
+        if(fresh) renderCampaignDetail(fresh);
+      }
+      toast('Sessione confermata per '+readable+'.');
+    });
+  });
 }
-function buildDetailedAvailability(camp,y,m,me){
+function buildDetailedAvailability(camp,y,m,me,isMaster){
   const p = document.createElement('div');p.className='detail-panel';
   const tot = camp.members.length;
   const av = camp.availability||{};
@@ -1265,7 +1342,8 @@ function buildDetailedAvailability(camp,y,m,me){
   const mn = td.toLocaleDateString('it-IT',{month:'long'});
   const mnc = mn.charAt(0).toUpperCase()+mn.slice(1);
   let html = '<h4>Disponibilità dettagliata — '+mnc+' '+y+'</h4>';
-  html += '<p class="detail-note">Giorno per giorno, chi ha confermato.</p>';
+  if(isMaster) html += '<p class="detail-note">Quando un giorno ha tutti i voti, puoi confermarlo come data della sessione.</p>';
+  else html += '<p class="detail-note">Giorno per giorno, chi ha confermato. Il Master può confermare i giorni in cui tutti sono disponibili.</p>';
   const rows = [];
   Object.keys(av).forEach(k=>{
     const d = new Date(k+'T12:00:00');
@@ -1283,7 +1361,12 @@ function buildDetailedAvailability(camp,y,m,me){
       const isT = r.key===tk;
       const isF = r.voters.length===tot;
       const cc = isF?'full':(r.voters.length>=Math.ceil(tot/2)?'partial':'');
-      html += '<div class="detail-day'+(isT?' is-today':'')+(isF?' full':'')+'">';
+      const confirmed = sessionOnDate(camp, r.key);
+      let cls = '';
+      if(isT) cls += ' is-today';
+      if(isF) cls += ' full';
+      if(confirmed) cls += ' confirmed';
+      html += '<div class="detail-day'+cls+'">';
       html += '<div class="detail-date"><span class="dd-day">'+r.date.getDate()+'</span><span class="dd-month">'+dl.split(' ').slice(1).join(' ')+'</span></div>';
       html += '<span class="detail-count '+cc+'">'+r.voters.length+'/'+tot+(isF?' ★':'')+'</span>';
       html += '<div class="detail-voters">';
@@ -1293,7 +1376,14 @@ function buildDetailedAvailability(camp,y,m,me){
         const isMe = me && me.id===u;
         html += '<span class="voter-chip" style="--c:'+col+'"><img src="'+getUserAvatar(us)+'" alt=""><span class="voter-dot" style="--c:'+col+'"></span><span class="voter-name">'+esc(us.name)+(isMe?' (tu)':'')+'</span></span>';
       });
-      html += '</div></div>';
+      html += '</div>';
+      // Conferma / stato
+      if(confirmed){
+        html += '<div class="detail-actions"><span class="detail-confirmed">✓ Sessione #'+esc(confirmed.num)+': '+esc(confirmed.title)+'</span></div>';
+      }else if(isF && isMaster){
+        html += '<div class="detail-actions"><button type="button" class="btn success small" data-confirm-date="'+r.key+'">📅 Conferma questa data</button></div>';
+      }
+      html += '</div>';
     });
   }
   p.innerHTML = html;return p;
@@ -1319,8 +1409,10 @@ function buildCalendarCell(date,camp,myId,tk,canV){
   const da = (camp.availability||{})[key]||{};
   const voters = Object.keys(da).filter(u=>da[u]==='yes');
   const myV = myId && da[myId]==='yes';
+  const sess = sessionOnDate(camp, key);
   if(voters.length>0)cell.classList.add('has-votes');
   if(voters.length>=3)cell.classList.add('many-votes');
+  if(sess)cell.classList.add('has-session');
   if(myV){cell.style.setProperty('--my-color',memberColorIn(camp,myId));cell.classList.add('my-voted')}
   const dn = document.createElement('span');dn.className='cal-daynum';dn.textContent=date.getDate();
   cell.appendChild(dn);
@@ -1333,12 +1425,14 @@ function buildCalendarCell(date,camp,myId,tk,canV){
     mk.appendChild(d);
   });
   cell.appendChild(mk);
-  if(voters.length>0){
+  if(sess){
+    cell.title = 'Sessione confermata: '+sess.title;
+  }else if(voters.length>0){
     cell.title = voters.map(u=>{const us=getUser(u);return us?us.name+': disponibile':''}).filter(Boolean).join('\n');
   }
-  if(!past && canV){
+  if(!past && canV && !sess){
     cell.addEventListener('click',()=>toggleVote(camp,key,myId));
-  }else if(!past && !canV){
+  }else if(!past && !canV && !sess){
     cell.addEventListener('click',()=>{
       if(!currentUser()){toast('Accedi per confermare.');openAuth()}
       else toast('Non fai parte di questa campagna.');
