@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Spectral:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
 <style>
-  :root{--bg:#0d1319;--panel:rgba(30,42,56,.72);--panel-solid:#1a2430;--line:#4a5d70;--line-soft:rgba(100,130,160,.35);--accent:#d9b95c;--accent-text:#e8d391;--text:#d5dde5;--muted:#8a9bad;}
+  :root{--bg:#0d1319;--panel:rgba(30,42,56,.72);--panel-solid:#1a2430;--line:#4a5d70;--line-soft:rgba(100,130,160,.35);--accent:#d9b95c;--accent-text:#e8d391;--text:#d5dde5;--muted:#8a9bad}
   *{box-sizing:border-box}html,body{height:100%}
   body{margin:0;font-family:'Spectral',Georgia,serif;color:var(--text);background:var(--bg);background-image:radial-gradient(ellipse at 50% 0%,rgba(60,90,120,.4),transparent 60%),radial-gradient(ellipse at 50% 120%,rgba(40,60,85,.45),transparent 65%);background-attachment:fixed;min-height:100vh;-webkit-font-smoothing:antialiased}
   a{color:var(--accent-text)}h1,h2,h3,h4{font-family:'Cinzel',serif;font-weight:700;letter-spacing:.06em;margin:0}
@@ -30,7 +30,7 @@
   .btn.danger{background:transparent;border-color:rgba(217,92,92,.55);color:#ffb0a2}
   .btn.danger:hover{background:rgba(217,74,58,.16);border-color:rgba(217,92,92,.9);color:#ff9a8a}
   .btn.success{background:linear-gradient(180deg,#6fce9a,#3aa16a);border-color:rgba(127,224,168,.9);color:#0a1218;text-shadow:none}
-  .btn.success:hover{background:linear-gradient(180deg,#8fe0b4,#4ab07a);border-color:#8fe0b4}
+  .btn.success:hover{background:linear-gradient(180deg,#8fe0b4,#4ab07a)}
   .btn.small{padding:7px 14px;font-size:.68rem}
   main{max-width:1180px;margin:0 auto;padding:38px 22px 90px}
   .page{display:none;animation:fadeUp .35s ease both}.page.active{display:block}
@@ -120,7 +120,7 @@
   .cal-cell.has-votes{background:rgba(60,90,120,.45);border-color:rgba(120,160,200,.55)}
   .cal-cell.has-votes.many-votes{background:rgba(80,120,160,.6);border-color:rgba(150,190,230,.75)}
   .cal-cell.my-voted{outline:2px solid var(--my-color,var(--accent));outline-offset:-2px}
-  .cal-cell.has-session{border-color:#7fe0a8;background:rgba(127,224,168,.18);box-shadow:0 0 0 2px rgba(127,224,168,.4),0 0 16px rgba(127,224,168,.25)}
+  .cal-cell.has-session{border-color:#7fe0a8;background:rgba(127,224,168,.18);box-shadow:0 0 0 2px rgba(127,224,168,.4)}
   .cal-cell.has-session::after{content:'📖';position:absolute;top:2px;right:4px;font-size:.72rem}
   .cal-cell:not(.past):not(.other-month):hover{border-color:rgba(217,185,92,.75);transform:scale(1.04);z-index:2}
   .cal-daynum{font-family:'Cinzel',serif;font-size:.82rem;font-weight:700;color:var(--text);line-height:1}
@@ -145,7 +145,7 @@
   .voter-chip .voter-name{color:var(--c);font-weight:600}
   .detail-empty{color:var(--muted);font-style:italic;font-size:.86rem}
   .detail-note{font-size:.82rem;color:var(--muted);font-style:italic;margin:0 0 16px}
-  .detail-confirmed{color:#7fe0a8;font-size:.78rem;font-weight:700;letter-spacing:.04em;margin-left:auto;display:inline-flex;align-items:center;gap:5px}
+  .detail-confirmed{color:#7fe0a8;font-size:.78rem;font-weight:700;margin-left:auto;display:inline-flex;align-items:center;gap:5px}
   .detail-actions{margin-left:auto;display:flex;gap:10px;align-items:center}
   .modal-overlay{position:fixed;inset:0;z-index:200;background:rgba(4,8,12,.82);backdrop-filter:blur(7px);display:flex;align-items:flex-start;justify-content:center;padding:30px 18px;overflow-y:auto;animation:fadeIn .2s ease both}
   .modal-overlay[hidden]{display:none}
@@ -301,7 +301,6 @@
 
 <footer>Kradicchion Hub</footer>
 
-<!-- AUTH MODAL -->
 <div class="modal-overlay" id="authModal" hidden>
   <div class="modal-box">
     <div class="modal-head">
@@ -313,63 +312,11 @@
     <div class="field"><label>Password (min 8 caratteri)</label><input type="password" id="authPassword" placeholder="••••••••" minlength="8"></div>
     <div class="field">
       <label>Attributo (solo per registrazione)</label>
-      <select id="authAttribute">
-        <option value="">— Nessun attributo —</option>
-        <option value="Letale">Letale</option>
-        <option value="Petomane">Petomane</option>
-        <option value="Sfortunato">Sfortunato</option>
-        <option value="Carismatico">Carismatico</option>
-        <option value="Ritardatario">Ritardatario</option>
-        <option value="Arcano">Arcano</option>
-        <option value="Cleptomane">Cleptomane</option>
-        <option value="Vanitoso">Vanitoso</option>
-        <option value="Ingordo">Ingordo</option>
-        <option value="Implacabile">Implacabile</option>
-        <option value="Paranoico">Paranoico</option>
-        <option value="Piromane">Piromane</option>
-        <option value="Sonnolento">Sonnolento</option>
-        <option value="Spietato">Spietato</option>
-        <option value="Codardo">Codardo</option>
-        <option value="Etilico">Etilico</option>
-        <option value="Fulmineo">Fulmineo</option>
-        <option value="Caotico">Caotico</option>
-        <option value="Seduttore">Seduttore</option>
-        <option value="Logorroico">Logorroico</option>
-        <option value="Sanguinario">Sanguinario</option>
-        <option value="Taccagno">Taccagno</option>
-        <option value="Lunatico">Lunatico</option>
-        <option value="Ruttatore">Ruttatore</option>
-        <option value="Indomito">Indomito</option>
-        <option value="Saccheggiatore">Saccheggiatore</option>
-        <option value="Cinico">Cinico</option>
-        <option value="Distraibile">Distraibile</option>
-        <option value="Ombratile">Ombratile</option>
-        <option value="Inciampone">Inciampone</option>
-        <option value="Suscettibile">Suscettibile</option>
-        <option value="Goloso">Goloso</option>
-        <option value="Infallibile">Infallibile</option>
-        <option value="Impulsivo">Impulsivo</option>
-        <option value="Ingenuo">Ingenuo</option>
-        <option value="Notturno">Notturno</option>
-        <option value="Temerario">Temerario</option>
-        <option value="Rissoso">Rissoso</option>
-        <option value="Sornione">Sornione</option>
-        <option value="Puzzolente">Puzzolente</option>
-        <option value="Corazzato">Corazzato</option>
-        <option value="Avido">Avido</option>
-        <option value="Lamentoso">Lamentoso</option>
-        <option value="Pigro">Pigro</option>
-        <option value="Veterano">Veterano</option>
-        <option value="Pignolo">Pignolo</option>
-        <option value="Incompreso">Incompreso</option>
-        <option value="Suicida">Suicida</option>
-        <option value="Spavaldo">Spavaldo</option>
-        <option value="Maledetto">Maledetto</option>
-      </select>
+      <select id="authAttribute"><option value="">— Nessun attributo —</option></select>
     </div>
     <div class="field">
       <label>Biografia (solo per registrazione, max 300 caratteri)</label>
-      <textarea id="authBio" placeholder="Raccontaci qualcosa di te, del tuo personaggio, dei tuoi trascorsi..." maxlength="300" style="min-height:80px"></textarea>
+      <textarea id="authBio" placeholder="Raccontaci qualcosa di te..." maxlength="300" style="min-height:80px"></textarea>
     </div>
     <div class="field">
       <label>Il tuo avatar (solo per registrazione)</label>
@@ -392,7 +339,6 @@
   </div>
 </div>
 
-<!-- PROFILE EDIT MODAL -->
 <div class="modal-overlay" id="profileModal" hidden>
   <div class="modal-box">
     <div class="modal-head">
@@ -403,59 +349,7 @@
     <div class="field"><label>Email (non modificabile)</label><input type="email" id="profEmail" disabled></div>
     <div class="field">
       <label>Attributo</label>
-      <select id="profAttribute">
-        <option value="">— Nessun attributo —</option>
-        <option value="Letale">Letale</option>
-        <option value="Petomane">Petomane</option>
-        <option value="Sfortunato">Sfortunato</option>
-        <option value="Carismatico">Carismatico</option>
-        <option value="Ritardatario">Ritardatario</option>
-        <option value="Arcano">Arcano</option>
-        <option value="Cleptomane">Cleptomane</option>
-        <option value="Vanitoso">Vanitoso</option>
-        <option value="Ingordo">Ingordo</option>
-        <option value="Implacabile">Implacabile</option>
-        <option value="Paranoico">Paranoico</option>
-        <option value="Piromane">Piromane</option>
-        <option value="Sonnolento">Sonnolento</option>
-        <option value="Spietato">Spietato</option>
-        <option value="Codardo">Codardo</option>
-        <option value="Etilico">Etilico</option>
-        <option value="Fulmineo">Fulmineo</option>
-        <option value="Caotico">Caotico</option>
-        <option value="Seduttore">Seduttore</option>
-        <option value="Logorroico">Logorroico</option>
-        <option value="Sanguinario">Sanguinario</option>
-        <option value="Taccagno">Taccagno</option>
-        <option value="Lunatico">Lunatico</option>
-        <option value="Ruttatore">Ruttatore</option>
-        <option value="Indomito">Indomito</option>
-        <option value="Saccheggiatore">Saccheggiatore</option>
-        <option value="Cinico">Cinico</option>
-        <option value="Distraibile">Distraibile</option>
-        <option value="Ombratile">Ombratile</option>
-        <option value="Inciampone">Inciampone</option>
-        <option value="Suscettibile">Suscettibile</option>
-        <option value="Goloso">Goloso</option>
-        <option value="Infallibile">Infallibile</option>
-        <option value="Impulsivo">Impulsivo</option>
-        <option value="Ingenuo">Ingenuo</option>
-        <option value="Notturno">Notturno</option>
-        <option value="Temerario">Temerario</option>
-        <option value="Rissoso">Rissoso</option>
-        <option value="Sornione">Sornione</option>
-        <option value="Puzzolente">Puzzolente</option>
-        <option value="Corazzato">Corazzato</option>
-        <option value="Avido">Avido</option>
-        <option value="Lamentoso">Lamentoso</option>
-        <option value="Pigro">Pigro</option>
-        <option value="Veterano">Veterano</option>
-        <option value="Pignolo">Pignolo</option>
-        <option value="Incompreso">Incompreso</option>
-        <option value="Suicida">Suicida</option>
-        <option value="Spavaldo">Spavaldo</option>
-        <option value="Maledetto">Maledetto</option>
-      </select>
+      <select id="profAttribute"><option value="">— Nessun attributo —</option></select>
     </div>
     <div class="field">
       <label>Biografia (max 300 caratteri)</label>
@@ -481,12 +375,10 @@
   </div>
 </div>
 
-<!-- VIEW PROFILE MODAL -->
 <div class="modal-overlay" id="viewProfileModal" hidden>
   <div class="modal-box"><div id="viewProfileContent"></div></div>
 </div>
 
-<!-- CAMPAIGN DETAIL MODAL -->
 <div class="modal-overlay" id="campaignModal" hidden>
   <div class="modal-box wide"><div id="campaignDetail"></div></div>
 </div>
@@ -556,6 +448,7 @@ const AVATAR_IMAGES = [
   'https://i.imgur.com/NPsfqrP.png','https://i.imgur.com/Fo6oGyI.png',
   'https://i.imgur.com/ay5PVTi.png','https://i.imgur.com/7lSPNwS.png'
 ];
+const ATTRIBUTES = ['Letale','Petomane','Sfortunato','Carismatico','Ritardatario','Arcano','Cleptomane','Vanitoso','Ingordo','Implacabile','Paranoico','Piromane','Sonnolento','Spietato','Codardo','Etilico','Fulmineo','Caotico','Seduttore','Logorroico','Sanguinario','Taccagno','Lunatico','Ruttatore','Indomito','Saccheggiatore','Cinico','Distraibile','Ombratile','Inciampone','Suscettibile','Goloso','Infallibile','Impulsivo','Ingenuo','Notturno','Temerario','Rissoso','Sornione','Puzzolente','Corazzato','Avido','Lamentoso','Pigro','Veterano','Pignolo','Incompreso','Suicida','Spavaldo','Maledetto'];
 
 let DB = {users:[],campaigns:[]};
 let CURRENT_USER = null;
@@ -615,6 +508,14 @@ function sessionOnDate(camp, dateStr){
     return dateKey(d) === dateStr;
   });
 }
+
+// Popola i select degli attributi
+function fillAttributeSelects(){
+  const opts = ATTRIBUTES.map(a=>'<option value="'+a+'">'+a+'</option>').join('');
+  const au = $('#authAttribute'); if(au) au.innerHTML = '<option value="">— Nessun attributo —</option>'+opts;
+  const pr = $('#profAttribute'); if(pr) pr.innerHTML = '<option value="">— Nessun attributo —</option>'+opts;
+}
+fillAttributeSelects();
 
 async function refreshDB(){
   const [pr,cp,mb,se,cm,av] = await Promise.all([
@@ -800,24 +701,19 @@ function openViewProfile(userId){
   if(mo.length)rh.push(roleLineHtml('master','Master di',mo));
   if(po.length)rh.push(roleLineHtml('player','Gioca in',po));
   if(oo.length)rh.push(roleLineHtml('observer','Osserva',oo));
-  let html = '<div class="modal-head"><div><h3>'+esc(u.name)+'</h3>';
-  if(u.attribute) html += '<div class="sub"><span class="attribute-badge">'+esc(u.attribute)+'</span></div>';
-  html += '</div><button class="close-x" data-close="viewProfileModal">×</button></div>';
+  let html = '<div class="modal-head"><div><h3>'+esc(u.name)+'</h3>'+
+    (u.attribute?'<div class="sub"><span class="attribute-badge">'+esc(u.attribute)+'</span></div>':'')+
+    '</div><button class="close-x" data-close="viewProfileModal">×</button></div>';
   html += '<img class="profile-view-avatar" src="'+getUserAvatar(u)+'" alt="">';
   html += '<div class="profile-view-name">'+esc(u.name)+'</div>';
-  if(u.attribute){
-    html += '<div class="profile-view-attribute"><span class="attribute-badge">'+esc(u.attribute)+'</span></div>';
-  }
-  if(u.bio){
-    html += '<div class="profile-view-bio">'+esc(u.bio)+'</div>';
-  }
+  if(u.attribute) html += '<div class="profile-view-attribute"><span class="attribute-badge">'+esc(u.attribute)+'</span></div>';
+  if(u.bio) html += '<div class="profile-view-bio">'+esc(u.bio)+'</div>';
   html += '<div class="cd-section"><div class="cd-section-title">Campagne</div>';
   if(rh.length===0){ html += '<p class="empty-note">Non partecipa a nessuna campagna.</p>'; }
   else{ html += '<div class="roles">'+rh.join('')+'</div>'; }
   html += '</div>';
   $('#viewProfileContent').innerHTML = html;
   $('#viewProfileModal').hidden = false;
-  // handler close
   const cx = $('#viewProfileContent').querySelector('[data-close="viewProfileModal"]');
   if(cx) cx.addEventListener('click',()=>{ $('#viewProfileModal').hidden = true; });
 }
@@ -1168,7 +1064,6 @@ function renderCampaignDetail(c){
   const ci = d.querySelector('[data-close-inline]');
   if(ci)ci.addEventListener('click',()=>{ $('#campaignModal').hidden=true });
 
-  // Click sui nomi → vedi profilo
   d.querySelectorAll('[data-view-profile]').forEach(el=>{
     el.addEventListener('click', ()=> openViewProfile(el.dataset.viewProfile));
   });
@@ -1519,7 +1414,6 @@ function renderCalendarPage(){
       toast('Sessione confermata per '+readable+'.');
     });
   });
-  // Click sui voter chips → apri profilo
   w.querySelectorAll('[data-view-profile]').forEach(el=>{
     el.addEventListener('click', e=>{
       e.stopPropagation();
@@ -1534,4 +1428,139 @@ function buildDetailedAvailability(camp,y,m,me,isMaster){
   const tk = todayKey();
   const td = new Date(y,m,1);
   const mn = td.toLocaleDateString('it-IT',{month:'long'});
-  const mnc = mn.charAt(0).to
+  const mnc = mn.charAt(0).toUpperCase()+mn.slice(1);
+  let html = '<h4>Disponibilità dettagliata — '+mnc+' '+y+'</h4>';
+  if(isMaster) html += '<p class="detail-note">Quando un giorno ha tutti i voti, puoi confermarlo come data della sessione.</p>';
+  else html += '<p class="detail-note">Giorno per giorno, chi ha confermato. Il Master può confermare i giorni in cui tutti sono disponibili.</p>';
+  const rows = [];
+  Object.keys(av).forEach(k=>{
+    const d = new Date(k+'T12:00:00');
+    if(d.getFullYear()!==y || d.getMonth()!==m)return;
+    const v = av[k]||{};
+    const voters = Object.keys(v).filter(u=>v[u]==='yes');
+    if(voters.length===0)return;
+    rows.push({key:k,date:d,voters});
+  });
+  rows.sort((a,b)=>a.key<b.key?-1:1);
+  if(rows.length===0){html += '<p class="detail-empty">Nessuna disponibilità per questo mese.</p>'}
+  else{
+    rows.forEach(r=>{
+      const dl = r.date.toLocaleDateString('it-IT',{weekday:'long',day:'numeric',month:'long'});
+      const isT = r.key===tk;
+      const isF = r.voters.length===tot;
+      const cc = isF?'full':(r.voters.length>=Math.ceil(tot/2)?'partial':'');
+      const confirmed = sessionOnDate(camp, r.key);
+      let cls = '';
+      if(isT) cls += ' is-today';
+      if(isF) cls += ' full';
+      if(confirmed) cls += ' confirmed';
+      html += '<div class="detail-day'+cls+'">';
+      html += '<div class="detail-date"><span class="dd-day">'+r.date.getDate()+'</span><span class="dd-month">'+dl.split(' ').slice(1).join(' ')+'</span></div>';
+      html += '<span class="detail-count '+cc+'">'+r.voters.length+'/'+tot+(isF?' ★':'')+'</span>';
+      html += '<div class="detail-voters">';
+      r.voters.forEach(u=>{
+        const us = getUser(u);if(!us)return;
+        const col = memberColorIn(camp,u);
+        const isMe = me && me.id===u;
+        html += '<span class="voter-chip" style="--c:'+col+'" data-view-profile="'+u+'"><img src="'+getUserAvatar(us)+'" alt=""><span class="voter-dot" style="--c:'+col+'"></span><span class="voter-name">'+esc(us.name)+(isMe?' (tu)':'')+'</span></span>';
+      });
+      html += '</div>';
+      if(confirmed){
+        html += '<div class="detail-actions"><span class="detail-confirmed">✓ Sessione #'+esc(confirmed.num)+': '+esc(confirmed.title)+'</span></div>';
+      }else if(isF && isMaster){
+        html += '<div class="detail-actions"><button type="button" class="btn success small" data-confirm-date="'+r.key+'">📅 Conferma questa data</button></div>';
+      }
+      html += '</div>';
+    });
+  }
+  p.innerHTML = html;
+  return p;
+}
+function buildCalendarCells(y,m){
+  const fd = new Date(y,m,1);
+  const s = (fd.getDay()+6)%7;
+  const dim = new Date(y,m+1,0).getDate();
+  const tot = Math.ceil((s+dim)/7)*7;
+  const c = [];
+  for(let i=0;i<tot;i++)c.push(new Date(y,m,1-s+i));
+  return c;
+}
+function buildCalendarCell(date,camp,myId,tk,canV){
+  const cell = document.createElement('div');cell.className='cal-cell';
+  const key = dateKey(date);
+  const oth = date.getMonth()!==calMonth;
+  const past = key<tk;
+  const today = key===tk;
+  if(oth)cell.classList.add('other-month');
+  if(past)cell.classList.add('past');
+  if(today)cell.classList.add('today');
+  const da = (camp.availability||{})[key]||{};
+  const voters = Object.keys(da).filter(u=>da[u]==='yes');
+  const myV = myId && da[myId]==='yes';
+  const sess = sessionOnDate(camp, key);
+  if(voters.length>0)cell.classList.add('has-votes');
+  if(voters.length>=3)cell.classList.add('many-votes');
+  if(sess)cell.classList.add('has-session');
+  if(myV){cell.style.setProperty('--my-color',memberColorIn(camp,myId));cell.classList.add('my-voted')}
+  const dn = document.createElement('span');dn.className='cal-daynum';dn.textContent=date.getDate();
+  cell.appendChild(dn);
+  const mk = document.createElement('div');mk.className='cal-marks';
+  voters.forEach(u=>{
+    const us = getUser(u);const col = memberColorIn(camp,u);
+    const d = document.createElement('span');d.className='mark yes';
+    d.style.background=col;d.style.color=col;
+    d.title = (us?us.name:'?')+' — disponibile';
+    mk.appendChild(d);
+  });
+  cell.appendChild(mk);
+  if(sess){
+    cell.title = 'Sessione confermata: '+sess.title;
+  }else if(voters.length>0){
+    cell.title = voters.map(u=>{const us=getUser(u);return us?us.name+': disponibile':''}).filter(Boolean).join('\n');
+  }
+  if(!past && canV && !sess){
+    cell.addEventListener('click',()=>toggleVote(camp,key,myId));
+  }else if(!past && !canV && !sess){
+    cell.addEventListener('click',()=>{
+      if(!currentUser()){toast('Accedi per confermare.');openAuth()}
+      else toast('Non fai parte di questa campagna.');
+    });
+  }
+  return cell;
+}
+async function toggleVote(camp,key,myId){
+  if(!myId)return;
+  const d = (camp.availability||{})[key]||{};
+  if(d[myId]==='yes'){
+    await sb.from('availability').delete().eq('campaign_id',camp.id).eq('user_id',myId).eq('day',key);
+    toast('Disponibilità rimossa');
+  }else{
+    await sb.from('availability').insert({campaign_id:camp.id,user_id:myId,day:key});
+    toast('Disponibilità confermata');
+  }
+  await refreshDB();renderCalendarPage();renderHome();
+}
+
+function renderAll(){
+  renderUserArea();
+  renderHome();
+  renderRoster();
+  renderCampaigns();
+  renderCalendarPage();
+}
+
+(async function init(){
+  await refreshDB();
+  await refreshCurrentUser();
+  renderAll();
+  sb.auth.onAuthStateChange(async(event)=>{
+    if(event==='SIGNED_IN' || event==='SIGNED_OUT'){
+      await refreshDB();await refreshCurrentUser();renderAll();
+    }
+  });
+})();
+
+})();
+</script>
+</body>
+</html>
