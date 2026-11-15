@@ -314,7 +314,6 @@
 
 <footer>Kradicchion Hub</footer>
 
-<!-- LOGIN MODAL -->
 <div class="modal-overlay" id="loginModal" hidden>
   <div class="modal-box">
     <div class="modal-head">
@@ -331,7 +330,6 @@
   </div>
 </div>
 
-<!-- REGISTER MODAL -->
 <div class="modal-overlay" id="registerModal" hidden>
   <div class="modal-box">
     <div class="modal-head">
@@ -370,7 +368,6 @@
   </div>
 </div>
 
-<!-- PROFILE EDIT MODAL -->
 <div class="modal-overlay" id="profileModal" hidden>
   <div class="modal-box">
     <div class="modal-head">
@@ -413,6 +410,28 @@
 
 <div class="modal-overlay" id="campaignModal" hidden>
   <div class="modal-box wide"><div id="campaignDetail"></div></div>
+</div>
+
+<div class="modal-overlay" id="editCampaignModal" hidden style="z-index:210">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div><h3>Modifica campagna</h3><div class="sub">Aggiorna i dettagli della campagna.</div></div>
+      <button class="close-x" data-close="editCampaignModal">×</button>
+    </div>
+    <div class="field"><label>Nome</label><input type="text" id="ecName" placeholder="Nome campagna" maxlength="60"></div>
+    <div class="field">
+      <label>Sistema di gioco</label>
+      <select id="ecSystem">
+        <option value="Pathfinder Seconda Edizione Remaster">Pathfinder Seconda Edizione Remaster</option>
+        <option value="Dungeons &amp; Dragons 5ª Edizione">Dungeons &amp; Dragons 5ª Edizione</option>
+      </select>
+    </div>
+    <div class="field"><label>Descrizione</label><textarea id="ecDesc" placeholder="Di cosa parla la campagna?"></textarea></div>
+    <div class="modal-actions">
+      <button class="btn ghost" data-close="editCampaignModal">Annulla</button>
+      <button class="btn" id="ecSubmit">Salva modifiche</button>
+    </div>
+  </div>
 </div>
 
 <div class="modal-overlay" id="addMemberModal" hidden style="z-index:210">
@@ -501,6 +520,8 @@ let profilePendingFile = null;
 let profileSelectedAvatar = '';
 let campaignPendingBanner = null;
 let campaignPendingBannerPreview = '';
+let selectedCampaignId = null;
+let editingCampaignId = null;
 
 function $(s,r){return (r||document).querySelector(s)}
 function $$(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))}
@@ -518,50 +539,20 @@ function memberColorIn(c,uid){if(!c||!c.members)return DEFAULT_COLOR;const m=c.m
 function fmtDateOnly(iso){return new Date(iso).toLocaleDateString('it-IT',{day:'numeric',month:'long',year:'numeric'})}
 function fmtMonthYear(y,m){return new Date(y,m,1).toLocaleDateString('it-IT',{month:'long',year:'numeric'})}
 function roleLabel(r){return r==='master'?'Master':r==='player'?'Giocatore':'Osservatore'}
-function statusLabel(s){
-  if(s==='in-preparazione') return 'In preparazione';
-  if(s==='in-corso') return 'In corso';
-  if(s==='conclusa') return 'Conclusa';
-  return 'In pausa';
-}
+function statusLabel(s){if(s==='in-preparazione')return 'In preparazione';if(s==='in-corso')return 'In corso';if(s==='conclusa')return 'Conclusa';return 'In pausa'}
 function validEmail(e){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)}
 function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2600)}
-function bgStyle(url){
-  if(!url) return '';
-  const safe = String(url).replace(/'/g,"%27").replace(/"/g,'%22').replace(/\\/g,'%5C').replace(/\(/g,'%28').replace(/\)/g,'%29');
-  return "background-image:url('"+safe+"')";
-}
-function isoToDateInput(iso){
-  if(!iso) return '';
-  const d = new Date(iso);
-  if(isNaN(d.getTime())) return '';
-  const p = n => String(n).padStart(2,'0');
-  return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate());
-}
-function dateInputToIso(val){
-  if(!val) return new Date().toISOString();
-  const d = new Date(val + 'T12:00:00');
-  return d.toISOString();
-}
-function sessionOnDate(camp, dateStr){
-  return (camp.sessions||[]).find(s => {
-    if(!s.date) return false;
-    const d = new Date(s.date);
-    if(isNaN(d.getTime())) return false;
-    return dateKey(d) === dateStr;
-  });
-}
-function pendingRequestsFor(cid){
-  return DB.joinRequests.filter(r => r.campaignId === cid && r.status === 'pending');
-}
-function myPendingRequest(cid, uid){
-  return DB.joinRequests.find(r => r.campaignId === cid && r.userId === uid && r.status === 'pending');
-}
+function bgStyle(url){if(!url)return '';const safe=String(url).replace(/'/g,"%27").replace(/"/g,'%22').replace(/\\/g,'%5C').replace(/\(/g,'%28').replace(/\)/g,'%29');return "background-image:url('"+safe+"')"}
+function isoToDateInput(iso){if(!iso)return '';const d=new Date(iso);if(isNaN(d.getTime()))return '';const p=n=>String(n).padStart(2,'0');return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())}
+function dateInputToIso(val){if(!val)return new Date().toISOString();return new Date(val+'T12:00:00').toISOString()}
+function sessionOnDate(camp,dateStr){return (camp.sessions||[]).find(s=>{if(!s.date)return false;const d=new Date(s.date);if(isNaN(d.getTime()))return false;return dateKey(d)===dateStr})}
+function pendingRequestsFor(cid){return DB.joinRequests.filter(r=>r.campaignId===cid&&r.status==='pending')}
+function myPendingRequest(cid,uid){return DB.joinRequests.find(r=>r.campaignId===cid&&r.userId===uid&&r.status==='pending')}
 
 function fillAttributeSelects(){
-  const opts = ATTRIBUTES.map(a=>'<option value="'+a+'">'+a+'</option>').join('');
-  const ra = $('#regAttribute'); if(ra) ra.innerHTML = '<option value="">— Nessun attributo —</option>'+opts;
-  const pr = $('#profAttribute'); if(pr) pr.innerHTML = '<option value="">— Nessun attributo —</option>'+opts;
+  const opts=ATTRIBUTES.map(a=>'<option value="'+a+'">'+a+'</option>').join('');
+  const ra=$('#regAttribute');if(ra)ra.innerHTML='<option value="">— Nessun attributo —</option>'+opts;
+  const pr=$('#profAttribute');if(pr)pr.innerHTML='<option value="">— Nessun attributo —</option>'+opts;
 }
 fillAttributeSelects();
 
@@ -589,9 +580,7 @@ async function refreshDB(){
     });
     return {id:c.id,name:c.name,system:c.system,description:c.description||'',status:c.status,bannerUrl:c.banner_url||'',members,sessions,availability:av2};
   });
-  DB.joinRequests = (jr.data||[]).map(j=>({
-    id:j.id, campaignId:j.campaign_id, userId:j.user_id, status:j.status, createdAt:j.created_at
-  }));
+  DB.joinRequests = (jr.data||[]).map(j=>({id:j.id,campaignId:j.campaign_id,userId:j.user_id,status:j.status,createdAt:j.created_at}));
 }
 
 async function refreshCurrentUser(){
@@ -653,16 +642,15 @@ function renderUserArea(){
   }
 }
 
-/* ================= LOGIN ================= */
+/* ================= LOGIN / REGISTER ================= */
 function openLogin(){
-  $('#loginEmail').value='';
-  $('#loginPassword').value='';
+  $('#loginEmail').value='';$('#loginPassword').value='';
   $('#loginModal').hidden=false;
   setTimeout(()=>$('#loginEmail').focus(),60);
 }
 $('#loginSubmit').addEventListener('click',async()=>{
-  const email = $('#loginEmail').value.trim().toLowerCase();
-  const pw = $('#loginPassword').value;
+  const email=$('#loginEmail').value.trim().toLowerCase();
+  const pw=$('#loginPassword').value;
   if(!email||!validEmail(email)){toast('Email non valida.');return}
   if(!pw){toast('Inserisci password.');return}
   const {error} = await sb.auth.signInWithPassword({email,password:pw});
@@ -671,10 +659,9 @@ $('#loginSubmit').addEventListener('click',async()=>{
   $('#loginModal').hidden=true;renderAll();
   toast('Bentornato, '+(CURRENT_USER?.name||'')+'!');
 });
-$('#loginPassword').addEventListener('keydown', e => { if(e.key==='Enter') $('#loginSubmit').click(); });
-$('#goToRegister').addEventListener('click', ()=>{ $('#loginModal').hidden=true; openRegister(); });
+$('#loginPassword').addEventListener('keydown',e=>{if(e.key==='Enter')$('#loginSubmit').click()});
+$('#goToRegister').addEventListener('click',()=>{$('#loginModal').hidden=true;openRegister()});
 
-/* ================= REGISTER ================= */
 function openRegister(){
   $('#regName').value='';$('#regEmail').value='';$('#regPassword').value='';
   $('#regAttribute').value='';$('#regBio').value='';
@@ -684,42 +671,37 @@ function openRegister(){
   $('#authAvatar').value = free||'';
   updateAvatarPreview();
   renderAvatarGrid($('#authAvatar').value);
-  $('#avatarHint').textContent = free
-    ? 'Scegli un avatar o carica un\'immagine (max 4 MB).'
-    : 'Tutti gli avatar sono scelti. Puoi caricare un\'immagine (max 4 MB).';
-  $('#registerModal').hidden = false;
+  $('#avatarHint').textContent = free?'Scegli un avatar o carica un\'immagine (max 4 MB).':'Tutti gli avatar sono scelti. Puoi caricare un\'immagine (max 4 MB).';
+  $('#registerModal').hidden=false;
   setTimeout(()=>$('#regName').focus(),60);
 }
-$('#goToLogin').addEventListener('click', ()=>{ $('#registerModal').hidden=true; openLogin(); });
+$('#goToLogin').addEventListener('click',()=>{$('#registerModal').hidden=true;openLogin()});
 $('#registerSubmit').addEventListener('click',async()=>{
-  const name = $('#regName').value.trim();
-  const email = $('#regEmail').value.trim().toLowerCase();
-  const pw = $('#regPassword').value;
-  const attr = $('#regAttribute').value;
-  const bio = $('#regBio').value.trim();
-  const sel = ($('#authAvatar').value||'').trim();
+  const name=$('#regName').value.trim();
+  const email=$('#regEmail').value.trim().toLowerCase();
+  const pw=$('#regPassword').value;
+  const attr=$('#regAttribute').value;
+  const bio=$('#regBio').value.trim();
+  const sel=($('#authAvatar').value||'').trim();
   if(!name){toast('Inserisci nome.');return}
   if(!email||!validEmail(email)){toast('Email non valida.');return}
   if(!pw||pw.length<8){toast('Password min 8 caratteri.');return}
-  const hasP = !!sel, hasF = !!pendingAvatarFile;
+  const hasP=!!sel,hasF=!!pendingAvatarFile;
   if(!hasP&&!hasF){toast('Scegli avatar o carica immagine.');return}
   if(hasP&&!hasF){
-    const {data:ex} = await sb.from('profiles').select('id').eq('avatar_url',sel).maybeSingle();
+    const {data:ex}=await sb.from('profiles').select('id').eq('avatar_url',sel).maybeSingle();
     if(ex){toast('Avatar occupato.');return}
   }
-  const ph = hasP?sel:AVATAR_IMAGES[0];
-  const {data:su,error} = await sb.auth.signUp({
-    email, password: pw,
-    options: { data: { name, avatar_url: ph, attribute: attr, bio: bio } }
-  });
+  const ph=hasP?sel:AVATAR_IMAGES[0];
+  const {data:su,error}=await sb.auth.signUp({email,password:pw,options:{data:{name,avatar_url:ph,attribute:attr,bio:bio}}});
   if(error){toast(error.message);return}
   if(hasF && su.user){
-    const userId = su.user.id;
-    const ext = pendingAvatarFile.name.split('.').pop().toLowerCase().replace(/[^a-z0-9]/g,'')||'png';
-    const path = userId+'/avatar.'+ext;
-    const {error:upErr} = await sb.storage.from('avatars').upload(path,pendingAvatarFile,{upsert:true,contentType:pendingAvatarFile.type});
+    const userId=su.user.id;
+    const ext=pendingAvatarFile.name.split('.').pop().toLowerCase().replace(/[^a-z0-9]/g,'')||'png';
+    const path=userId+'/avatar.'+ext;
+    const {error:upErr}=await sb.storage.from('avatars').upload(path,pendingAvatarFile,{upsert:true,contentType:pendingAvatarFile.type});
     if(!upErr){
-      const {data} = sb.storage.from('avatars').getPublicUrl(path);
+      const {data}=sb.storage.from('avatars').getPublicUrl(path);
       await sb.from('profiles').update({avatar_url:data.publicUrl+'?t='+Date.now()}).eq('id',userId);
     }
   }
@@ -729,20 +711,18 @@ $('#registerSubmit').addEventListener('click',async()=>{
   $('#registerModal').hidden=true;renderAll();toast('Benvenuto, '+name+'!');
 });
 
-/* ================= AVATAR GRID ================= */
+/* ================= AVATAR ================= */
 function renderAvatarGrid(sel){
-  const g = $('#avatarGrid');if(!g)return;
-  g.innerHTML = '';
-  const taken = takenAvatars(null);
+  const g=$('#avatarGrid');if(!g)return;
+  g.innerHTML='';
+  const taken=takenAvatars(null);
   AVATAR_IMAGES.forEach(url=>{
-    const isT = taken.has(url);
-    const isS = url===sel;
-    const b = document.createElement('button');
+    const isT=taken.has(url);const isS=url===sel;
+    const b=document.createElement('button');
     b.type='button';
-    b.className = 'avatar-option'+(isS?' selected':'')+(isT?' taken':'');
-    b.disabled = isT;
-    b.title = isT?'Già scelto':'Scegli questo avatar';
-    b.innerHTML = '<img src="'+url+'" alt="">';
+    b.className='avatar-option'+(isS?' selected':'')+(isT?' taken':'');
+    b.disabled=isT;b.title=isT?'Già scelto':'Scegli questo avatar';
+    b.innerHTML='<img src="'+url+'" alt="">';
     if(!isT){
       b.addEventListener('click',()=>{
         pendingAvatarFile=null;
@@ -754,10 +734,9 @@ function renderAvatarGrid(sel){
   });
 }
 function updateAvatarPreview(){
-  const url = ($('#authAvatar').value||'').trim();
-  const img = $('#avatarPreview');
-  if(url){img.src=url;img.style.display='block'}
-  else if(!pendingAvatarFile){img.style.display='none'}
+  const url=($('#authAvatar').value||'').trim();
+  const img=$('#avatarPreview');
+  if(url){img.src=url;img.style.display='block'}else if(!pendingAvatarFile){img.style.display='none'}
 }
 
 /* ================= PROFILE EDIT ================= */
@@ -765,36 +744,33 @@ function openProfile(){
   if(!CURRENT_USER)return;
   profilePendingFile=null;
   const fi=document.getElementById('profAvatarFileInput');if(fi)fi.value='';
-  profileSelectedAvatar = CURRENT_USER.avatarUrl||'';
-  $('#profName').value = CURRENT_USER.name||'';
-  $('#profEmail').value = CURRENT_USER.email||'';
-  $('#profAttribute').value = CURRENT_USER.attribute||'';
-  $('#profBio').value = CURRENT_USER.bio||'';
-  $('#profAvatar').value = profileSelectedAvatar;
-  const prev = $('#profAvatarPreview');
+  profileSelectedAvatar=CURRENT_USER.avatarUrl||'';
+  $('#profName').value=CURRENT_USER.name||'';
+  $('#profEmail').value=CURRENT_USER.email||'';
+  $('#profAttribute').value=CURRENT_USER.attribute||'';
+  $('#profBio').value=CURRENT_USER.bio||'';
+  $('#profAvatar').value=profileSelectedAvatar;
+  const prev=$('#profAvatarPreview');
   if(prev){prev.src=getUserAvatar(CURRENT_USER);prev.style.display='block'}
   renderProfileAvatarGrid(profileSelectedAvatar);
-  $('#profileModal').hidden = false;
+  $('#profileModal').hidden=false;
 }
 function renderProfileAvatarGrid(sel){
-  const g = $('#profAvatarGrid');if(!g)return;
-  g.innerHTML = '';
-  const taken = takenAvatars(CURRENT_USER?CURRENT_USER.id:null);
+  const g=$('#profAvatarGrid');if(!g)return;
+  g.innerHTML='';
+  const taken=takenAvatars(CURRENT_USER?CURRENT_USER.id:null);
   AVATAR_IMAGES.forEach(url=>{
-    const isT = taken.has(url);
-    const isS = url===sel;
-    const b = document.createElement('button');
+    const isT=taken.has(url);const isS=url===sel;
+    const b=document.createElement('button');
     b.type='button';
-    b.className = 'avatar-option'+(isS?' selected':'')+(isT?' taken':'');
-    b.disabled = isT;
-    b.title = isT?'Già scelto':'Scegli questo avatar';
-    b.innerHTML = '<img src="'+url+'" alt="">';
+    b.className='avatar-option'+(isS?' selected':'')+(isT?' taken':'');
+    b.disabled=isT;b.title=isT?'Già scelto':'Scegli questo avatar';
+    b.innerHTML='<img src="'+url+'" alt="">';
     if(!isT){
       b.addEventListener('click',()=>{
         profilePendingFile=null;
         const fi=document.getElementById('profAvatarFileInput');if(fi)fi.value='';
-        profileSelectedAvatar=url;
-        $('#profAvatar').value=url;
+        profileSelectedAvatar=url;$('#profAvatar').value=url;
         const prev=$('#profAvatarPreview');
         if(prev){prev.src=url;prev.style.display='block'}
         renderProfileAvatarGrid(url);
@@ -804,15 +780,12 @@ function renderProfileAvatarGrid(sel){
   });
 }
 
-/* ================= VIEW OTHER PROFILE ================= */
 function openViewProfile(userId){
-  const u = getUser(userId);
-  if(!u) return;
-  if(CURRENT_USER && u.id === CURRENT_USER.id){ openProfile(); return; }
+  const u=getUser(userId);if(!u)return;
+  if(CURRENT_USER && u.id===CURRENT_USER.id){openProfile();return}
   const mo=[],po=[],oo=[];
   DB.campaigns.forEach(c=>{
-    const m = (c.members||[]).find(x=>x.userId===u.id);
-    if(!m) return;
+    const m=(c.members||[]).find(x=>x.userId===u.id);if(!m)return;
     const e={name:c.name,color:m.color||DEFAULT_COLOR};
     if(m.role==='master')mo.push(e);else if(m.role==='player')po.push(e);else oo.push(e);
   });
@@ -820,24 +793,24 @@ function openViewProfile(userId){
   if(mo.length)rh.push(roleLineHtml('master','Master di',mo));
   if(po.length)rh.push(roleLineHtml('player','Gioca in',po));
   if(oo.length)rh.push(roleLineHtml('observer','Osserva',oo));
-  let html = '<div class="modal-head"><div><h3>'+esc(u.name)+'</h3>'+
+  let html='<div class="modal-head"><div><h3>'+esc(u.name)+'</h3>'+
     (u.attribute?'<div class="sub"><span class="attribute-badge">'+esc(u.attribute)+'</span></div>':'')+
     '</div><button class="close-x" data-close="viewProfileModal">×</button></div>';
-  html += '<img class="profile-view-avatar" src="'+getUserAvatar(u)+'" alt="">';
-  html += '<div class="profile-view-name">'+esc(u.name)+'</div>';
-  if(u.attribute) html += '<div class="profile-view-attribute"><span class="attribute-badge">'+esc(u.attribute)+'</span></div>';
-  if(u.bio) html += '<div class="profile-view-bio">'+esc(u.bio)+'</div>';
-  html += '<div class="cd-section"><div class="cd-section-title">Campagne</div>';
-  if(rh.length===0){ html += '<p class="empty-note">Non partecipa a nessuna campagna.</p>'; }
-  else{ html += '<div class="roles">'+rh.join('')+'</div>'; }
-  html += '</div>';
-  $('#viewProfileContent').innerHTML = html;
-  $('#viewProfileModal').hidden = false;
-  const cx = $('#viewProfileContent').querySelector('[data-close="viewProfileModal"]');
-  if(cx) cx.addEventListener('click',()=>{ $('#viewProfileModal').hidden = true; });
+  html+='<img class="profile-view-avatar" src="'+getUserAvatar(u)+'" alt="">';
+  html+='<div class="profile-view-name">'+esc(u.name)+'</div>';
+  if(u.attribute)html+='<div class="profile-view-attribute"><span class="attribute-badge">'+esc(u.attribute)+'</span></div>';
+  if(u.bio)html+='<div class="profile-view-bio">'+esc(u.bio)+'</div>';
+  html+='<div class="cd-section"><div class="cd-section-title">Campagne</div>';
+  if(rh.length===0){html+='<p class="empty-note">Non partecipa a nessuna campagna.</p>'}
+  else{html+='<div class="roles">'+rh.join('')+'</div>'}
+  html+='</div>';
+  $('#viewProfileContent').innerHTML=html;
+  $('#viewProfileModal').hidden=false;
+  const cx=$('#viewProfileContent').querySelector('[data-close="viewProfileModal"]');
+  if(cx)cx.addEventListener('click',()=>{$('#viewProfileModal').hidden=true});
 }
 
-/* ================= INPUT CHANGE HANDLERS ================= */
+/* ================= FILE INPUT HANDLERS ================= */
 document.addEventListener('click',e=>{
   if(e.target&&e.target.id==='uploadAvatarBtn'){const i=document.getElementById('avatarFileInput');if(i)i.click()}
   if(e.target&&e.target.id==='profUploadAvatarBtn'){const i=document.getElementById('profAvatarFileInput');if(i)i.click()}
@@ -885,37 +858,36 @@ document.addEventListener('change',e=>{
   }
 });
 function updateNcBannerPreview(){
-  const el = $('#ncBannerPreview');if(!el)return;
+  const el=$('#ncBannerPreview');if(!el)return;
   if(campaignPendingBannerPreview){
-    el.style.cssText = bgStyle(campaignPendingBannerPreview);
+    el.style.cssText=bgStyle(campaignPendingBannerPreview);
     el.textContent='';el.classList.add('has-image');
   }else{
     el.style.cssText='';el.textContent='Nessuna immagine';el.classList.remove('has-image');
   }
 }
 
-/* ================= SAVE PROFILE ================= */
 $('#profSaveBtn').addEventListener('click',async()=>{
   if(!CURRENT_USER)return;
-  const nn = $('#profName').value.trim();
+  const nn=$('#profName').value.trim();
   if(!nn){toast('Nome vuoto.');return}
-  const newAttr = $('#profAttribute').value;
-  const newBio = $('#profBio').value.trim();
-  let newUrl = CURRENT_USER.avatarUrl;
+  const newAttr=$('#profAttribute').value;
+  const newBio=$('#profBio').value.trim();
+  let newUrl=CURRENT_USER.avatarUrl;
   if(profilePendingFile){
-    const userId = CURRENT_USER.id;
-    const ext = profilePendingFile.name.split('.').pop().toLowerCase().replace(/[^a-z0-9]/g,'')||'png';
-    const path = userId+'/avatar.'+ext;
-    const {error} = await sb.storage.from('avatars').upload(path,profilePendingFile,{upsert:true,contentType:profilePendingFile.type});
+    const userId=CURRENT_USER.id;
+    const ext=profilePendingFile.name.split('.').pop().toLowerCase().replace(/[^a-z0-9]/g,'')||'png';
+    const path=userId+'/avatar.'+ext;
+    const {error}=await sb.storage.from('avatars').upload(path,profilePendingFile,{upsert:true,contentType:profilePendingFile.type});
     if(error){toast('Errore: '+error.message);return}
-    const {data} = sb.storage.from('avatars').getPublicUrl(path);
-    newUrl = data.publicUrl+'?t='+Date.now();
+    const {data}=sb.storage.from('avatars').getPublicUrl(path);
+    newUrl=data.publicUrl+'?t='+Date.now();
   }else if(profileSelectedAvatar && profileSelectedAvatar!==CURRENT_USER.avatarUrl){
-    const {data:ex} = await sb.from('profiles').select('id').eq('avatar_url',profileSelectedAvatar).maybeSingle();
+    const {data:ex}=await sb.from('profiles').select('id').eq('avatar_url',profileSelectedAvatar).maybeSingle();
     if(ex && ex.id!==CURRENT_USER.id){toast('Avatar occupato.');return}
-    newUrl = profileSelectedAvatar;
+    newUrl=profileSelectedAvatar;
   }
-  const {error} = await sb.from('profiles').update({name:nn,avatar_url:newUrl,attribute:newAttr,bio:newBio}).eq('id',CURRENT_USER.id);
+  const {error}=await sb.from('profiles').update({name:nn,avatar_url:newUrl,attribute:newAttr,bio:newBio}).eq('id',CURRENT_USER.id);
   if(error){toast(error.message);return}
   profilePendingFile=null;
   await refreshDB();await refreshCurrentUser();
@@ -928,11 +900,10 @@ function findBestNext(){
   let best=null;const t=todayKey();
   DB.campaigns.forEach(c=>{
     if(c.status!=='in-corso')return;
-    const tot = (c.members||[]).length;
-    const av = c.availability||{};
+    const tot=(c.members||[]).length;const av=c.availability||{};
     Object.keys(av).forEach(k=>{
       if(k<t)return;
-      const yc = Object.values(av[k]).filter(v=>v==='yes').length;
+      const yc=Object.values(av[k]).filter(v=>v==='yes').length;
       if(yc===0)return;
       if(!best||yc>best.yesCount||(yc===best.yesCount&&k<best.key)){best={key:k,campaign:c,yesCount:yc,totalMembers:tot}}
     });
@@ -940,18 +911,18 @@ function findBestNext(){
   return best;
 }
 function renderHome(){
-  const totS = DB.campaigns.reduce((a,c)=>a+(c.sessions||[]).length,0);
-  const act = DB.campaigns.filter(c=>c.status==='in-corso').length;
-  $('#homeStats').innerHTML = statCard(DB.users.length,'Membri')+statCard(DB.campaigns.length,'Campagne')+statCard(act,'In corso')+statCard(totS,'Sessioni');
-  const best = findBestNext();
-  const nw = $('#homeNext');
+  const totS=DB.campaigns.reduce((a,c)=>a+(c.sessions||[]).length,0);
+  const act=DB.campaigns.filter(c=>c.status==='in-corso').length;
+  $('#homeStats').innerHTML=statCard(DB.users.length,'Membri')+statCard(DB.campaigns.length,'Campagne')+statCard(act,'In corso')+statCard(totS,'Sessioni');
+  const best=findBestNext();
+  const nw=$('#homeNext');
   if(best){
-    const d = new Date(best.key+'T12:00:00');
-    nw.innerHTML = '<div class="next-session"><div class="ico">📅</div><div class="info"><div class="lbl">Miglior giorno disponibile</div><div class="when">'+d.toLocaleDateString('it-IT',{weekday:'long',day:'numeric',month:'long',year:'numeric'})+'</div><div class="camp">'+esc(best.campaign.name)+' · '+best.yesCount+'/'+best.totalMembers+' disponibili</div></div><button class="btn" id="nextGoBtn">Apri calendario</button></div>';
+    const d=new Date(best.key+'T12:00:00');
+    nw.innerHTML='<div class="next-session"><div class="ico">📅</div><div class="info"><div class="lbl">Miglior giorno disponibile</div><div class="when">'+d.toLocaleDateString('it-IT',{weekday:'long',day:'numeric',month:'long',year:'numeric'})+'</div><div class="camp">'+esc(best.campaign.name)+' · '+best.yesCount+'/'+best.totalMembers+' disponibili</div></div><button class="btn" id="nextGoBtn">Apri calendario</button></div>';
     $('#nextGoBtn').addEventListener('click',()=>{selectedCalCampaign=best.campaign.id;goTo('calendario');renderCalendarPage()});
   }else{nw.innerHTML=''}
-  const actC = DB.campaigns.filter(c=>c.status==='in-corso');
-  const cont = $('#homeCampaigns');cont.innerHTML='';
+  const actC=DB.campaigns.filter(c=>c.status==='in-corso');
+  const cont=$('#homeCampaigns');cont.innerHTML='';
   if(actC.length===0){cont.innerHTML='<p class="empty-note">Nessuna campagna in corso.</p>'}
   else{actC.forEach(c=>cont.appendChild(buildCampaignCard(c)))}
 }
@@ -959,13 +930,13 @@ function roleLineHtml(cls,lbl,items){
   return '<div class="role-line"><span class="rlabel '+cls+'">'+lbl+'</span><span class="ctext">'+items.map(it=>'<span class="camp-entry"><span class="cdot" style="background:'+it.color+';box-shadow:0 0 5px '+it.color+'"></span>'+esc(it.name)+'</span>').join('')+'</span></div>';
 }
 function renderRoster(){
-  const g = $('#rosterGrid');g.innerHTML='';
-  const me = currentUser();
+  const g=$('#rosterGrid');g.innerHTML='';
+  const me=currentUser();
   if(DB.users.length===0){g.innerHTML='<p class="empty-note" style="grid-column:1/-1;text-align:center;padding:32px 18px">Nessun giocatore registrato.</p>';return}
   DB.users.forEach(u=>{
     const mo=[],po=[],oo=[];
     DB.campaigns.forEach(c=>{
-      const m = (c.members||[]).find(x=>x.userId===u.id);if(!m)return;
+      const m=(c.members||[]).find(x=>x.userId===u.id);if(!m)return;
       const e={name:c.name,color:m.color||DEFAULT_COLOR};
       if(m.role==='master')mo.push(e);else if(m.role==='player')po.push(e);else oo.push(e);
     });
@@ -974,162 +945,146 @@ function renderRoster(){
     if(po.length)rh.push(roleLineHtml('player','Gioca in',po));
     if(oo.length)rh.push(roleLineHtml('observer','Osserva',oo));
     if(rh.length===0)rh.push('<div class="role-line"><span class="ctext" style="font-style:italic">Nessuna campagna.</span></div>');
-    const card = document.createElement('div');
-    card.className = 'member-card';
-    card.innerHTML = '<img src="'+getUserAvatar(u)+'" alt=""><div class="mname">'+esc(u.name)+(me&&me.id===u.id?'<span class="you-badge">Tu</span>':'')+'</div><div class="memail">'+esc(u.email)+'</div>'+(u.attribute?'<div class="mattribute"><span class="attribute-badge">'+esc(u.attribute)+'</span></div>':'')+'<div class="roles">'+rh.join('')+'</div>';
+    const card=document.createElement('div');
+    card.className='member-card';
+    card.innerHTML='<img src="'+getUserAvatar(u)+'" alt=""><div class="mname">'+esc(u.name)+(me&&me.id===u.id?'<span class="you-badge">Tu</span>':'')+'</div><div class="memail">'+esc(u.email)+'</div>'+(u.attribute?'<div class="mattribute"><span class="attribute-badge">'+esc(u.attribute)+'</span></div>':'')+'<div class="roles">'+rh.join('')+'</div>';
     card.addEventListener('click',()=>openViewProfile(u.id));
     g.appendChild(card);
   });
 }
 
 function buildCampaignCard(c){
-  const card = document.createElement('article');
-  card.className = 'camp-card'+(c.bannerUrl?' has-banner':'');
-  const members = c.members||[];
-  const me = currentUser();
-  const amMember = me && members.some(m => m.userId === me.id);
-  const amMaster = me && members.some(m => m.userId === me.id && m.role === 'master');
-  const pending = me && myPendingRequest(c.id, me.id);
-  const reqs = pendingRequestsFor(c.id);
-  const avatars = members.slice(0,5).map(m=>{
-    const u = getUser(m.userId);if(!u)return '';
+  const card=document.createElement('article');
+  card.className='camp-card'+(c.bannerUrl?' has-banner':'');
+  const members=c.members||[];
+  const me=currentUser();
+  const amMember=me && members.some(m=>m.userId===me.id);
+  const amMaster=me && members.some(m=>m.userId===me.id && m.role==='master');
+  const pending=me && myPendingRequest(c.id,me.id);
+  const reqs=pendingRequestsFor(c.id);
+  const avatars=members.slice(0,5).map(m=>{
+    const u=getUser(m.userId);if(!u)return '';
     return '<img src="'+getUserAvatar(u)+'" alt="'+esc(u.name)+'" title="'+esc(u.name)+'" style="border-color:'+(m.color||DEFAULT_COLOR)+'">';
   }).join('');
-  const mm = members.find(m=>m.role==='master');
-  const master = mm?getUser(mm.userId):null;
-  const memLabel = members.length === 1 ? 'membro' : 'membri';
-  let rolesTxt = '';
-  if(master) rolesTxt = 'Master: ' + esc(master.name);
-  let html = '';
-  if(c.bannerUrl){
-    html += '<div class="camp-banner" style="'+bgStyle(c.bannerUrl)+'"></div>';
-  }
-  const pendingBadge = (amMaster && reqs.length > 0)
-    ? '<span class="pending-badge" title="Richieste di partecipazione in attesa">🔔 '+reqs.length+'</span>'
-    : '';
-  html +=
-    '<div class="c-top"><div><h3>'+esc(c.name)+'</h3><div class="system">'+esc(c.system)+'</div></div><div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">'+pendingBadge+'<span class="status-badge '+c.status+'">'+statusLabel(c.status)+'</span></div></div>'+
+  const mm=members.find(m=>m.role==='master');
+  const master=mm?getUser(mm.userId):null;
+  const memLabel=members.length===1?'membro':'membri';
+  let rolesTxt='';if(master)rolesTxt='Master: '+esc(master.name);
+  let html='';
+  if(c.bannerUrl){html+='<div class="camp-banner" style="'+bgStyle(c.bannerUrl)+'"></div>'}
+  const pendingBadge=(amMaster && reqs.length>0)?'<span class="pending-badge" title="Richieste in attesa">🔔 '+reqs.length+'</span>':'';
+  html+='<div class="c-top"><div><h3>'+esc(c.name)+'</h3><div class="system">'+esc(c.system)+'</div></div><div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">'+pendingBadge+'<span class="status-badge '+c.status+'">'+statusLabel(c.status)+'</span></div></div>'+
     '<p class="c-desc">'+esc(c.description||'')+'</p>'+
     '<div class="c-footer"><div class="mini-avatars">'+avatars+'</div><span class="c-count">'+members.length+' '+memLabel+' · '+rolesTxt+'</span></div>';
   if(me && !amMember){
-    if(pending){
-      html += '<div class="camp-join-pending">⏳ Richiesta in attesa di approvazione</div>';
-    }else{
-      html += '<button type="button" class="btn ghost small camp-join-btn" data-request-join="'+c.id+'">+ Chiedi di partecipare</button>';
-    }
+    if(pending){html+='<div class="camp-join-pending">⏳ Richiesta in attesa di approvazione</div>'}
+    else{html+='<button type="button" class="btn ghost small camp-join-btn" data-request-join="'+c.id+'">+ Chiedi di partecipare</button>'}
   }
-  card.innerHTML = html;
+  card.innerHTML=html;
   card.addEventListener('click',e=>{
-    if(e.target.closest('[data-request-join]')) return;
+    if(e.target.closest('[data-request-join]'))return;
     openCampaign(c.id);
   });
-  const rj = card.querySelector('[data-request-join]');
-  if(rj) rj.addEventListener('click', e => { e.stopPropagation(); requestJoin(c.id); });
+  const rj=card.querySelector('[data-request-join]');
+  if(rj)rj.addEventListener('click',e=>{e.stopPropagation();requestJoin(c.id)});
   return card;
 }
 function renderCampaigns(){
-  const g = $('#campaignGrid');g.innerHTML='';
+  const g=$('#campaignGrid');g.innerHTML='';
   if(DB.campaigns.length===0){g.innerHTML='<p class="empty-note">Nessuna campagna. Creane una!</p>';return}
   DB.campaigns.forEach(c=>g.appendChild(buildCampaignCard(c)));
 }
 
 /* ================= JOIN REQUEST ================= */
 async function requestJoin(cid){
-  if(!currentUser()){ toast('Accedi per chiedere di partecipare.'); openLogin(); return; }
-  const existing = DB.joinRequests.find(r => r.campaignId===cid && r.userId===CURRENT_USER.id);
+  if(!currentUser()){toast('Accedi per chiedere di partecipare.');openLogin();return}
+  const existing=DB.joinRequests.find(r=>r.campaignId===cid && r.userId===CURRENT_USER.id);
   if(existing){
-    if(existing.status === 'pending'){ toast('Richiesta già inviata.'); return; }
-    const {error} = await sb.from('join_requests').update({status:'pending', created_at:new Date().toISOString()}).eq('id',existing.id);
-    if(error){ toast(error.message); return; }
+    if(existing.status==='pending'){toast('Richiesta già inviata.');return}
+    const {error}=await sb.from('join_requests').update({status:'pending',created_at:new Date().toISOString()}).eq('id',existing.id);
+    if(error){toast(error.message);return}
   }else{
-    const {error} = await sb.from('join_requests').insert({campaign_id:cid, user_id:CURRENT_USER.id});
-    if(error){ toast(error.message); return; }
+    const {error}=await sb.from('join_requests').insert({campaign_id:cid,user_id:CURRENT_USER.id});
+    if(error){toast(error.message);return}
   }
-  await refreshDB();
-  renderAll();
-  toast('Richiesta inviata al Master!');
+  await refreshDB();renderAll();toast('Richiesta inviata al Master!');
 }
 async function approveRequest(reqId){
-  const req = DB.joinRequests.find(j=>j.id===reqId);
-  if(!req) return;
-  const c = getCampaign(req.campaignId);
-  if(!c) return;
-  if((c.members||[]).some(m=>m.userId===req.userId)){ toast('Già membro.'); return; }
-  const col = pickColorForCampaign(c);
-  const {error:e1} = await sb.from('members').insert({campaign_id:req.campaignId, user_id:req.userId, role:'player', color:col});
-  if(e1){ toast(e1.message); return; }
+  const req=DB.joinRequests.find(j=>j.id===reqId);if(!req)return;
+  const c=getCampaign(req.campaignId);if(!c)return;
+  if((c.members||[]).some(m=>m.userId===req.userId)){toast('Già membro.');return}
+  const col=pickColorForCampaign(c);
+  const {error:e1}=await sb.from('members').insert({campaign_id:req.campaignId,user_id:req.userId,role:'player',color:col});
+  if(e1){toast(e1.message);return}
   await sb.from('join_requests').delete().eq('id',reqId);
   await refreshDB();
-  const fr = getCampaign(c.id); if(fr) renderCampaignDetail(fr);
+  const fr=getCampaign(c.id);if(fr)renderCampaignDetail(fr);
   renderAll();
-  const usr = getUser(req.userId);
+  const usr=getUser(req.userId);
   toast((usr?usr.name:'Utente')+' aggiunto alla campagna.');
 }
 async function rejectRequest(reqId){
-  if(!confirm('Rifiutare questa richiesta?')) return;
-  const {error} = await sb.from('join_requests').delete().eq('id',reqId);
-  if(error){ toast(error.message); return; }
+  if(!confirm('Rifiutare questa richiesta?'))return;
+  const {error}=await sb.from('join_requests').delete().eq('id',reqId);
+  if(error){toast(error.message);return}
   await refreshDB();
-  if(!$('#campaignModal').hidden){
-    const c = getCampaign(selectedCampaignId);
-    if(c) renderCampaignDetail(c);
+  if(!$('#campaignModal').hidden && selectedCampaignId){
+    const c=getCampaign(selectedCampaignId);
+    if(c)renderCampaignDetail(c);
   }
-  renderAll();
-  toast('Richiesta rifiutata.');
+  renderAll();toast('Richiesta rifiutata.');
 }
 async function cancelOwnRequest(cid){
-  if(!currentUser()) return;
-  const req = DB.joinRequests.find(r=>r.campaignId===cid && r.userId===CURRENT_USER.id && r.status==='pending');
-  if(!req) return;
-  if(!confirm('Annullare la richiesta di partecipazione?')) return;
-  const {error} = await sb.from('join_requests').delete().eq('id',req.id);
-  if(error){ toast(error.message); return; }
-  await refreshDB(); renderAll();
-  toast('Richiesta annullata.');
+  if(!currentUser())return;
+  const req=DB.joinRequests.find(r=>r.campaignId===cid && r.userId===CURRENT_USER.id && r.status==='pending');
+  if(!req)return;
+  if(!confirm('Annullare la richiesta di partecipazione?'))return;
+  const {error}=await sb.from('join_requests').delete().eq('id',req.id);
+  if(error){toast(error.message);return}
+  await refreshDB();renderAll();toast('Richiesta annullata.');
 }
 
 /* ================= CAMPAIGN DETAIL ================= */
-let selectedCampaignId = null;
 function openCampaign(id){
-  const c = getCampaign(id);if(!c)return;
-  selectedCampaignId = id;
+  const c=getCampaign(id);if(!c)return;
+  selectedCampaignId=id;
   editingSessionId=null;commentingSessionId=null;
   renderCampaignDetail(c);
   $('#campaignModal').hidden=false;
 }
 
 function renderSessionComments(s,campaign,me){
-  const comments = s.comments||{};
-  const myM = me?(campaign.members||[]).find(m=>m.userId===me.id):null;
-  const canC = !!myM;
-  let html = '<div class="comments-section"><div class="comments-label">Commenti dei giocatori</div><div class="comments-list">';
+  const comments=s.comments||{};
+  const myM=me?(campaign.members||[]).find(m=>m.userId===me.id):null;
+  const canC=!!myM;
+  let html='<div class="comments-section"><div class="comments-label">Commenti dei giocatori</div><div class="comments-list">';
   (campaign.members||[]).forEach(m=>{
-    const u = getUser(m.userId);if(!u)return;
-    const color = m.color||DEFAULT_COLOR;
-    const txt = (comments[m.userId]||'').trim();
-    const isMine = me&&me.id===m.userId;
-    html += '<div class="comment-item" style="--c:'+color+'"><div class="comment-head"><span class="comment-dot"></span><span class="comment-name" data-view-profile="'+u.id+'">'+esc(u.name)+(isMine?' (tu)':'')+'</span>';
+    const u=getUser(m.userId);if(!u)return;
+    const color=m.color||DEFAULT_COLOR;
+    const txt=(comments[m.userId]||'').trim();
+    const isMine=me&&me.id===m.userId;
+    html+='<div class="comment-item" style="--c:'+color+'"><div class="comment-head"><span class="comment-dot"></span><span class="comment-name" data-view-profile="'+u.id+'">'+esc(u.name)+(isMine?' (tu)':'')+'</span>';
     if(isMine&&canC){
-      const lbl = txt?'Modifica':'Scrivi';
-      html += '<button type="button" class="btn ghost small" data-toggle-comment="'+s.id+'" style="margin-left:auto;padding:4px 10px;font-size:.62rem">'+lbl+'</button>';
+      const lbl=txt?'Modifica':'Scrivi';
+      html+='<button type="button" class="btn ghost small" data-toggle-comment="'+s.id+'" style="margin-left:auto;padding:4px 10px;font-size:.62rem">'+lbl+'</button>';
     }
-    html += '</div><div class="comment-text'+(txt?'':' empty')+'">'+(txt?esc(txt):'Nessun commento.')+'</div></div>';
+    html+='</div><div class="comment-text'+(txt?'':' empty')+'">'+(txt?esc(txt):'Nessun commento.')+'</div></div>';
   });
-  html += '</div>';
+  html+='</div>';
   if(canC&&commentingSessionId===s.id&&me){
-    const ex = comments[me.id]||'';
-    html += '<div class="comment-form"><textarea id="comment-input-'+s.id+'" rows="3" placeholder="Scrivi il tuo commento...">'+esc(ex)+'</textarea><div class="row">';
-    html += '<button type="button" class="btn small" data-save-comment="'+s.id+'">Salva</button>';
-    html += '<button type="button" class="btn ghost small" data-cancel-comment="'+s.id+'">Annulla</button>';
-    if(ex)html += '<button type="button" class="btn danger small" data-delete-comment="'+s.id+'">Elimina</button>';
-    html += '</div></div>';
+    const ex=comments[me.id]||'';
+    html+='<div class="comment-form"><textarea id="comment-input-'+s.id+'" rows="3" placeholder="Scrivi il tuo commento...">'+esc(ex)+'</textarea><div class="row">';
+    html+='<button type="button" class="btn small" data-save-comment="'+s.id+'">Salva</button>';
+    html+='<button type="button" class="btn ghost small" data-cancel-comment="'+s.id+'">Annulla</button>';
+    if(ex)html+='<button type="button" class="btn danger small" data-delete-comment="'+s.id+'">Elimina</button>';
+    html+='</div></div>';
   }
-  html += '</div>';
+  html+='</div>';
   return html;
 }
 function renderSessionBlock(s,c,me,isM){
   if(editingSessionId===s.id){
-    const dateVal = isoToDateInput(s.date);
+    const dateVal=isoToDateInput(s.date);
     return '<div class="session-block editing"><div class="session-edit-row">'+
       '<input type="text" class="session-edit-num" id="edit-num-'+s.id+'" value="'+esc(s.num)+'" maxlength="4" placeholder="N°">'+
       '<input type="date" class="session-edit-date" id="edit-date-'+s.id+'" value="'+dateVal+'">'+
@@ -1140,82 +1095,72 @@ function renderSessionBlock(s,c,me,isM){
       '<button type="button" class="btn small" data-save-session="'+s.id+'">Salva</button>'+
       '<button type="button" class="btn ghost small" data-cancel-session="'+s.id+'">Annulla</button></div></div>';
   }
-  const eb = isM?'<button type="button" class="btn ghost small" data-edit-session="'+s.id+'" style="margin-left:auto;padding:4px 10px;font-size:.62rem">Modifica</button>':'';
+  const eb=isM?'<button type="button" class="btn ghost small" data-edit-session="'+s.id+'" style="margin-left:auto;padding:4px 10px;font-size:.62rem">Modifica</button>':'';
   return '<div class="session-block"><div class="s-head"><span class="s-num">Sessione '+esc(s.num)+'</span><span class="s-title">'+esc(s.title)+'</span><span class="s-date">'+fmtDateOnly(s.date)+'</span>'+eb+'</div>'+
     '<p class="s-summary'+(s.summary?'':' empty')+'">'+(s.summary?esc(s.summary):'Riassunto non ancora scritto.')+'</p>'+renderSessionComments(s,c,me)+'</div>';
 }
 
 function renderCampaignDetail(c){
-  const me = currentUser();
-  const myM = me?(c.members||[]).find(m=>m.userId===me.id):null;
-  const isM = myM&&myM.role==='master';
-  const amMember = !!myM;
-  const pendingReq = me ? myPendingRequest(c.id, me.id) : null;
-  const pendingReqs = isM ? pendingRequestsFor(c.id) : [];
-  let html = '';
+  const me=currentUser();
+  const myM=me?(c.members||[]).find(m=>m.userId===me.id):null;
+  const isM=myM&&myM.role==='master';
+  const amMember=!!myM;
+  const pendingReq=me?myPendingRequest(c.id,me.id):null;
+  const pendingReqs=isM?pendingRequestsFor(c.id):[];
+  let html='';
   if(c.bannerUrl){
-    html += '<div class="camp-detail-banner" style="'+bgStyle(c.bannerUrl)+'">'+
-      '<button class="close-x" data-close-inline style="position:absolute;top:12px;right:12px;background:rgba(8,12,18,.75)">×</button></div>';
+    html+='<div class="camp-detail-banner" style="'+bgStyle(c.bannerUrl)+'"><button class="close-x" data-close-inline style="position:absolute;top:12px;right:12px;background:rgba(8,12,18,.75)">×</button></div>';
   }
-  html += '<div class="modal-head"><div><h3>'+esc(c.name)+'</h3><div class="sub">'+esc(c.system)+' <span class="status-badge '+c.status+'">'+statusLabel(c.status)+'</span></div></div>'+
+  html+='<div class="modal-head"><div><h3>'+esc(c.name)+'</h3><div class="sub">'+esc(c.system)+' <span class="status-badge '+c.status+'">'+statusLabel(c.status)+'</span></div></div>'+
     (c.bannerUrl?'':'<button class="close-x" data-close-inline>×</button>')+'</div>';
-  html += '<p class="cd-info">'+esc(c.description||'')+'</p>';
+  html+='<p class="cd-info">'+esc(c.description||'')+'</p>';
 
-  // Sezione richieste pendenti (solo master)
-  if(isM && pendingReqs.length > 0){
-    html += '<div class="cd-section"><div class="cd-section-title">🔔 Richieste di partecipazione ('+pendingReqs.length+')</div>';
+  if(isM && pendingReqs.length>0){
+    html+='<div class="cd-section"><div class="cd-section-title">🔔 Richieste di partecipazione ('+pendingReqs.length+')</div>';
     pendingReqs.forEach(r=>{
-      const u = getUser(r.userId); if(!u) return;
-      const when = new Date(r.createdAt).toLocaleDateString('it-IT',{day:'numeric',month:'short',year:'numeric'});
-      html += '<div class="request-row" style="--c:'+(u.attribute?'#d9b95c':'#8a9bad')+'">'+
-        '<img src="'+getUserAvatar(u)+'" alt="">'+
-        '<span class="rname" data-view-profile="'+u.id+'">'+esc(u.name)+(u.attribute?' · '+esc(u.attribute):'')+'</span>'+
-        '<span style="font-size:.72rem;color:var(--muted);margin-left:8px">dal '+when+'</span>'+
-        '<div class="ractions">'+
-          '<button type="button" class="btn success small" data-approve-req="'+r.id+'">✓ Approva</button>'+
-          '<button type="button" class="btn danger small" data-reject-req="'+r.id+'">✕ Rifiuta</button>'+
-        '</div></div>';
+      const u=getUser(r.userId);if(!u)return;
+      const when=new Date(r.createdAt).toLocaleDateString('it-IT',{day:'numeric',month:'short',year:'numeric'});
+      html+='<div class="request-row"><img src="'+getUserAvatar(u)+'" alt=""><span class="rname" data-view-profile="'+u.id+'">'+esc(u.name)+(u.attribute?' · '+esc(u.attribute):'')+'</span><span style="font-size:.72rem;color:var(--muted);margin-left:8px">dal '+when+'</span><div class="ractions"><button type="button" class="btn success small" data-approve-req="'+r.id+'">✓ Approva</button><button type="button" class="btn danger small" data-reject-req="'+r.id+'">✕ Rifiuta</button></div></div>';
     });
-    html += '</div>';
+    html+='</div>';
   }
 
-  // Bottone richiesta iscrizione (non membri)
   if(me && !amMember){
     if(pendingReq){
-      html += '<div class="camp-join-pending">⏳ Hai già inviato una richiesta. In attesa di risposta dal Master. <a id="cancelJoinBtn" style="color:var(--accent-text);cursor:pointer;text-decoration:underline">Annulla richiesta</a></div>';
+      html+='<div class="camp-join-pending">⏳ Hai già inviato una richiesta. In attesa di risposta dal Master. <a id="cancelJoinBtn" style="color:var(--accent-text);cursor:pointer;text-decoration:underline">Annulla richiesta</a></div>';
     }else{
-      html += '<div style="margin-top:14px"><button class="btn" id="requestJoinBtn">📩 Chiedi di partecipare</button></div>';
+      html+='<div style="margin-top:14px"><button class="btn" id="requestJoinBtn">📩 Chiedi di partecipare</button></div>';
     }
   }
 
-  html += '<div class="cd-section"><div class="cd-section-title">Membri ('+(c.members||[]).length+')</div>';
+  html+='<div class="cd-section"><div class="cd-section-title">Membri ('+(c.members||[]).length+')</div>';
   (c.members||[]).forEach(m=>{
-    const u = getUser(m.userId);if(!u)return;
-    const color = m.color||DEFAULT_COLOR;
-    const you = me&&me.id===u.id?' <span class="you-badge">Tu</span>':'';
-    const canR = isM&&(!me||u.id!==me.id);
-    const rb = canR?'<button type="button" class="btn-remove-member" data-remove-member="'+u.id+'" title="Rimuovi">×</button>':'';
+    const u=getUser(m.userId);if(!u)return;
+    const color=m.color||DEFAULT_COLOR;
+    const you=me&&me.id===u.id?' <span class="you-badge">Tu</span>':'';
+    const canR=isM&&(!me||u.id!==me.id);
+    const rb=canR?'<button type="button" class="btn-remove-member" data-remove-member="'+u.id+'" title="Rimuovi">×</button>':'';
     let rh;
     if(isM&&(!me||u.id!==me.id)){
-      rh = '<select class="role-change-select" data-change-role="'+u.id+'">'+
+      rh='<select class="role-change-select" data-change-role="'+u.id+'">'+
         '<option value="master"'+(m.role==='master'?' selected':'')+'>Master</option>'+
         '<option value="player"'+(m.role==='player'?' selected':'')+'>Giocatore</option>'+
         '<option value="observer"'+(m.role==='observer'?' selected':'')+'>Osservatore</option></select>';
     }else{
-      rh = '<span class="rlabel '+m.role+'" style="font-size:.62rem;padding:4px 10px;border-radius:999px;border:1px solid">'+roleLabel(m.role)+'</span>';
+      rh='<span class="rlabel '+m.role+'" style="font-size:.62rem;padding:4px 10px;border-radius:999px;border:1px solid">'+roleLabel(m.role)+'</span>';
     }
-    html += '<div class="member-row" style="--c:'+color+'"><img src="'+getUserAvatar(u)+'" alt=""><span class="mname" data-view-profile="'+u.id+'"><span class="cdot"></span>'+esc(u.name)+you+'</span><span class="mrole">'+rh+'</span>'+rb+'</div>';
+    html+='<div class="member-row" style="--c:'+color+'"><img src="'+getUserAvatar(u)+'" alt=""><span class="mname" data-view-profile="'+u.id+'"><span class="cdot"></span>'+esc(u.name)+you+'</span><span class="mrole">'+rh+'</span>'+rb+'</div>';
   });
-  if(isM)html += '<div style="margin-top:14px"><button class="btn small" id="addMemberBtn">+ Aggiungi giocatori</button></div>';
-  html += '</div>';
+  if(isM)html+='<div style="margin-top:14px"><button class="btn small" id="addMemberBtn">+ Aggiungi giocatori</button></div>';
+  html+='</div>';
 
-  html += '<div class="cd-section"><div class="cd-section-title">Sessioni ('+(c.sessions||[]).length+')</div>';
+  html+='<div class="cd-section"><div class="cd-section-title">Sessioni ('+(c.sessions||[]).length+')</div>';
   if(!c.sessions||c.sessions.length===0){html+='<p class="empty-note">Nessuna sessione.</p>'}
   else{c.sessions.forEach(s=>{html+=renderSessionBlock(s,c,me,isM)})}
   if(isM){
-    const nn = (c.sessions||[]).length?Math.max.apply(null,c.sessions.map(x=>parseInt(x.num,10)||0))+1:1;
-    const todayInput = isoToDateInput(new Date().toISOString());
-    html += '<div class="session-form"><div class="s-head">Nuova sessione</div>'+
+    const nn=(c.sessions||[]).length?Math.max.apply(null,c.sessions.map(x=>parseInt(x.num,10)||0))+1:1;
+    const todayInput=isoToDateInput(new Date().toISOString());
+    html+='<div class="session-form"><div class="s-head">Nuova sessione</div>'+
       '<div class="form-row">'+
         '<div class="f-num"><label>Numero</label><input type="text" id="nsNum" value="'+nn+'" maxlength="4"></div>'+
         '<div class="f-date"><label>Data</label><input type="date" id="nsDate" value="'+todayInput+'"></div>'+
@@ -1224,21 +1169,22 @@ function renderCampaignDetail(c){
       '<div><label>Riassunto</label><textarea id="nsSummary" rows="3" placeholder="Cosa è successo..."></textarea></div>'+
       '<div style="margin-top:10px"><button class="btn small" id="nsAddBtn">+ Aggiungi sessione</button></div></div>';
   }
-  html += '</div>';
+  html+='</div>';
 
-  html += '<div class="cd-section"><div class="cd-section-title">Disponibilità</div>'+
+  html+='<div class="cd-section"><div class="cd-section-title">Disponibilità</div>'+
     '<p class="empty-note" style="margin-bottom:12px">Consulta il calendario dedicato a questa campagna.</p>'+
     '<button class="btn small" id="openCalBtn">Apri calendario</button></div>';
 
   if(isM){
-    const statusOpts = STATUS_OPTIONS.map(o=>'<option value="'+o.value+'"'+(c.status===o.value?' selected':'')+'>'+o.label+'</option>').join('');
-    html += '<div class="cd-section"><div class="cd-section-title">Zona Master</div>'+
+    const statusOpts=STATUS_OPTIONS.map(o=>'<option value="'+o.value+'"'+(c.status===o.value?' selected':'')+'>'+o.label+'</option>').join('');
+    html+='<div class="cd-section"><div class="cd-section-title">Zona Master</div>'+
       '<div style="display:flex;flex-direction:column;gap:14px">'+
         '<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">'+
           '<label style="font-family:\'Cinzel\',serif;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)">Stato campagna</label>'+
           '<select class="status-change-select" id="statusSelect">'+statusOpts+'</select>'+
         '</div>'+
         '<div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">'+
+          '<button class="btn small" id="editCampaignBtn">📝 Modifica campagna</button>'+
           '<button class="btn ghost small" id="changeBannerBtn">'+(c.bannerUrl?'Cambia banner':'+ Aggiungi banner')+'</button>'+
           (c.bannerUrl?'<button class="btn ghost small" id="removeBannerBtn">Rimuovi banner</button>':'')+
           '<button class="btn danger small" id="cdDeleteCampaign">Elimina campagna</button>'+
@@ -1246,55 +1192,59 @@ function renderCampaignDetail(c){
       '</div></div>';
   }
 
-  const d = $('#campaignDetail');
-  d.innerHTML = html;
-  const ci = d.querySelector('[data-close-inline]');
-  if(ci)ci.addEventListener('click',()=>{ $('#campaignModal').hidden=true });
+  const d=$('#campaignDetail');
+  d.innerHTML=html;
+  const ci=d.querySelector('[data-close-inline]');
+  if(ci)ci.addEventListener('click',()=>{$('#campaignModal').hidden=true});
 
   d.querySelectorAll('[data-view-profile]').forEach(el=>{
-    el.addEventListener('click', ()=> openViewProfile(el.dataset.viewProfile));
+    el.addEventListener('click',()=>openViewProfile(el.dataset.viewProfile));
   });
   d.querySelectorAll('[data-approve-req]').forEach(b=>{
-    b.addEventListener('click', ()=> approveRequest(b.dataset.approveReq));
+    b.addEventListener('click',()=>approveRequest(b.dataset.approveReq));
   });
   d.querySelectorAll('[data-reject-req]').forEach(b=>{
-    b.addEventListener('click', ()=> rejectRequest(b.dataset.rejectReq));
+    b.addEventListener('click',()=>rejectRequest(b.dataset.rejectReq));
   });
-  const rj = $('#requestJoinBtn');
-  if(rj) rj.addEventListener('click', ()=> requestJoin(c.id));
-  const cj = $('#cancelJoinBtn');
-  if(cj) cj.addEventListener('click', ()=> cancelOwnRequest(c.id));
+  const rj=$('#requestJoinBtn');
+  if(rj)rj.addEventListener('click',()=>requestJoin(c.id));
+  const cj=$('#cancelJoinBtn');
+  if(cj)cj.addEventListener('click',()=>cancelOwnRequest(c.id));
 
-  const statusSel = $('#statusSelect');
+  const statusSel=$('#statusSelect');
   if(statusSel){
-    statusSel.addEventListener('change', async ()=>{
-      const newStatus = statusSel.value;
-      if(!STATUS_OPTIONS.find(o=>o.value===newStatus)) return;
-      const {error} = await sb.from('campaigns').update({status:newStatus}).eq('id',c.id);
+    statusSel.addEventListener('change',async()=>{
+      const newStatus=statusSel.value;
+      if(!STATUS_OPTIONS.find(o=>o.value===newStatus))return;
+      const {error}=await sb.from('campaigns').update({status:newStatus}).eq('id',c.id);
       if(error){toast(error.message);return}
       await refreshDB();
-      const fr = getCampaign(c.id);if(fr)renderCampaignDetail(fr);
+      const fr=getCampaign(c.id);if(fr)renderCampaignDetail(fr);
       renderAll();toast('Stato aggiornato: '+statusLabel(newStatus));
     });
   }
 
+  // Modifica campagna
+  const ecb=$('#editCampaignBtn');
+  if(ecb)ecb.addEventListener('click',()=>openEditCampaign(c.id));
+
   d.querySelectorAll('[data-change-role]').forEach(sel=>{
     sel.addEventListener('change',async function(){
-      const uid = sel.dataset.changeRole;
-      const newRole = sel.value;
+      const uid=sel.dataset.changeRole;
+      const newRole=sel.value;
       if(!['master','player','observer'].includes(newRole))return;
-      const m = (c.members||[]).find(x=>x.userId===uid);if(!m)return;
+      const m=(c.members||[]).find(x=>x.userId===uid);if(!m)return;
       if(m.role==='master'&&newRole!=='master'){
-        const om = (c.members||[]).filter(x=>x.userId!==uid&&x.role==='master');
+        const om=(c.members||[]).filter(x=>x.userId!==uid&&x.role==='master');
         if(om.length===0){
-          const ok = confirm('Stai per rimuovere l\'unico Master. Continuare?');
+          const ok=confirm('Stai per rimuovere l\'unico Master. Continuare?');
           if(!ok){sel.value=m.role;return}
         }
       }
-      const {error} = await sb.from('members').update({role:newRole}).eq('campaign_id',c.id).eq('user_id',uid);
+      const {error}=await sb.from('members').update({role:newRole}).eq('campaign_id',c.id).eq('user_id',uid);
       if(error){toast(error.message);return}
       await refreshDB();
-      const fr = getCampaign(c.id);if(fr)renderCampaignDetail(fr);
+      const fr=getCampaign(c.id);if(fr)renderCampaignDetail(fr);
       renderAll();toast(roleLabel(newRole)+' assegnato.');
     });
   });
@@ -1306,29 +1256,28 @@ function renderCampaignDetail(c){
   });
   d.querySelectorAll('[data-save-session]').forEach(b=>{
     b.addEventListener('click',async()=>{
-      const sid = b.dataset.saveSession;
-      const s = (c.sessions||[]).find(x=>x.id===sid);if(!s)return;
-      const nn = ($('#edit-num-'+sid).value||'').trim()||s.num;
-      const nt = ($('#edit-title-'+sid).value||'').trim();
-      const nsm = ($('#edit-summary-'+sid).value||'').trim();
-      const dateVal = $('#edit-date-'+sid).value;
+      const sid=b.dataset.saveSession;
+      const s=(c.sessions||[]).find(x=>x.id===sid);if(!s)return;
+      const nn=($('#edit-num-'+sid).value||'').trim()||s.num;
+      const nt=($('#edit-title-'+sid).value||'').trim();
+      const nsm=($('#edit-summary-'+sid).value||'').trim();
+      const dateVal=$('#edit-date-'+sid).value;
       if(!nt){toast('Titolo vuoto.');return}
       if(!dateVal){toast('Data obbligatoria.');return}
-      const isoDate = dateInputToIso(dateVal);
-      const {error} = await sb.from('sessions').update({num:nn,title:nt,summary:nsm,session_date:isoDate}).eq('id',sid);
+      const isoDate=dateInputToIso(dateVal);
+      const {error}=await sb.from('sessions').update({num:nn,title:nt,summary:nsm,session_date:isoDate}).eq('id',sid);
       if(error){toast(error.message);return}
       editingSessionId=null;
       await refreshDB();
-      const fr = getCampaign(c.id);if(fr)renderCampaignDetail(fr);
+      const fr=getCampaign(c.id);if(fr)renderCampaignDetail(fr);
       renderHome();toast('Sessione aggiornata.');
     });
   });
   d.querySelectorAll('[data-toggle-comment]').forEach(b=>{
     b.addEventListener('click',()=>{
-      const sid = b.dataset.toggleComment;
-      commentingSessionId = (commentingSessionId===sid)?null:sid;
-      editingSessionId=null;
-      renderCampaignDetail(c);
+      const sid=b.dataset.toggleComment;
+      commentingSessionId=(commentingSessionId===sid)?null:sid;
+      editingSessionId=null;renderCampaignDetail(c);
       if(commentingSessionId)setTimeout(()=>{const ta=$('#comment-input-'+sid);if(ta)ta.focus()},60);
     });
   });
@@ -1338,169 +1287,199 @@ function renderCampaignDetail(c){
   d.querySelectorAll('[data-save-comment]').forEach(b=>{
     b.addEventListener('click',async()=>{
       if(!me)return;
-      const sid = b.dataset.saveComment;
-      const ta = $('#comment-input-'+sid);if(!ta)return;
-      const txt = ta.value.trim();
+      const sid=b.dataset.saveComment;
+      const ta=$('#comment-input-'+sid);if(!ta)return;
+      const txt=ta.value.trim();
       if(txt){
-        const {error} = await sb.from('comments').upsert({session_id:sid,user_id:me.id,body:txt,updated_at:new Date().toISOString()});
+        const {error}=await sb.from('comments').upsert({session_id:sid,user_id:me.id,body:txt,updated_at:new Date().toISOString()});
         if(error){toast(error.message);return}
       }else{
-        const {error} = await sb.from('comments').delete().eq('session_id',sid).eq('user_id',me.id);
+        const {error}=await sb.from('comments').delete().eq('session_id',sid).eq('user_id',me.id);
         if(error){toast(error.message);return}
       }
       commentingSessionId=null;
       await refreshDB();
-      const fr = getCampaign(c.id);if(fr)renderCampaignDetail(fr);
+      const fr=getCampaign(c.id);if(fr)renderCampaignDetail(fr);
       toast(txt?'Commento salvato.':'Commento rimosso.');
     });
   });
   d.querySelectorAll('[data-delete-comment]').forEach(b=>{
     b.addEventListener('click',async()=>{
       if(!me)return;
-      const sid = b.dataset.deleteComment;
-      const {error} = await sb.from('comments').delete().eq('session_id',sid).eq('user_id',me.id);
+      const sid=b.dataset.deleteComment;
+      const {error}=await sb.from('comments').delete().eq('session_id',sid).eq('user_id',me.id);
       if(error){toast(error.message);return}
       commentingSessionId=null;
       await refreshDB();
-      const fr = getCampaign(c.id);if(fr)renderCampaignDetail(fr);
+      const fr=getCampaign(c.id);if(fr)renderCampaignDetail(fr);
       toast('Commento eliminato.');
     });
   });
   if(isM){
-    const ab = $('#nsAddBtn');
+    const ab=$('#nsAddBtn');
     if(ab){
       ab.addEventListener('click',async()=>{
-        const nn = ($('#nsNum').value||'').trim();
-        const t = ($('#nsTitle').value||'').trim();
-        const s = ($('#nsSummary').value||'').trim();
-        const dateVal = $('#nsDate').value;
+        const nn=($('#nsNum').value||'').trim();
+        const t=($('#nsTitle').value||'').trim();
+        const s=($('#nsSummary').value||'').trim();
+        const dateVal=$('#nsDate').value;
         if(!nn||!t){toast('Numero e titolo obbligatori.');return}
         if(!dateVal){toast('Data obbligatoria.');return}
-        const isoDate = dateInputToIso(dateVal);
-        const {error} = await sb.from('sessions').insert({campaign_id:c.id,num:nn,title:t,summary:s,session_date:isoDate});
+        const isoDate=dateInputToIso(dateVal);
+        const {error}=await sb.from('sessions').insert({campaign_id:c.id,num:nn,title:t,summary:s,session_date:isoDate});
         if(error){toast(error.message);return}
         await refreshDB();
-        const fr = getCampaign(c.id);if(fr)renderCampaignDetail(fr);
+        const fr=getCampaign(c.id);if(fr)renderCampaignDetail(fr);
         renderHome();toast('Sessione aggiunta.');
       });
     }
-    const db2 = $('#cdDeleteCampaign');
+    const db2=$('#cdDeleteCampaign');
     if(db2){
       db2.addEventListener('click',async()=>{
         if(!confirm('Eliminare definitivamente la campagna "'+c.name+'"?'))return;
-        const {error} = await sb.from('campaigns').delete().eq('id',c.id);
+        const {error}=await sb.from('campaigns').delete().eq('id',c.id);
         if(error){toast(error.message);return}
         $('#campaignModal').hidden=true;$('#addMemberModal').hidden=true;
         await refreshDB();renderAll();toast('Campagna eliminata.');
       });
     }
-    const amb = $('#addMemberBtn');
+    const amb=$('#addMemberBtn');
     if(amb)amb.addEventListener('click',()=>openAddMemberModal(c.id));
-    const cbb = $('#changeBannerBtn');
+    const cbb=$('#changeBannerBtn');
     if(cbb){
       cbb.addEventListener('click',()=>{
-        const inp = document.createElement('input');
+        const inp=document.createElement('input');
         inp.type='file';inp.accept='image/*';
         inp.addEventListener('change',async e=>{
-          const f = e.target.files[0];if(!f)return;
+          const f=e.target.files[0];if(!f)return;
           if(!f.type.startsWith('image/')){toast('Deve essere un\'immagine.');return}
           if(f.size>BANNER_MAX){toast('Max 5 MB.');return}
-          const userId = CURRENT_USER.id;
-          const ext = f.name.split('.').pop().toLowerCase().replace(/[^a-z0-9]/g,'')||'jpg';
-          const path = userId+'/'+c.id+'.'+ext;
-          const {error:upErr} = await sb.storage.from('campaign-banners').upload(path,f,{contentType:f.type,upsert:true});
+          const userId=CURRENT_USER.id;
+          const ext=f.name.split('.').pop().toLowerCase().replace(/[^a-z0-9]/g,'')||'jpg';
+          const path=userId+'/'+c.id+'.'+ext;
+          const {error:upErr}=await sb.storage.from('campaign-banners').upload(path,f,{contentType:f.type,upsert:true});
           if(upErr){toast('Errore: '+upErr.message);return}
-          const {data} = sb.storage.from('campaign-banners').getPublicUrl(path);
-          const newUrl = data.publicUrl+'?t='+Date.now();
-          const {error} = await sb.from('campaigns').update({banner_url:newUrl}).eq('id',c.id);
+          const {data}=sb.storage.from('campaign-banners').getPublicUrl(path);
+          const newUrl=data.publicUrl+'?t='+Date.now();
+          const {error}=await sb.from('campaigns').update({banner_url:newUrl}).eq('id',c.id);
           if(error){toast(error.message);return}
           await refreshDB();
-          const fr = getCampaign(c.id);if(fr)renderCampaignDetail(fr);
+          const fr=getCampaign(c.id);if(fr)renderCampaignDetail(fr);
           renderAll();toast('Banner aggiornato.');
         });
         inp.click();
       });
     }
-    const rbb = $('#removeBannerBtn');
+    const rbb=$('#removeBannerBtn');
     if(rbb){
       rbb.addEventListener('click',async()=>{
         if(!confirm('Rimuovere il banner?'))return;
-        const {error} = await sb.from('campaigns').update({banner_url:''}).eq('id',c.id);
+        const {error}=await sb.from('campaigns').update({banner_url:''}).eq('id',c.id);
         if(error){toast(error.message);return}
         await refreshDB();
-        const fr = getCampaign(c.id);if(fr)renderCampaignDetail(fr);
+        const fr=getCampaign(c.id);if(fr)renderCampaignDetail(fr);
         renderAll();toast('Banner rimosso.');
       });
     }
   }
   d.querySelectorAll('[data-remove-member]').forEach(b=>{
     b.addEventListener('click',async()=>{
-      const rid = b.dataset.removeMember;
-      const ru = getUser(rid);if(!ru)return;
+      const rid=b.dataset.removeMember;
+      const ru=getUser(rid);if(!ru)return;
       if(!confirm('Rimuovere '+ru.name+' dalla campagna?'))return;
       await sb.from('availability').delete().eq('campaign_id',c.id).eq('user_id',rid);
       await sb.from('comments').delete().eq('user_id',rid);
-      const {error} = await sb.from('members').delete().eq('campaign_id',c.id).eq('user_id',rid);
+      const {error}=await sb.from('members').delete().eq('campaign_id',c.id).eq('user_id',rid);
       if(error){toast(error.message);return}
       await refreshDB();
-      const fr = getCampaign(c.id);if(fr)renderCampaignDetail(fr);
+      const fr=getCampaign(c.id);if(fr)renderCampaignDetail(fr);
       renderAddMemberList();renderAll();toast(ru.name+' rimosso.');
     });
   });
-  const ocb = $('#openCalBtn');
+  const ocb=$('#openCalBtn');
   if(ocb){
     ocb.addEventListener('click',()=>{
-      selectedCalCampaign = c.id;
+      selectedCalCampaign=c.id;
       $('#campaignModal').hidden=true;$('#addMemberModal').hidden=true;
       goTo('calendario');renderCalendarPage();
     });
   }
 }
 
+/* ================= EDIT CAMPAIGN ================= */
+function openEditCampaign(cid){
+  const c = getCampaign(cid);
+  if(!c) return;
+  editingCampaignId = cid;
+  $('#ecName').value = c.name || '';
+  $('#ecSystem').value = c.system || 'Pathfinder Seconda Edizione Remaster';
+  $('#ecDesc').value = c.description || '';
+  $('#editCampaignModal').hidden = false;
+  setTimeout(()=>$('#ecName').focus(),60);
+}
+$('#ecSubmit').addEventListener('click',async()=>{
+  if(!editingCampaignId){ toast('Nessuna campagna selezionata.'); return; }
+  const c = getCampaign(editingCampaignId);
+  if(!c){ toast('Campagna non trovata.'); return; }
+  const nn = $('#ecName').value.trim();
+  const sys = $('#ecSystem').value;
+  const desc = $('#ecDesc').value.trim();
+  if(!nn){ toast('Il nome non può essere vuoto.'); return; }
+  const { error } = await sb.from('campaigns').update({ name: nn, system: sys, description: desc }).eq('id', c.id);
+  if(error){ toast(error.message); return; }
+  editingCampaignId = null;
+  await refreshDB();
+  const fresh = getCampaign(c.id);
+  if(fresh) renderCampaignDetail(fresh);
+  renderAll();
+  $('#editCampaignModal').hidden = true;
+  toast('Campagna aggiornata.');
+});
+
 /* ================= ADD MEMBER ================= */
 function openAddMemberModal(cid){
-  const c = getCampaign(cid);if(!c)return;
-  addMemberCampaignId = cid;
-  $('#addMemberSub').textContent = 'Campagna: '+c.name;
+  const c=getCampaign(cid);if(!c)return;
+  addMemberCampaignId=cid;
+  $('#addMemberSub').textContent='Campagna: '+c.name;
   renderAddMemberList();
-  $('#addMemberModal').hidden = false;
+  $('#addMemberModal').hidden=false;
 }
 function renderAddMemberList(){
-  const l = $('#addMemberList');if(!l)return;
-  const c = addMemberCampaignId?getCampaign(addMemberCampaignId):null;
+  const l=$('#addMemberList');if(!l)return;
+  const c=addMemberCampaignId?getCampaign(addMemberCampaignId):null;
   if(!c){l.innerHTML='';return}
-  l.innerHTML = '';
-  const mids = new Set((c.members||[]).map(m=>m.userId));
-  const cands = DB.users.filter(u=>!mids.has(u.id));
+  l.innerHTML='';
+  const mids=new Set((c.members||[]).map(m=>m.userId));
+  const cands=DB.users.filter(u=>!mids.has(u.id));
   if(cands.length===0){
-    const e = document.createElement('div');
-    e.className = 'empty-add-note';
-    e.textContent = 'Tutti gli utenti sono già membri.';
+    const e=document.createElement('div');
+    e.className='empty-add-note';
+    e.textContent='Tutti gli utenti sono già membri.';
     l.appendChild(e);return;
   }
-  const prev = (c.members||[]).map(m=>({userId:m.userId,color:m.color}));
+  const prev=(c.members||[]).map(m=>({userId:m.userId,color:m.color}));
   cands.forEach(u=>{
-    const col = pickColorForCampaign({members:prev});
+    const col=pickColorForCampaign({members:prev});
     prev.push({userId:u.id,color:col});
-    const row = document.createElement('div');row.className='add-member-row';
-    row.innerHTML = '<img src="'+getUserAvatar(u)+'" alt=""><div class="info"><div class="name"><span class="cdot" style="background:'+col+';color:'+col+'"></span>'+esc(u.name)+'</div><div class="email">'+esc(u.email)+'</div></div><select class="role-select" data-uid="'+u.id+'"><option value="player">Giocatore</option><option value="master">Master</option><option value="observer">Osservatore</option></select><button type="button" class="btn small" data-add="'+u.id+'">Aggiungi</button>';
+    const row=document.createElement('div');row.className='add-member-row';
+    row.innerHTML='<img src="'+getUserAvatar(u)+'" alt=""><div class="info"><div class="name"><span class="cdot" style="background:'+col+';color:'+col+'"></span>'+esc(u.name)+'</div><div class="email">'+esc(u.email)+'</div></div><select class="role-select" data-uid="'+u.id+'"><option value="player">Giocatore</option><option value="master">Master</option><option value="observer">Osservatore</option></select><button type="button" class="btn small" data-add="'+u.id+'">Aggiungi</button>';
     l.appendChild(row);
   });
   l.querySelectorAll('[data-add]').forEach(b=>{
     b.addEventListener('click',()=>{
-      const uid = b.dataset.add;
-      const row = b.closest('.add-member-row');
-      const sel = row.querySelector('.role-select');
+      const uid=b.dataset.add;
+      const row=b.closest('.add-member-row');
+      const sel=row.querySelector('.role-select');
       addMemberToCampaign(addMemberCampaignId,uid,sel.value);
     });
   });
 }
 async function addMemberToCampaign(cid,uid,role){
-  const c = getCampaign(cid);if(!c)return;
-  const u = getUser(uid);if(!u)return;
+  const c=getCampaign(cid);if(!c)return;
+  const u=getUser(uid);if(!u)return;
   if((c.members||[]).some(m=>m.userId===uid)){toast('Già membro.');return}
-  const col = pickColorForCampaign(c);
-  const {error} = await sb.from('members').insert({campaign_id:cid,user_id:uid,role,color:col});
+  const col=pickColorForCampaign(c);
+  const {error}=await sb.from('members').insert({campaign_id:cid,user_id:uid,role,color:col});
   if(error){toast(error.message);return}
   await refreshDB();
   if(!$('#campaignModal').hidden)renderCampaignDetail(getCampaign(cid));
@@ -1511,32 +1490,32 @@ async function addMemberToCampaign(cid,uid,role){
 $('#newCampaignBtn').addEventListener('click',()=>{
   if(!currentUser()){toast('Accedi per creare una campagna.');openLogin();return}
   campaignPendingBanner=null;campaignPendingBannerPreview='';
-  const bp = $('#ncBannerPreview');bp.style.cssText='';bp.textContent='Nessuna immagine';bp.classList.remove('has-image');
-  const bi = document.getElementById('ncBannerInput');if(bi)bi.value='';
-  $('#newCampaignModal').hidden = false;
+  const bp=$('#ncBannerPreview');bp.style.cssText='';bp.textContent='Nessuna immagine';bp.classList.remove('has-image');
+  const bi=document.getElementById('ncBannerInput');if(bi)bi.value='';
+  $('#newCampaignModal').hidden=false;
 });
 $('#ncSubmit').addEventListener('click',async()=>{
   if(!currentUser()){toast('Accedi prima.');return}
-  const name = $('#ncName').value.trim();
-  const sys = $('#ncSystem').value;
-  const desc = $('#ncDesc').value.trim();
+  const name=$('#ncName').value.trim();
+  const sys=$('#ncSystem').value;
+  const desc=$('#ncDesc').value.trim();
   if(!name){toast('Dai un nome.');return}
-  const {data:camp,error} = await sb.from('campaigns').insert({name,system:sys,description:desc,status:'in-corso'}).select().single();
+  const {data:camp,error}=await sb.from('campaigns').insert({name,system:sys,description:desc,status:'in-corso'}).select().single();
   if(error){toast(error.message);return}
-  const {error:e2} = await sb.from('members').insert({campaign_id:camp.id,user_id:CURRENT_USER.id,role:'master',color:USER_COLORS[0]});
+  const {error:e2}=await sb.from('members').insert({campaign_id:camp.id,user_id:CURRENT_USER.id,role:'master',color:USER_COLORS[0]});
   if(e2){toast(e2.message);return}
   if(campaignPendingBanner){
-    const userId = CURRENT_USER.id;
-    const ext = campaignPendingBanner.name.split('.').pop().toLowerCase().replace(/[^a-z0-9]/g,'')||'jpg';
-    const path = userId+'/'+camp.id+'.'+ext;
-    const {error:upErr} = await sb.storage.from('campaign-banners').upload(path,campaignPendingBanner,{contentType:campaignPendingBanner.type,upsert:true});
+    const userId=CURRENT_USER.id;
+    const ext=campaignPendingBanner.name.split('.').pop().toLowerCase().replace(/[^a-z0-9]/g,'')||'jpg';
+    const path=userId+'/'+camp.id+'.'+ext;
+    const {error:upErr}=await sb.storage.from('campaign-banners').upload(path,campaignPendingBanner,{contentType:campaignPendingBanner.type,upsert:true});
     if(!upErr){
-      const {data} = sb.storage.from('campaign-banners').getPublicUrl(path);
+      const {data}=sb.storage.from('campaign-banners').getPublicUrl(path);
       await sb.from('campaigns').update({banner_url:data.publicUrl+'?t='+Date.now()}).eq('id',camp.id);
     }
   }
   campaignPendingBanner=null;campaignPendingBannerPreview='';
-  const bi = document.getElementById('ncBannerInput');if(bi)bi.value='';
+  const bi=document.getElementById('ncBannerInput');if(bi)bi.value='';
   await refreshDB();
   $('#newCampaignModal').hidden=true;
   $('#ncName').value='';$('#ncDesc').value='';
@@ -1544,192 +1523,180 @@ $('#ncSubmit').addEventListener('click',async()=>{
 });
 
 /* ================= CALENDAR ================= */
-const weekdayHeaders = ['Lun','Mar','Mer','Gio','Ven','Sab','Dom'];
+const weekdayHeaders=['Lun','Mar','Mer','Gio','Ven','Sab','Dom'];
 function renderCalendarPage(){
-  const w = $('#calendarList');if(!w)return;
-  w.innerHTML = '';
+  const w=$('#calendarList');if(!w)return;
+  w.innerHTML='';
   if(DB.campaigns.length===0){w.innerHTML='<p class="empty-note">Nessuna campagna.</p>';return}
   if(!selectedCalCampaign || !getCampaign(selectedCalCampaign)){
-    const a = DB.campaigns.find(c=>c.status==='in-corso');
-    selectedCalCampaign = (a||DB.campaigns[0]).id;
+    const a=DB.campaigns.find(c=>c.status==='in-corso');
+    selectedCalCampaign=(a||DB.campaigns[0]).id;
   }
-  const me = currentUser();
-  const pills = document.createElement('div');pills.className='camp-pills';
-  const sorted = DB.campaigns.slice().sort((a,b)=>{
-    const o = {'in-corso':0,'in-preparazione':1,'in-pausa':2,'conclusa':3};
+  const me=currentUser();
+  const pills=document.createElement('div');pills.className='camp-pills';
+  const sorted=DB.campaigns.slice().sort((a,b)=>{
+    const o={'in-corso':0,'in-preparazione':1,'in-pausa':2,'conclusa':3};
     return (o[a.status]??4)-(o[b.status]??4);
   });
   sorted.forEach(c=>{
-    const b = document.createElement('button');b.type='button';
-    b.className = 'camp-pill'+(c.id===selectedCalCampaign?' active':'');
-    b.textContent = c.name;
+    const b=document.createElement('button');b.type='button';
+    b.className='camp-pill'+(c.id===selectedCalCampaign?' active':'');
+    b.textContent=c.name;
     b.addEventListener('click',()=>{selectedCalCampaign=c.id;renderCalendarPage()});
     pills.appendChild(b);
   });
   w.appendChild(pills);
-  const camp = getCampaign(selectedCalCampaign);
-  const myM = me?camp.members.find(m=>m.userId===me.id):null;
-  const canV = !!myM;
-  const isMaster = myM && myM.role==='master';
-  const head = document.createElement('div');head.style.marginBottom='18px';
-  head.innerHTML = '<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap"><h3 style="font-size:1.05rem;text-transform:uppercase;color:var(--accent-text)">'+esc(camp.name)+'</h3><span class="status-badge '+camp.status+'">'+statusLabel(camp.status)+'</span></div><div style="font-size:.82rem;color:var(--muted);margin-top:4px">'+esc(camp.system)+' · '+camp.members.length+' membri</div>';
+  const camp=getCampaign(selectedCalCampaign);
+  const myM=me?camp.members.find(m=>m.userId===me.id):null;
+  const canV=!!myM;
+  const isMaster=myM && myM.role==='master';
+  const head=document.createElement('div');head.style.marginBottom='18px';
+  head.innerHTML='<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap"><h3 style="font-size:1.05rem;text-transform:uppercase;color:var(--accent-text)">'+esc(camp.name)+'</h3><span class="status-badge '+camp.status+'">'+statusLabel(camp.status)+'</span></div><div style="font-size:.82rem;color:var(--muted);margin-top:4px">'+esc(camp.system)+' · '+camp.members.length+' membri</div>';
   w.appendChild(head);
-  const nav = document.createElement('div');nav.className='cal-nav';
-  nav.innerHTML = '<button class="cal-nav-arrow" id="calPrev">‹</button><h3>'+fmtMonthYear(calYear,calMonth)+'</h3><button class="cal-nav-arrow" id="calNext">›</button>';
+  const nav=document.createElement('div');nav.className='cal-nav';
+  nav.innerHTML='<button class="cal-nav-arrow" id="calPrev">‹</button><h3>'+fmtMonthYear(calYear,calMonth)+'</h3><button class="cal-nav-arrow" id="calNext">›</button>';
   w.appendChild(nav);
   $('#calPrev').addEventListener('click',()=>{calMonth--;if(calMonth<0){calMonth=11;calYear--}renderCalendarPage()});
   $('#calNext').addEventListener('click',()=>{calMonth++;if(calMonth>11){calMonth=0;calYear++}renderCalendarPage()});
-  const legend = document.createElement('div');legend.className='cal-legend';
-  let ml = '';
+  const legend=document.createElement('div');legend.className='cal-legend';
+  let ml='';
   (camp.members||[]).forEach(m=>{
-    const u = getUser(m.userId);if(!u)return;
-    ml += '<span class="legend-member"><span class="ldot" style="--c:'+(m.color||DEFAULT_COLOR)+'"></span>'+esc(u.name)+'</span>';
+    const u=getUser(m.userId);if(!u)return;
+    ml+='<span class="legend-member"><span class="ldot" style="--c:'+(m.color||DEFAULT_COLOR)+'"></span>'+esc(u.name)+'</span>';
   });
-  legend.innerHTML = '<div class="cal-legend-row"><span class="cal-legend-lbl">Membri</span>'+ml+'</div><div class="cal-legend-hint">Il colore indica chi ha confermato la disponibilità. 📖 = sessione confermata.</div>';
+  legend.innerHTML='<div class="cal-legend-row"><span class="cal-legend-lbl">Membri</span>'+ml+'</div><div class="cal-legend-hint">Il colore indica chi ha confermato la disponibilità. 📖 = sessione confermata.</div>';
   w.appendChild(legend);
-  if(!me){
-    const h = document.createElement('p');h.className='cal-hint';h.textContent='Accedi per segnare la tua disponibilità.';w.appendChild(h);
-  }else if(!canV){
-    const h = document.createElement('p');h.className='cal-hint';h.textContent='Non fai parte di questa campagna.';w.appendChild(h);
-  }
-  const wd = document.createElement('div');wd.className='cal-weekdays';
-  weekdayHeaders.forEach(x=>{const s = document.createElement('span');s.textContent=x;wd.appendChild(s)});
+  if(!me){const h=document.createElement('p');h.className='cal-hint';h.textContent='Accedi per segnare la tua disponibilità.';w.appendChild(h)}
+  else if(!canV){const h=document.createElement('p');h.className='cal-hint';h.textContent='Non fai parte di questa campagna.';w.appendChild(h)}
+  const wd=document.createElement('div');wd.className='cal-weekdays';
+  weekdayHeaders.forEach(x=>{const s=document.createElement('span');s.textContent=x;wd.appendChild(s)});
   w.appendChild(wd);
-  const grid = document.createElement('div');grid.className='cal-grid';
-  const cells = buildCalendarCells(calYear,calMonth);
-  const tk = todayKey();const myId = me?me.id:null;
+  const grid=document.createElement('div');grid.className='cal-grid';
+  const cells=buildCalendarCells(calYear,calMonth);
+  const tk=todayKey();const myId=me?me.id:null;
   cells.forEach(d=>grid.appendChild(buildCalendarCell(d,camp,myId,tk,canV)));
   w.appendChild(grid);
   w.appendChild(buildDetailedAvailability(camp,calYear,calMonth,me,isMaster));
-
   w.querySelectorAll('[data-confirm-date]').forEach(b=>{
-    b.addEventListener('click', async ()=>{
-      const campNow = getCampaign(selectedCalCampaign);
-      if(!campNow) return;
-      const dateStr = b.dataset.confirmDate;
-      const already = sessionOnDate(campNow, dateStr);
-      if(already){ toast('Esiste già una sessione confermata per questo giorno.'); return; }
-      const nextNum = (campNow.sessions||[]).length ? Math.max.apply(null, campNow.sessions.map(x=>parseInt(x.num,10)||0))+1 : 1;
-      const readable = new Date(dateStr+'T12:00:00').toLocaleDateString('it-IT',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
-      const title = prompt('Titolo della sessione per '+readable, 'Sessione '+nextNum);
-      if(!title || !title.trim()) return;
-      const isoDate = dateInputToIso(dateStr);
-      const { error } = await sb.from('sessions').insert({
-        campaign_id: campNow.id, num: String(nextNum), title: title.trim(), summary: '', session_date: isoDate
-      });
-      if(error){ toast(error.message); return; }
-      await refreshDB();
-      renderCalendarPage();
+    b.addEventListener('click',async()=>{
+      const campNow=getCampaign(selectedCalCampaign);if(!campNow)return;
+      const dateStr=b.dataset.confirmDate;
+      const already=sessionOnDate(campNow,dateStr);
+      if(already){toast('Esiste già una sessione confermata per questo giorno.');return}
+      const nextNum=(campNow.sessions||[]).length?Math.max.apply(null,campNow.sessions.map(x=>parseInt(x.num,10)||0))+1:1;
+      const readable=new Date(dateStr+'T12:00:00').toLocaleDateString('it-IT',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+      const title=prompt('Titolo della sessione per '+readable,'Sessione '+nextNum);
+      if(!title||!title.trim())return;
+      const isoDate=dateInputToIso(dateStr);
+      const {error}=await sb.from('sessions').insert({campaign_id:campNow.id,num:String(nextNum),title:title.trim(),summary:'',session_date:isoDate});
+      if(error){toast(error.message);return}
+      await refreshDB();renderCalendarPage();
       if(!document.getElementById('campaignModal').hidden){
-        const fresh = getCampaign(selectedCalCampaign);
-        if(fresh) renderCampaignDetail(fresh);
+        const fresh=getCampaign(selectedCalCampaign);
+        if(fresh)renderCampaignDetail(fresh);
       }
       toast('Sessione confermata per '+readable+'.');
     });
   });
   w.querySelectorAll('[data-view-profile]').forEach(el=>{
-    el.addEventListener('click', e=>{
-      e.stopPropagation();
-      openViewProfile(el.dataset.viewProfile);
-    });
+    el.addEventListener('click',e=>{e.stopPropagation();openViewProfile(el.dataset.viewProfile)});
   });
 }
 function buildDetailedAvailability(camp,y,m,me,isMaster){
-  const p = document.createElement('div');p.className='detail-panel';
-  const tot = camp.members.length;
-  const av = camp.availability||{};
-  const tk = todayKey();
-  const td = new Date(y,m,1);
-  const mn = td.toLocaleDateString('it-IT',{month:'long'});
-  const mnc = mn.charAt(0).toUpperCase()+mn.slice(1);
-  let html = '<h4>Disponibilità dettagliata — '+mnc+' '+y+'</h4>';
-  if(isMaster) html += '<p class="detail-note">Quando un giorno ha tutti i voti, puoi confermarlo come data della sessione.</p>';
-  else html += '<p class="detail-note">Giorno per giorno, chi ha confermato. Il Master può confermare i giorni in cui tutti sono disponibili.</p>';
-  const rows = [];
+  const p=document.createElement('div');p.className='detail-panel';
+  const tot=camp.members.length;
+  const av=camp.availability||{};
+  const tk=todayKey();
+  const td=new Date(y,m,1);
+  const mn=td.toLocaleDateString('it-IT',{month:'long'});
+  const mnc=mn.charAt(0).toUpperCase()+mn.slice(1);
+  let html='<h4>Disponibilità dettagliata — '+mnc+' '+y+'</h4>';
+  if(isMaster)html+='<p class="detail-note">Quando un giorno ha tutti i voti, puoi confermarlo come data della sessione.</p>';
+  else html+='<p class="detail-note">Giorno per giorno, chi ha confermato. Il Master può confermare i giorni in cui tutti sono disponibili.</p>';
+  const rows=[];
   Object.keys(av).forEach(k=>{
-    const d = new Date(k+'T12:00:00');
+    const d=new Date(k+'T12:00:00');
     if(d.getFullYear()!==y || d.getMonth()!==m)return;
-    const v = av[k]||{};
-    const voters = Object.keys(v).filter(u=>v[u]==='yes');
+    const v=av[k]||{};
+    const voters=Object.keys(v).filter(u=>v[u]==='yes');
     if(voters.length===0)return;
     rows.push({key:k,date:d,voters});
   });
   rows.sort((a,b)=>a.key<b.key?-1:1);
-  if(rows.length===0){html += '<p class="detail-empty">Nessuna disponibilità per questo mese.</p>'}
+  if(rows.length===0){html+='<p class="detail-empty">Nessuna disponibilità per questo mese.</p>'}
   else{
     rows.forEach(r=>{
-      const dl = r.date.toLocaleDateString('it-IT',{weekday:'long',day:'numeric',month:'long'});
-      const isT = r.key===tk;
-      const isF = r.voters.length===tot;
-      const cc = isF?'full':(r.voters.length>=Math.ceil(tot/2)?'partial':'');
-      const confirmed = sessionOnDate(camp, r.key);
-      let cls = '';
-      if(isT) cls += ' is-today';
-      if(isF) cls += ' full';
-      if(confirmed) cls += ' confirmed';
-      html += '<div class="detail-day'+cls+'">';
-      html += '<div class="detail-date"><span class="dd-day">'+r.date.getDate()+'</span><span class="dd-month">'+dl.split(' ').slice(1).join(' ')+'</span></div>';
-      html += '<span class="detail-count '+cc+'">'+r.voters.length+'/'+tot+(isF?' ★':'')+'</span>';
-      html += '<div class="detail-voters">';
+      const dl=r.date.toLocaleDateString('it-IT',{weekday:'long',day:'numeric',month:'long'});
+      const isT=r.key===tk;
+      const isF=r.voters.length===tot;
+      const cc=isF?'full':(r.voters.length>=Math.ceil(tot/2)?'partial':'');
+      const confirmed=sessionOnDate(camp,r.key);
+      let cls='';
+      if(isT)cls+=' is-today';
+      if(isF)cls+=' full';
+      if(confirmed)cls+=' confirmed';
+      html+='<div class="detail-day'+cls+'">';
+      html+='<div class="detail-date"><span class="dd-day">'+r.date.getDate()+'</span><span class="dd-month">'+dl.split(' ').slice(1).join(' ')+'</span></div>';
+      html+='<span class="detail-count '+cc+'">'+r.voters.length+'/'+tot+(isF?' ★':'')+'</span>';
+      html+='<div class="detail-voters">';
       r.voters.forEach(u=>{
-        const us = getUser(u);if(!us)return;
-        const col = memberColorIn(camp,u);
-        const isMe = me && me.id===u;
-        html += '<span class="voter-chip" style="--c:'+col+'" data-view-profile="'+u+'"><img src="'+getUserAvatar(us)+'" alt=""><span class="voter-dot" style="--c:'+col+'"></span><span class="voter-name">'+esc(us.name)+(isMe?' (tu)':'')+'</span></span>';
+        const us=getUser(u);if(!us)return;
+        const col=memberColorIn(camp,u);
+        const isMe=me && me.id===u;
+        html+='<span class="voter-chip" style="--c:'+col+'" data-view-profile="'+u+'"><img src="'+getUserAvatar(us)+'" alt=""><span class="voter-dot" style="--c:'+col+'"></span><span class="voter-name">'+esc(us.name)+(isMe?' (tu)':'')+'</span></span>';
       });
-      html += '</div>';
+      html+='</div>';
       if(confirmed){
-        html += '<div class="detail-actions"><span class="detail-confirmed">✓ Sessione #'+esc(confirmed.num)+': '+esc(confirmed.title)+'</span></div>';
+        html+='<div class="detail-actions"><span class="detail-confirmed">✓ Sessione #'+esc(confirmed.num)+': '+esc(confirmed.title)+'</span></div>';
       }else if(isF && isMaster){
-        html += '<div class="detail-actions"><button type="button" class="btn success small" data-confirm-date="'+r.key+'">📅 Conferma questa data</button></div>';
+        html+='<div class="detail-actions"><button type="button" class="btn success small" data-confirm-date="'+r.key+'">📅 Conferma questa data</button></div>';
       }
-      html += '</div>';
+      html+='</div>';
     });
   }
-  p.innerHTML = html;
-  return p;
+  p.innerHTML=html;return p;
 }
 function buildCalendarCells(y,m){
-  const fd = new Date(y,m,1);
-  const s = (fd.getDay()+6)%7;
-  const dim = new Date(y,m+1,0).getDate();
-  const tot = Math.ceil((s+dim)/7)*7;
-  const c = [];
+  const fd=new Date(y,m,1);
+  const s=(fd.getDay()+6)%7;
+  const dim=new Date(y,m+1,0).getDate();
+  const tot=Math.ceil((s+dim)/7)*7;
+  const c=[];
   for(let i=0;i<tot;i++)c.push(new Date(y,m,1-s+i));
   return c;
 }
 function buildCalendarCell(date,camp,myId,tk,canV){
-  const cell = document.createElement('div');cell.className='cal-cell';
-  const key = dateKey(date);
-  const oth = date.getMonth()!==calMonth;
-  const past = key<tk;
-  const today = key===tk;
+  const cell=document.createElement('div');cell.className='cal-cell';
+  const key=dateKey(date);
+  const oth=date.getMonth()!==calMonth;
+  const past=key<tk;
+  const today=key===tk;
   if(oth)cell.classList.add('other-month');
   if(past)cell.classList.add('past');
   if(today)cell.classList.add('today');
-  const da = (camp.availability||{})[key]||{};
-  const voters = Object.keys(da).filter(u=>da[u]==='yes');
-  const myV = myId && da[myId]==='yes';
-  const sess = sessionOnDate(camp, key);
+  const da=(camp.availability||{})[key]||{};
+  const voters=Object.keys(da).filter(u=>da[u]==='yes');
+  const myV=myId && da[myId]==='yes';
+  const sess=sessionOnDate(camp,key);
   if(voters.length>0)cell.classList.add('has-votes');
   if(voters.length>=3)cell.classList.add('many-votes');
   if(sess)cell.classList.add('has-session');
   if(myV){cell.style.setProperty('--my-color',memberColorIn(camp,myId));cell.classList.add('my-voted')}
-  const dn = document.createElement('span');dn.className='cal-daynum';dn.textContent=date.getDate();
+  const dn=document.createElement('span');dn.className='cal-daynum';dn.textContent=date.getDate();
   cell.appendChild(dn);
-  const mk = document.createElement('div');mk.className='cal-marks';
+  const mk=document.createElement('div');mk.className='cal-marks';
   voters.forEach(u=>{
-    const us = getUser(u);const col = memberColorIn(camp,u);
-    const d = document.createElement('span');d.className='mark yes';
+    const us=getUser(u);const col=memberColorIn(camp,u);
+    const d=document.createElement('span');d.className='mark yes';
     d.style.background=col;d.style.color=col;
-    d.title = (us?us.name:'?')+' — disponibile';
+    d.title=(us?us.name:'?')+' — disponibile';
     mk.appendChild(d);
   });
   cell.appendChild(mk);
   if(sess){
-    cell.title = 'Sessione confermata: '+sess.title;
+    cell.title='Sessione confermata: '+sess.title;
   }else if(voters.length>0){
-    cell.title = voters.map(u=>{const us=getUser(u);return us?us.name+': disponibile':''}).filter(Boolean).join('\n');
+    cell.title=voters.map(u=>{const us=getUser(u);return us?us.name+': disponibile':''}).filter(Boolean).join('\n');
   }
   if(!past && canV && !sess){
     cell.addEventListener('click',()=>toggleVote(camp,key,myId));
@@ -1743,7 +1710,7 @@ function buildCalendarCell(date,camp,myId,tk,canV){
 }
 async function toggleVote(camp,key,myId){
   if(!myId)return;
-  const d = (camp.availability||{})[key]||{};
+  const d=(camp.availability||{})[key]||{};
   if(d[myId]==='yes'){
     await sb.from('availability').delete().eq('campaign_id',camp.id).eq('user_id',myId).eq('day',key);
     toast('Disponibilità rimossa');
